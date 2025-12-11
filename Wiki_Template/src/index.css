@@ -8,7 +8,7 @@ main.container {
   width: 100%;
   height: 300px;
   object-fit: contain;
-  background-color: #d8d6d6; /* cor de fundo para preencher o espaço */
+  background-color: #d8d6d6;
   border-radius: 8px;
   padding: 4px;
   transition: 0.3s;

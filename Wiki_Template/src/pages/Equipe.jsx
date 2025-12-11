@@ -1,24 +1,27 @@
 import React from 'react'
+import EquipeCard from '../components/EquipeCard'
 
 export default function Equipe() {
   const membros = [
-    { nome: 'André Queiroz', funcao: 'Desenvolvedor / Game Designer', github: 'https://github.com/DediXt04' },
-    // adicione mais membros aqui
+    { 
+      nome: 'André Queiroz',
+      funcao: 'Desenvolvedor / Game Designer',
+      github: 'https://github.com/DediXt04'
+    },
   ]
 
   return (
-    <div>
-      <h2>Equipe</h2>
+    <div className="container py-4">
+      <h2 className="mb-4">Equipe</h2>
+
       <div className="row">
         {membros.map((m, i) => (
-          <div key={i} className="col-md-4 mb-3">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">{m.nome}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">{m.funcao}</h6>
-                <a href={m.github} className="card-link" target="_blank">GitHub</a>
-              </div>
-            </div>
+          <div key={i} className="col-md-4 mb-4">
+            <EquipeCard 
+              nome={m.nome} 
+              funcao={m.funcao} 
+              github={m.github} 
+            />
           </div>
         ))}
       </div>

@@ -1,0 +1,160 @@
+:root{
+    --accent:#e76f51; /* cor quente para CTAs */
+    --accent-2:#f4a261;
+    --muted-white: rgba(255,255,255,0.95);
+    --overlay-top: rgba(3,6,12,0.55);
+    --overlay-bottom: rgba(3,6,12,0.8);
+    --card-bg: rgba(255,255,255,0.03);
+  }
+  
+  /* HERO */
+  .hero{
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    color: var(--muted-white);
+    overflow: hidden;
+  }
+  
+  /* background image via pseudo element for easier lazy swap or blur */
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image: url('../../assets/images/mejogueaoslobos.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: saturate(.9) contrast(.95);
+    transform: scale(1.03);
+    will-change: transform;
+  }
+  
+  /* overlay gradient for legibility */
+  .hero-overlay{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, var(--overlay-top) 10%, rgba(0,0,0,0.25) 45%, var(--overlay-bottom) 100%);
+    mix-blend-mode: multiply;
+  }
+  
+  /* inner content */
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    display:flex;
+    gap:2rem;
+    align-items:center;
+    padding:4rem 1rem;
+  }
+  
+  /* left text column */
+  .hero-text{
+    flex:1 1 60%;
+    max-width: 900px;
+  }
+  
+  /* playful title */
+  .title{
+    font-family: "Luckiest Guy", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-size: clamp(2rem, 6vw, 4rem);
+    line-height:1;
+    margin:0 0 .6rem 0;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    letter-spacing: .5px;
+  }
+  
+  /* subtitle */
+  .subtitle{
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    margin-bottom:1.25rem;
+    opacity:0.95;
+  }
+  
+  /* CTAs */
+  .cta-row{ display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:1rem; }
+  .btn{
+    padding:.65rem 1.1rem;
+    border-radius: .6rem;
+    font-weight:600;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .btn-primary{
+    background: linear-gradient(180deg,var(--accent), #c94b3b);
+    color:white;
+    border: none;
+    box-shadow: 0 8px 20px rgba(199,79,60,0.18);
+  }
+  .btn-outline{
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: var(--muted-white);
+  }
+  .btn-ghost{
+    background: rgba(255,255,255,0.06);
+    color: var(--muted-white);
+    border-radius: .5rem;
+  }
+  
+  /* hover / focus */
+  .btn:hover, .btn:focus{
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.45);
+    outline: none;
+  }
+  .btn:focus{ box-shadow: 0 0 0 4px rgba(231,111,81,0.12); }
+  
+  /* meta pills */
+  .meta-row{ margin-top:.6rem; display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+  .pill{
+    background: rgba(255,255,255,0.06);
+    padding:.25rem .6rem;
+    border-radius:999px;
+    font-size:.85rem;
+  }
+  
+  /* aside card */
+  .hero-card{
+    flex:0 0 320px;
+    background: var(--card-bg);
+    border-radius: .8rem;
+    padding:1.25rem;
+    backdrop-filter: blur(6px) saturate(.9);
+    box-shadow: 0 8px 30px rgba(2,6,12,0.6);
+  }
+  .hero-card h4{ margin-top:0; margin-bottom:.5rem; }
+  .hero-card ul{ margin:0; padding-left:1.1rem; }
+  .hero-card .link{ color: var(--accent-2); text-decoration:underline; }
+  
+  /* decorative paw */
+  .hero-decor .paw{
+    position:absolute;
+    right: -6%;
+    bottom: -6%;
+    width: 28vmax;
+    height: 28vmax;
+    background: radial-gradient(circle at 30% 30%, rgba(231,111,81,0.06), transparent 20%),
+                radial-gradient(circle at 70% 70%, rgba(244,162,97,0.04), transparent 20%);
+    transform: rotate(-18deg);
+    filter: blur(18px);
+    pointer-events:none;
+    z-index:1;
+  }
+  
+  /* features section */
+  .features{ padding:3rem 1rem; }
+  .feature{ background: rgba(0,0,0,0.03); padding:1.25rem; border-radius:.6rem; margin-bottom:1rem; }
+  
+  /* responsive */
+  @media (max-width: 900px){
+    .hero-inner{ flex-direction:column; align-items:flex-start; }
+    .hero-card{ width:100%; order:2; }
+    .hero-text{ order:1; }
+    .hero-decor .paw{ display:none; }
+  }
+  
+  /* accessibility: reduce motion */
+  @media (prefers-reduced-motion: reduce){
+    .btn, .hero-bg{ transition:none; transform:none; }
+  }
+  
