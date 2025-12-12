@@ -8,6 +8,16 @@ export default function Equipe() {
       funcao: 'Desenvolvedor / Game Designer',
       github: 'https://github.com/DediXt04'
     },
+    { 
+      nome: 'Caetano José',
+      funcao: 'Desenvolvedor / Game Designer',
+      github: 'https://github.com/Cae003'
+    },
+    { 
+      nome: 'Eduardo Rabelo',
+      funcao: 'Desenvolvedor / Game Designer',
+      github: 'https://github.com/Edu4rdoMarques'
+    },
   ]
 
   return (
