@@ -6,7 +6,7 @@ import "./Home.css";
 export default function Home() {
   return (
     <main>
-      <header className="hero" role="banner" aria-label="Lobisomem Pidão apresentação">
+      <div className="hero" role="banner" aria-label="Lobisomem Pidão apresentação">
         <div className="hero-bg" aria-hidden="true" />
         <div className="hero-overlay" />
         <div className="hero-inner container">
@@ -21,7 +21,7 @@ export default function Home() {
             <div className="hero-text-bottom">
               <div className="cta-row" role="navigation" aria-label="Ações principais">
                 <Link to="/sobre" className="btn btn-primary btn-lg">Sobre</Link>
-                <Link to="/equipe" className="btn btn-outline btn-lg">Equipe</Link>
+                <Link to="/equipe" className="btn btn-ghost btn-lg">Equipe</Link>
                 <Link to="/devlog" className="btn btn-ghost btn-lg">Devlog</Link>
               </div>
             </div>
@@ -31,7 +31,7 @@ export default function Home() {
         <div className="hero-decor" aria-hidden="true">
           <div className="paw" />
         </div>
-      </header>
+      </div>
 
       <section className="container features">
         <div className="row">
