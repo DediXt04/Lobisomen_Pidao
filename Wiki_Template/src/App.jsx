@@ -8,8 +8,8 @@ import Equipe from "./pages/Equipe";
 import Devlog from "./pages/Devlog";
 import Docs from "./pages/Docs";
 import Galeria from "./pages/Galeria";
-import Teste from "./pages/Teste"
-
+import Teste from "./pages/Teste";
+import Erro from "./pages/Erro";
 
 function App() {
   return (
@@ -17,13 +17,14 @@ function App() {
       <Navbar />
       <main className="container my-5">
         <Routes>
-          <Route path="/"         element={<Home />} />
-          <Route path="/sobre"    element={<Sobre />} />
-          <Route path="/equipe"   element={<Equipe />} />
-          <Route path="/devlog"   element={<Devlog />} />
-          <Route path="/docs"     element={<Docs />} />
-          <Route path="/galeria"  element={<Galeria />} />
-          <Route path="/teste"    element={<Teste/>}/>         
+          <Route path="/" element={<Home />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/equipe" element={<Equipe />} />
+          <Route path="/devlog" element={<Devlog />} />
+          <Route path="/docs" element={<Docs />} />
+          <Route path="/galeria" element={<Galeria />} />
+          <Route path="/teste" element={<Teste />} />
+          <Route path="*" element={<Erro />} />
         </Routes>
       </main>
       <Footer />
