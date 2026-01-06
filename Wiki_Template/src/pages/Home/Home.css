@@ -4,7 +4,44 @@
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 80vh;
+  position: relative;
 }
+
+/* Overlay para melhorar contraste no mobile */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.header > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .header {
+    min-height: 60vh;
+    text-align: center;
+  }
+}
+
+@media (max-width: 575px) {
+  .header {
+    min-height: 50vh;
+    padding: 1.5rem !important;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header .lead {
+    font-size: 1rem;
+  }
+}
+
 
 .card {
   transition: transform 0.3s, box-shadow 0.3s;

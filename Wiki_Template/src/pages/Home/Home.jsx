@@ -5,14 +5,20 @@ import "./Home.css";
 const Home = () => {
   return (
     <div>
-      <header className="container-xl header p-4 my-2 rounded-3 text-white justify-content-between d-flex flex-column ">
-        <div>
-          <h1 className="display-5 fw-bold">Lobisomem Pidão</h1>
-          <p className="subtitle lead mb-4 col-md-5">
+      <header
+        className="container-xl header text-white rounded-3 my-2 
+                   d-flex flex-column justify-content-between
+                   p-4 p-md-5"
+      >
+        <div className="text-center text-md-start">
+          <h1 className="fw-bold display-6 display-md-5">Lobisomem Pidão</h1>
+
+          <p className="subtitle lead mb-4 col-12 col-md-6 mx-auto mx-md-0">
             Stealth e humor em top-down – aproxime-se, peça comida e fuja antes
             que te peguem.
           </p>
-          <div className="d-flex flex-wrap gap-2 mb-4">
+
+          <div className="d-flex flex-wrap justify-content-center justify-content-md-start gap-2 mb-4">
             <span className="badge bg-dark bg-opacity-50 px-3 py-2">
               🎯 Stealth
             </span>
@@ -28,66 +34,64 @@ const Home = () => {
           </div>
         </div>
 
-        <div>
-          <div className="d-flex flex-wrap gap-3 mb-4">
-            <Link to="/sobre" className="btn btn-info btn-lg px-4 text-white">
-              Sobre o Jogo
-            </Link>
-            <Link to="/equipe" className="btn btn-info btn-lg px-4 text-white">
-              Equipe
-            </Link>
-          </div>
+        <div className="d-flex flex-column flex-md-row gap-3 justify-content-center justify-content-md-start">
+          <Link to="/sobre" className="btn btn-info btn-lg px-4 text-white">
+            Sobre o Jogo
+          </Link>
+          <Link to="/equipe" className="btn btn-info btn-lg px-4 text-white">
+            Equipe
+          </Link>
         </div>
       </header>
 
-      <div class="container my-5">
-        <h2 class="text-center mb-4">Explore o Jogo</h2>
-        <p class="text-center text-muted">
+      <div className="container my-5">
+        <h2 className="text-center mb-4">Explore o Jogo</h2>
+        <p className="text-center text-muted">
           Descubra tudo sobre o Lobisomem Pidão
         </p>
 
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">História</h5>
-                <p class="card-text">
+        <div className="row">
+          <div className="col-md-4 mb-4">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">História</h5>
+                <p className="card-text">
                   Conheça o Lobisomem Pidão e descubra por que ele está sempre
                   com fome nesta jornada divertida e cheia de surpresas.
                 </p>
-                <a href="#" class="btn btn-primary mt-auto">
+                <Link to="/devlog" className="btn btn-primary mt-auto">
                   Saiba mais
-                </a>
+                </Link>
               </div>
             </div>
           </div>
 
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Mecânicas</h5>
-                <p class="card-text">
+          <div className="col-md-4 mb-4">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">Mecânicas</h5>
+                <p className="card-text">
                   Stealth em visão top-down, timing preciso de interação e IA
                   inteligente de guardas para desafiar suas habilidades.
                 </p>
-                <a href="#" class="btn btn-success mt-auto">
+                <Link to="/docs" className="btn btn-success mt-auto">
                   Explorar
-                </a>
+                </Link>
               </div>
             </div>
           </div>
 
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Galeria</h5>
-                <p class="card-text">
+          <div className="col-md-4 mb-4">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">Galeria</h5>
+                <p className="card-text">
                   Veja imagens incríveis, concept art exclusivo e o processo
                   criativo por trás do desenvolvimento do jogo.
                 </p>
-                <a href="#" class="btn btn-warning mt-auto">
+                <Link to="/galeria" className="btn btn-warning mt-auto">
                   Ver galeria
-                </a>
+                </Link>
               </div>
             </div>
           </div>
