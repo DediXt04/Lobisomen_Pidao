@@ -1,16 +1,33 @@
-# React + Vite
+# Wiki Lobisomem Pidão
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é uma wiki interativa desenvolvida para documentar e explorar informações sobre o jogo **Lobisomem Pidão**. A wiki foi criada utilizando tecnologias modernas para garantir uma experiência rápida, responsiva e acessível.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend:** React + Vite + Bootstrap
+- **Controle de Versão:** Git + GitHub
 
-## React Compiler
+## Como Rodar o Projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Certifique-se de ter o Node.js instalado.
+2. Clone este repositório:
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   ```
+3. Navegue até a pasta do projeto:
+   ```bash
+   cd Wiki_Template
+   ```
+4. Instale as dependências:
+   ```bash
+   npm install
+   ```
+5. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+6. Acesse o projeto no navegador em `http://localhost:5173`.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Projeto desenvolvido como parte do **Projeto Integrador 04** na faculdade CEUB.
