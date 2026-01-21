@@ -26,10 +26,9 @@ function Navbar() {
             <li className="nav-item"><NavLink className="nav-link" to="/" onClick={closeNavbar}>Home</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/sobre" onClick={closeNavbar}>Sobre</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/equipe" onClick={closeNavbar}>Equipe</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/devlog" onClick={closeNavbar}>Devlog</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/docs" onClick={closeNavbar}>Docs</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/galeria" onClick={closeNavbar}>Galeria</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/teste" onClick={closeNavbar}>Teste</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/docs" onClick={closeNavbar}>Docs</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/devlog" onClick={closeNavbar}>Devlog</NavLink></li>
           </ul>
         </div>
       </div>
