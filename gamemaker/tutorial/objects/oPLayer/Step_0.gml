@@ -5,6 +5,7 @@ upKey    = keyboard_check(ord("W"));
 downKey  = keyboard_check(ord("S"));
 
 //player movement
+#region
 //get the direction
 var _horizKey = rightKey - leftKey;
 var _vertKey  = downKey - upKey;
@@ -33,3 +34,31 @@ if place_meeting(x, y + yspd, oWall)
 
 x += xspd;
 y += yspd;
+
+depth = -bbox_bottom;
+#endregion
+
+//player aiming
+centerY = y + centerYOffset;
+
+aimDir = point_direction(x, centerY, mouse_x, mouse_y);
+
+
+//sprite control
+#region
+face = round(aimDir/90);
+if face == 4{
+	face = 0;
+	};
+	
+//animate
+if xspd == 0 && yspd == 0{
+	image_index=0;
+}
+
+
+
+//set player sprite
+mask_index = sprite[3];
+sprite_index = sprite[face];
+#endregion
