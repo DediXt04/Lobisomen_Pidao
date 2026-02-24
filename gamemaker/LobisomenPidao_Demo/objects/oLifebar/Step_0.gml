@@ -1,0 +1,1 @@
+life_feedback = lerp(life_feedback, life, 0.1);

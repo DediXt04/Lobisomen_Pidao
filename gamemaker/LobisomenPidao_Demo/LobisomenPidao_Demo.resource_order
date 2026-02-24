@@ -1,0 +1,19 @@
+{
+  "FolderOrderSettings":[
+    {"name":"lifeBar","order":5,"path":"folders/lifeBar.yy",},
+    {"name":"objs","order":3,"path":"folders/objs.yy",},
+    {"name":"player","order":1,"path":"folders/player.yy",},
+    {"name":"rooms","order":2,"path":"folders/rooms.yy",},
+    {"name":"sprites","order":4,"path":"folders/sprites.yy",},
+  ],
+  "ResourceOrderSettings":[
+    {"name":"oSolidWall","order":1,"path":"objects/oSolidWall/oSolidWall.yy",},
+    {"name":"sBranqueloDDown","order":3,"path":"sprites/sBranqueloDDown/sBranqueloDDown.yy",},
+    {"name":"sBranqueloDown","order":2,"path":"sprites/sBranqueloDown/sBranqueloDown.yy",},
+    {"name":"sBranqueloDUp","order":5,"path":"sprites/sBranqueloDUp/sBranqueloDUp.yy",},
+    {"name":"sBranqueloSide","order":4,"path":"sprites/sBranqueloSide/sBranqueloSide.yy",},
+    {"name":"sBranqueloUp","order":6,"path":"sprites/sBranqueloUp/sBranqueloUp.yy",},
+    {"name":"sSolidWall","order":2,"path":"sprites/sSolidWall/sSolidWall.yy",},
+    {"name":"sWall","order":1,"path":"sprites/sWall/sWall.yy",},
+  ],
+}
