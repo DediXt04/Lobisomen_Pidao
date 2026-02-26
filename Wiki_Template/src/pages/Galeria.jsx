@@ -4,7 +4,8 @@ export default function Galeria() {
   // Coloque imagens em src/assets/images e referencie aqui
   const imgs = [
     '/src/assets/images/background_03.png',
-    '/src/assets/images/Rony01.png'
+    '/src/assets/images/Rony01.png',
+    '/src/assets/images/pizza.png',
   ]
 
   return (
