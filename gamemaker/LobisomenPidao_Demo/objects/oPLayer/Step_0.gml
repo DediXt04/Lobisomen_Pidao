@@ -4,6 +4,18 @@ leftKey  = keyboard_check(ord("A"));
 upKey    = keyboard_check(ord("W"));
 downKey  = keyboard_check(ord("S"));
 
+//teste hud
+if (keyboard_check_pressed(ord("E"))) {
+    comida += 1;
+}
+if (keyboard_check_pressed(ord("R"))) {
+    vida -= 1;
+}
+if (keyboard_check_pressed(ord("T"))) {
+    vida += 1;
+}
+
+
 // player movement
 #region
 var _horizKey = rightKey - leftKey;
@@ -71,4 +83,11 @@ if xspd == 0 && yspd == 0
 
 mask_index = sprite[3];
 sprite_index = sprite[face];
+#endregion
+
+// hunger bar
+#region
+if(tempoFome>0){
+	
+}
 #endregion
