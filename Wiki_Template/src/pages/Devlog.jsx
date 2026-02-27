@@ -5,7 +5,7 @@ export default function Devlog() {
     {
         data: '27/02/2026',
         titulo: 'Sprint 01',
-        texto: 'Início do desenvolvimento do projeto no GameMaker, implementação da movimentação do jogador, criação da HUD e desenvolvimento dos sprites da interface.'     
+        texto: 'Início do desenvolvimento do projeto no GameMaker, implementação da movimentação do jogador, criação da HUD e desenvolvimento dos sprites da interface.'  
     },
     {
       data: '01/12/2025',
