@@ -1,46 +1,22 @@
-// get inputs
-rightKey = keyboard_check(ord("D"));
-leftKey  = keyboard_check(ord("A"));
-upKey    = keyboard_check(ord("W"));
-downKey  = keyboard_check(ord("S"));
+// input
+var _right = keyboard_check(ord("D"));
+var _left  = keyboard_check(ord("A"));
+var _up    = keyboard_check(ord("W"));
+var _down  = keyboard_check(ord("S"));
 
-//teste hud
-if (keyboard_check_pressed(ord("E"))) {
-    comida += 1;
-}
-if (keyboard_check_pressed(ord("R"))) {
-    vida -= 1;
-}
-if (keyboard_check_pressed(ord("T"))) {
-    vida += 1;
-}
-
-
-// player movement
+// movimento
 #region
-var _horizKey = rightKey - leftKey;
-var _vertKey  = downKey - upKey;
+var _horizKey = _right - _left;
+var _vertKey  = _down  - _up;
 moveDir = point_direction(0, 0, _horizKey, _vertKey);
 
-var _spd = 0;
-_inputLevel = point_distance(0, 0, _horizKey, _vertKey);
-_inputLevel = clamp(_inputLevel, 0, 1);
-_spd = moveSpd * _inputLevel;
+var _inputLevel = clamp(point_distance(0, 0, _horizKey, _vertKey), 0, 1);
+xspd = lengthdir_x(moveSpd * _inputLevel, moveDir);
+yspd = lengthdir_y(moveSpd * _inputLevel, moveDir);
 
-xspd = lengthdir_x(_spd, moveDir);
-yspd = lengthdir_y(_spd, moveDir);
+if place_meeting(x + xspd, y, oWall) xspd = 0;
+if place_meeting(x, y + yspd, oWall) yspd = 0;
 
-// collision
-if place_meeting(x + xspd, y, oWall)
-{
-    xspd = 0;
-}
-if place_meeting(x, y + yspd, oWall)
-{
-    yspd = 0;
-}
-
-// move the player
 x += xspd;
 y += yspd;
 depth = -bbox_bottom;
@@ -50,44 +26,14 @@ depth = -bbox_bottom;
 #region
 if _horizKey != 0 || _vertKey != 0
 {
-    // apenas horizontal
-    if _horizKey != 0 && _vertKey == 0
-    {
-        face = 0;
-        image_xscale = (_horizKey == 1) ? 1 : -1;
-    }
-    // apenas vertical
-    if _horizKey == 0 && _vertKey != 0
-    {
-        face = (_vertKey == -1) ? 2 : 3;
-        image_xscale = 1;
-    }
-    // diagonal para cima
-    if _horizKey != 0 && _vertKey == -1
-    {
-        face = 1;
-        image_xscale = (_horizKey == 1) ? 1 : -1;
-    }
-    // diagonal para baixo
-    if _horizKey != 0 && _vertKey == 1
-    {
-        face = 4;
-        image_xscale = (_horizKey == 1) ? 1 : -1;
-    }
+    if _horizKey != 0 && _vertKey == 0  { face = 0; image_xscale = (_horizKey == 1) ? 1 : -1; }
+    if _horizKey == 0 && _vertKey != 0  { face = (_vertKey == -1) ? 2 : 3; image_xscale = 1; }
+    if _horizKey != 0 && _vertKey == -1 { face = 1; image_xscale = (_horizKey == 1) ? 1 : -1; }
+    if _horizKey != 0 && _vertKey == 1  { face = 4; image_xscale = (_horizKey == 1) ? 1 : -1; }
 }
 
-if xspd == 0 && yspd == 0
-{
-    image_index = 0;
-}
+if xspd == 0 && yspd == 0 image_index = 0;
 
-mask_index = sprite[3];
+mask_index   = sprite[3];
 sprite_index = sprite[face];
-#endregion
-
-// hunger bar
-#region
-if(tempoFome>0){
-	
-}
 #endregion
