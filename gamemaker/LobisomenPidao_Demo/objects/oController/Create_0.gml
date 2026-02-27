@@ -1,3 +1,5 @@
+window_set_caption("Lobisomem pidão")
+
 // vida
 vida    = 6;
 vidaMax = 6;

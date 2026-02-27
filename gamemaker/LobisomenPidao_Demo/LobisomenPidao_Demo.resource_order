@@ -1,11 +1,12 @@
 {
   "FolderOrderSettings":[
     {"name":"font","order":4,"path":"folders/font.yy",},
-    {"name":"scripts","order":3,"path":"folders/scripts.yy",},
     {"name":"objs","order":1,"path":"folders/objs.yy",},
+    {"name":"scripts","order":3,"path":"folders/scripts.yy",},
     {"name":"sprites","order":2,"path":"folders/sprites.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"oChao","order":5,"path":"objects/oChao/oChao.yy",},
     {"name":"oComida","order":3,"path":"objects/oComida/oComida.yy",},
     {"name":"oController","order":4,"path":"objects/oController/oController.yy",},
     {"name":"oPLayer","order":2,"path":"objects/oPLayer/oPLayer.yy",},
@@ -20,6 +21,7 @@
     {"name":"sFome","order":9,"path":"sprites/sFome/sFome.yy",},
     {"name":"sFomeG","order":10,"path":"sprites/sFomeG/sFomeG.yy",},
     {"name":"sPizza","order":8,"path":"sprites/sPizza/sPizza.yy",},
+    {"name":"Sprite12","order":11,"path":"sprites/Sprite12/Sprite12.yy",},
     {"name":"sSolidWall","order":1,"path":"sprites/sSolidWall/sSolidWall.yy",},
     {"name":"sVida","order":7,"path":"sprites/sVida/sVida.yy",},
   ],

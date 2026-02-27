@@ -11,9 +11,9 @@
   "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"font","folderPath":"folders/font.yy","name":"font","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"scripts","folderPath":"folders/scripts.yy","name":"scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"objs","folderPath":"folders/objs.yy","name":"objs","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"rooms","folderPath":"folders/rooms.yy","name":"rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"scripts","folderPath":"folders/scripts.yy","name":"scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"sprites","folderPath":"folders/sprites.yy","name":"sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
@@ -26,6 +26,7 @@
   "name":"LobisomenPidao_Demo",
   "resources":[
     {"id":{"name":"fnt_pixel","path":"fonts/fnt_pixel/fnt_pixel.yy",},},
+    {"id":{"name":"oChao","path":"objects/oChao/oChao.yy",},},
     {"id":{"name":"oComida","path":"objects/oComida/oComida.yy",},},
     {"id":{"name":"oController","path":"objects/oController/oController.yy",},},
     {"id":{"name":"oPLayer","path":"objects/oPLayer/oPLayer.yy",},},
@@ -43,6 +44,7 @@
     {"id":{"name":"sFome","path":"sprites/sFome/sFome.yy",},},
     {"id":{"name":"sFomeG","path":"sprites/sFomeG/sFomeG.yy",},},
     {"id":{"name":"sPizza","path":"sprites/sPizza/sPizza.yy",},},
+    {"id":{"name":"Sprite12","path":"sprites/Sprite12/Sprite12.yy",},},
     {"id":{"name":"sSolidWall","path":"sprites/sSolidWall/sSolidWall.yy",},},
     {"id":{"name":"sVida","path":"sprites/sVida/sVida.yy",},},
     {"id":{"name":"sWall","path":"sprites/sWall/sWall.yy",},},
