@@ -44,3 +44,6 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Documentação Completa
+Caso queira saber mais detalhes acesse a Página Wiki ou nossa documentação [PI4_Documentação](https://docs.google.com/document/d/1nHL50iT8IC1sjhRi4BY2lSer2jAshxtH/edit?usp=sharing&ouid=111985572929588771841&rtpof=true&sd=true)
