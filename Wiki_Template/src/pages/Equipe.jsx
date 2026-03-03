@@ -14,6 +14,11 @@ export default function Equipe() {
       github: 'https://github.com/Cae003'
     },
     { 
+      nome: 'Cesar',
+      funcao: 'Desenvolvedor / Game Designer',
+      github: 'https://github.com/cesaaa-r'
+    },
+    { 
       nome: 'Eduardo Rabelo',
       funcao: 'Desenvolvedor / Game Designer',
       github: 'https://github.com/Edu4rdoMarques'
@@ -22,11 +27,12 @@ export default function Equipe() {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-4">Equipe</h2>
+      <h2 className="mb-2">Equipe</h2>
+      <p className="text-muted mb-4">Conheça as pessoas por trás do Lobisomem Pidão.</p>
 
-      <div className="row">
+      <div className="row g-4 justify-content-center">
         {membros.map((m, i) => (
-          <div key={i} className="col-md-4 mb-4">
+          <div key={i} className="col-sm-6 col-lg-3">
             <EquipeCard 
               nome={m.nome} 
               funcao={m.funcao} 

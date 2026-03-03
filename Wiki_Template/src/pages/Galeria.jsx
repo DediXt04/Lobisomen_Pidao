@@ -9,12 +9,16 @@ export default function Galeria() {
   ]
 
   return (
-    <div>
-      <h2>Galeria</h2>
-      <div className="row">
+    <div className="container py-4">
+      <h2 className="mb-2">Galeria</h2>
+      <p className="text-muted mb-4">Concept art, sprites e imagens do desenvolvimento do jogo.</p>
+
+      <div className="row g-4">
         {imgs.map((src, i) => (
-          <div key={i} className="col-sm-6 col-md-4 mb-3">
-            <img src={src} alt={`img-${i}`} className="img-fluid rounded gallery-img" />
+          <div key={i} className="col-sm-6 col-md-4">
+            <div className="card shadow-sm border-0 overflow-hidden">
+              <img src={src} alt={`img-${i}`} className="gallery-img" />
+            </div>
           </div>
         ))}
       </div>
