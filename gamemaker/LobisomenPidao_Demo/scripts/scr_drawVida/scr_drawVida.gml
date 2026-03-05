@@ -21,4 +21,6 @@ function scr_drawVida(_vida, _vidaMax)
         else
             draw_sprite_ext(sVida, 0, _x, _y, _scale, _scale, 0, c_white, 1);
     }
+	
+	//draw_text(900, 800, string(_vida));
 }

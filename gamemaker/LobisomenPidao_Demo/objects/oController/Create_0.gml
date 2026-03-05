@@ -10,3 +10,7 @@ tempoMax  = 90;
 
 // inventário
 comida = 0;
+comidaMax = 5;
+
+//Interagir
+interagir = false;
