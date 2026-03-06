@@ -7,7 +7,7 @@ function scr_drawFome(_fome, _fomeMax)
     var _framesTotal = 9;
     var _scale       = 5.5;
     var _spriteW     = sprite_get_width(sFomeG);
-	var _spriteWVida     = sprite_get_width(sVida);
+	var _spriteWVida = sprite_get_width(sVida);
     var _marginx     = 20;
     var _marginy     = 60;  
     var _spacing     = _spriteWVida * _scale + 4;

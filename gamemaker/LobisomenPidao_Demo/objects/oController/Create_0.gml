@@ -14,3 +14,6 @@ comidaMax = 5;
 
 //Interagir
 interagir = false;
+
+// game over
+global.motivoMorte = "";

@@ -6,6 +6,7 @@ export default function Galeria() {
     '/src/assets/images/background_03.png',
     '/src/assets/images/Rony01.png',
     '/src/assets/images/pizza.png',
+    '/src/assets/images/dancing-banana.gif'
   ]
 
   return (

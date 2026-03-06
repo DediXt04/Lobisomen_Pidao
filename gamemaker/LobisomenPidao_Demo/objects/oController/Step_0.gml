@@ -16,3 +16,14 @@ if keyboard_check_pressed(ord("E")){
 }else{
 	interagir = false;
 }
+
+// checagem de game over
+if (vida <= 0) {
+    global.motivoMorte = "dano";
+    room_goto(rm_gameOver);
+}
+
+if (tempoFome <= 0) {
+    global.motivoMorte = "fome";
+    room_goto(rm_gameOver);
+}

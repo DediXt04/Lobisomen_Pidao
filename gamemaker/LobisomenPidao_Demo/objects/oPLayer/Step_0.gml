@@ -11,14 +11,22 @@ var _vertKey  = _down  - _up;
 moveDir = point_direction(0, 0, _horizKey, _vertKey);
 
 var _inputLevel = clamp(point_distance(0, 0, _horizKey, _vertKey), 0, 1);
-xspd = lengthdir_x(moveSpd * _inputLevel, moveDir);
-yspd = lengthdir_y(moveSpd * _inputLevel, moveDir);
+
+var move_x = lengthdir_x(moveSpd * _inputLevel, moveDir);
+var move_y = lengthdir_y(moveSpd * _inputLevel, moveDir);
+
+xspd = move_x + knock_x;
+yspd = move_y + knock_y;
+
 
 if place_meeting(x + xspd, y, oWall) xspd = 0;
 if place_meeting(x, y + yspd, oWall) yspd = 0;
 
 x += xspd;
 y += yspd;
+knock_x = lerp(knock_x, 0, 0.2);
+knock_y = lerp(knock_y, 0, 0.2);
+
 depth = -bbox_bottom;
 #endregion
 
@@ -36,4 +44,19 @@ if xspd == 0 && yspd == 0 image_index = 0;
 
 mask_index   = sprite[3];
 sprite_index = sprite[face];
+#endregion
+
+
+// invencibilidade
+#region
+if (invencivel)
+{
+    tempo_invencivel--;
+	
+    if (tempo_invencivel <= 0)
+    {
+        invencivel       = false;
+        tempo_invencivel = 0;
+    }
+}
 #endregion
