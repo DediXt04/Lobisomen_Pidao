@@ -8,6 +8,9 @@ yspd = 0;
 knock_x = 0;
 knock_y = 0;
 
+//estado faminto
+faminto = false;
+
 //invelcivel
 invencivel = false;
 

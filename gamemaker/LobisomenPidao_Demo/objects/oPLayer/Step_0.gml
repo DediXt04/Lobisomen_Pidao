@@ -4,6 +4,32 @@ var _left  = keyboard_check(ord("A"));
 var _up    = keyboard_check(ord("W"));
 var _down  = keyboard_check(ord("S"));
 
+// escolher sprites lobo
+#region
+var _novoEstado = (oController.tempoFome <= oController.tempoMax * 0.25);
+
+if (_novoEstado != faminto)
+{
+    faminto = _novoEstado;
+
+    if (faminto)
+    {
+        sprite[0] = sLoboSideHungry;
+        sprite[1] = sLoboDUpHungry;
+        sprite[2] = sLoboUpHungry;
+        sprite[3] = sLoboDownHungry;
+        sprite[4] = sLoboDDownHungry;
+    }
+    else
+    {
+        sprite[0] = sLoboSide;
+        sprite[1] = sLoboDUp;
+        sprite[2] = sLoboUp;
+        sprite[3] = sLoboDown;
+        sprite[4] = sLoboDDown;
+    }
+}
+
 // movimento
 #region
 var _horizKey = _right - _left;
@@ -45,7 +71,6 @@ if xspd == 0 && yspd == 0 image_index = 0;
 mask_index   = sprite[3];
 sprite_index = sprite[face];
 #endregion
-
 
 // invencibilidade
 #region
