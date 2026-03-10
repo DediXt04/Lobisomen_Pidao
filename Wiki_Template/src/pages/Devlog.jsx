@@ -13,13 +13,22 @@ export default function Devlog() {
       titulo: 'Criação da Wiki',
       texto: 'Durante o mês de dezembro, foi realizada a criação e estruturação inicial da Wiki do projeto, com organização das informações e documentação dos principais processos.'
     },
+    {
+      data: '06/03/2026',
+      titulo:'Sprint 02',
+      texto:'Interação do player com objeto de comida e com objeto de dano, criação tela de gameover. Sprites lobisomen e NPC. '
+    }
     
   ]
 
   // Ordena por data decrescente
-  const entradasOrdenadas = [...entradas].sort(
-    (a, b) => new Date(b.data) - new Date(a.data)
-  )
+  const entradasOrdenadas = [...entradas].sort((a, b) => {
+    const parseData = (d) => {
+      const [dia, mes, ano] = d.split('/')
+      return new Date(`${ano}-${mes}-${dia}`)
+    }
+    return parseData(b.data) - parseData(a.data)
+  })
 
   return (
     <div className="container py-4">

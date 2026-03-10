@@ -1,4 +1,5 @@
-# Documentação Técnica
+# Informações Gerais
+O projeto se trata de um jogo indie 2D no estilo top-down onde um lobisomem precisa explorar fases, interagir com NPCs e coletar comida antes que a fome acabe ou que ele seja capturado.
 
 ## Tecnologias
 
