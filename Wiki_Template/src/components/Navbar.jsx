@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import Logo from "../../public/Lobo_Face.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -10,7 +11,14 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <Link className="navbar-brand" to="/" onClick={closeNavbar}>Wiki-Game</Link>
+        <Link className="navbar-brand d-flex align-items-center gap-2" to="/" onClick={closeNavbar}>
+          <img 
+            src={Logo} 
+            alt="Logo" 
+            style={{ width: "28px", height: "28px", objectFit: "contain" }}
+          />
+          Wiki-Game
+        </Link>
         <button 
           className="navbar-toggler" 
           type="button" 
