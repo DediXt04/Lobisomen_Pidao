@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import Logo from "../../public/Lobo_Face.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,7 +12,7 @@ function Navbar() {
       <div className="container">
         <Link className="navbar-brand d-flex align-items-center gap-2" to="/" onClick={closeNavbar}>
           <img 
-            src={Logo} 
+            src={"/Lobo_Face.png"} 
             alt="Logo" 
             style={{ width: "28px", height: "28px", objectFit: "contain" }}
           />
