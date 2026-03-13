@@ -12,6 +12,9 @@ function Footer() {
           <Link to="/sobre" className="mx-2 text-decoration-none text-white">
             Sobre
           </Link>
+          <Link to="/download" className="mx-2 text-decoration-none text-white">
+            Download
+          </Link>
           <Link to="/equipe" className="mx-2 text-decoration-none text-white">
             Equipe
           </Link>

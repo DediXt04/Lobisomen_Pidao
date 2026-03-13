@@ -32,6 +32,7 @@ function Navbar() {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item"><NavLink className="nav-link" to="/" onClick={closeNavbar}>Home</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/sobre" onClick={closeNavbar}>Sobre</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/download" onClick={closeNavbar}>Download</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/equipe" onClick={closeNavbar}>Equipe</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/galeria" onClick={closeNavbar}>Galeria</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/docs" onClick={closeNavbar}>Docs</NavLink></li>

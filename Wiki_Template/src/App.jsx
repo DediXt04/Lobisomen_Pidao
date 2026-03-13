@@ -6,6 +6,7 @@ import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop"; // novo componente
 import Home from "./pages/Home/Home";
 import Sobre from "./pages/Sobre";
+import Download from "./pages/Download";
 import Equipe from "./pages/Equipe";
 import Devlog from "./pages/Devlog";
 import Docs from "./pages/Docs";
@@ -34,6 +35,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<Sobre />} />
+            <Route path="/download" element={<Download />} />
             <Route path="/equipe" element={<Equipe />} />
             <Route path="/devlog" element={<Devlog />} />
             <Route path="/docs" element={<Docs />} />
