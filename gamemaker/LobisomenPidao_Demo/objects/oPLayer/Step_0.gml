@@ -36,6 +36,7 @@ if (_novoEstado != faminto)
 
     if (faminto)
     {
+		moveSpd = 2.5;
         sprite[0] = sLoboSideHungry;
         sprite[1] = sLoboDUpHungry;
         sprite[2] = sLoboUpHungry;
@@ -51,6 +52,7 @@ if (_novoEstado != faminto)
         sprite[4] = sLoboDDown;
     }
 }
+#endregion
 
 // movimento
 #region
