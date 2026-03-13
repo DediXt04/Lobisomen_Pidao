@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sBranqueloDown",
-    "path":"sprites/sBranqueloDown/sBranqueloDown.yy",
+    "name":"sLoboDown",
+    "path":"sprites/sLoboDown/sLoboDown.yy",
   },
   "spriteMaskId":null,
   "visible":true,

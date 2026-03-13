@@ -14,7 +14,11 @@ if (mouse_check_button_pressed(mb_left)) {
     }
 }
 
+
+var _gp = global.gamepad_main;
+var _gpInteragir = (_gp != undefined) && gamepad_button_check_pressed(_gp, gp_face1);
+
 // reiniciar com teclado também (Enter)
-if (keyboard_check_pressed(vk_enter)) {
+if (keyboard_check_pressed(vk_enter)) || _gpInteragir {
     room_goto(room_01);
 }

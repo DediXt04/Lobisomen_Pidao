@@ -1,8 +1,30 @@
+//input teclado e gamepad
+#region
 // input
 var _right = keyboard_check(ord("D"));
 var _left  = keyboard_check(ord("A"));
 var _up    = keyboard_check(ord("W"));
 var _down  = keyboard_check(ord("S"));
+
+// gamepad
+var _gp = global.gamepad_main;
+if (_gp != undefined)
+{
+    var _horizontalGp = gamepad_axis_value(_gp, gp_axislh);  // era gp_axislh0; (erro de sintaxe)
+    var _verticalGp   = gamepad_axis_value(_gp, gp_axislv);
+
+    // dead zone para evitar drift do analógico
+    var _deadzone = 0.2;
+    if (abs(_horizontalGp) < _deadzone) _horizontalGp = 0;
+    if (abs(_verticalGp)   < _deadzone) _verticalGp   = 0;
+
+    // sobrescreve teclado se o analógico estiver sendo usado
+    _right = _right || (_horizontalGp > 0);
+    _left  = _left  || (_horizontalGp < 0);
+    _down  = _down  || (_verticalGp   > 0);
+    _up    = _up    || (_verticalGp   < 0);
+}
+#endregion
 
 // escolher sprites lobo
 #region
