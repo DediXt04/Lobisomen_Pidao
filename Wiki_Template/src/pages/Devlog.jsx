@@ -6,17 +6,22 @@ export default function Devlog() {
     {
         data: '27/02/2026',
         titulo: 'Sprint 01',
-        texto: 'Início do desenvolvimento do projeto no GameMaker, implementação da movimentação do jogador, criação da HUD e desenvolvimento dos sprites da interface.'  
+        texto: 'Início do desenvolvimento do projeto no GameMaker, incluindo a implementação da movimentação do jogador, a criação da HUD e o desenvolvimento dos sprites da interface.'  
     },
     {
       data: '01/12/2025',
       titulo: 'Criação da Wiki',
-      texto: 'Durante o mês de dezembro, foi realizada a criação e estruturação inicial da Wiki do projeto, com organização das informações e documentação dos principais processos.'
+      texto: 'Durante o mês de dezembro, foi realizada a criação e a estruturação inicial da Wiki do projeto, com a organização das informações e a documentação dos principais processos.'
     },
     {
       data: '06/03/2026',
       titulo:'Sprint 02',
-      texto:'Interação do player com objeto de comida e com objeto de dano, criação tela de gameover. Sprites lobisomen e NPC. '
+      texto:'Implementação da interação do player com objetos de comida e de dano, além da criação da tela de Game Over e dos sprites do lobisomem e dos NPCs.'
+    },
+    {
+      data: '13/03/2026',
+      titulo:'Sprint 03',
+      texto:'Jogo adaptado para controle, com mecânica de lobisomem faminto que altera o sprite e aumenta a velocidade do personagem.'
     }
     
   ]
