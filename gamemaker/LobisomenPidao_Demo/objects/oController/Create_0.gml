@@ -9,8 +9,9 @@ tempoFome = 90;
 tempoMax  = 90;
 
 // inventário
-comida = 0;
-comidaMax = 5;
+global.comida = 0;
+global.comidaMax = 5;
+global.comidaCheia = false;
 
 //Interagir
 interagir = false;

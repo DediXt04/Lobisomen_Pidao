@@ -30,3 +30,9 @@ if (tempoFome <= 0) {
     global.motivoMorte = "fome";
     room_goto(rm_gameOver);
 }
+
+// checagem se pegou todas as comidas
+if global.comida >= global.comidaMax
+{
+	global.comidaCheia = true;
+}

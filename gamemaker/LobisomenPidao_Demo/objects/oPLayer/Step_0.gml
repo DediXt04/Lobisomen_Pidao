@@ -10,7 +10,7 @@ var _down  = keyboard_check(ord("S"));
 var _gp = global.gamepad_main;
 if (_gp != undefined)
 {
-    var _horizontalGp = gamepad_axis_value(_gp, gp_axislh);  // era gp_axislh0; (erro de sintaxe)
+    var _horizontalGp = gamepad_axis_value(_gp, gp_axislh);
     var _verticalGp   = gamepad_axis_value(_gp, gp_axislv);
 
     // dead zone para evitar drift do analógico
@@ -36,7 +36,7 @@ if (_novoEstado != faminto)
 
     if (faminto)
     {
-		moveSpd = 2.5;
+        moveSpd = 2.5;
         sprite[0] = sLoboSideHungry;
         sprite[1] = sLoboDUpHungry;
         sprite[2] = sLoboUpHungry;
@@ -82,15 +82,25 @@ depth = -bbox_bottom;
 
 // sprite control
 #region
-if _horizKey != 0 || _vertKey != 0
+
+// ── FIX tap rápido ──────────────────────────────────────────────
+// Se há input, atualiza direção e "acende" o timer de walk
+if (_horizKey != 0 || _vertKey != 0)
 {
+    walk_timer = 10; // mantém animação de walk por 10 steps após soltar
+
     if _horizKey != 0 && _vertKey == 0  { face = 0; image_xscale = (_horizKey == 1) ? 1 : -1; }
     if _horizKey == 0 && _vertKey != 0  { face = (_vertKey == -1) ? 2 : 3; image_xscale = 1; }
     if _horizKey != 0 && _vertKey == -1 { face = 1; image_xscale = (_horizKey == 1) ? 1 : -1; }
     if _horizKey != 0 && _vertKey == 1  { face = 4; image_xscale = (_horizKey == 1) ? 1 : -1; }
 }
 
-if xspd == 0 && yspd == 0 image_index = 0;
+// Decrementa timer
+if (walk_timer > 0) walk_timer--;
+
+// Só trava no frame 0 (idle) quando o timer zerou
+if (walk_timer == 0) image_index = 0;
+// ────────────────────────────────────────────────────────────────
 
 mask_index   = sprite[3];
 sprite_index = sprite[face];
