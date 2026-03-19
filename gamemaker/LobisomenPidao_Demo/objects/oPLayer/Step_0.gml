@@ -26,6 +26,50 @@ if (_gp != undefined)
 }
 #endregion
 
+// movimento
+#region
+var _horizKey = _right - _left;
+var _vertKey  = _down  - _up;
+moveDir = point_direction(0, 0, _horizKey, _vertKey);
+
+var _inputLevel = clamp(point_distance(0, 0, _horizKey, _vertKey), 0, 1);
+
+var move_x = lengthdir_x(moveSpd * _inputLevel, moveDir);
+var move_y = lengthdir_y(moveSpd * _inputLevel, moveDir);
+
+xspd = move_x + knock_x;
+yspd = move_y + knock_y;
+
+
+if place_meeting(x + xspd, y, oWall) xspd = 0;
+if place_meeting(x, y + yspd, oWall) yspd = 0;
+
+//colisao com oSaida
+if place_meeting(x + xspd, y, oSaida)
+{
+	if global.comidaCheia
+	{
+		room_goto(rm_Vitoria)
+	}
+	xspd = 0;
+}
+if place_meeting(x, y + yspd, oSaida)
+{ 
+	if global.comidaCheia
+	{
+		room_goto(rm_Vitoria)
+	}
+	yspd = 0;
+}
+
+x += xspd;
+y += yspd;
+knock_x = lerp(knock_x, 0, 0.2);
+knock_y = lerp(knock_y, 0, 0.2);
+
+depth = -bbox_bottom;
+#endregion
+
 // escolher sprites lobo
 #region
 var _novoEstado = (oController.tempoFome <= oController.tempoMax * 0.25);
@@ -54,36 +98,10 @@ if (_novoEstado != faminto)
 }
 #endregion
 
-// movimento
-#region
-var _horizKey = _right - _left;
-var _vertKey  = _down  - _up;
-moveDir = point_direction(0, 0, _horizKey, _vertKey);
-
-var _inputLevel = clamp(point_distance(0, 0, _horizKey, _vertKey), 0, 1);
-
-var move_x = lengthdir_x(moveSpd * _inputLevel, moveDir);
-var move_y = lengthdir_y(moveSpd * _inputLevel, moveDir);
-
-xspd = move_x + knock_x;
-yspd = move_y + knock_y;
-
-
-if place_meeting(x + xspd, y, oWall) xspd = 0;
-if place_meeting(x, y + yspd, oWall) yspd = 0;
-
-x += xspd;
-y += yspd;
-knock_x = lerp(knock_x, 0, 0.2);
-knock_y = lerp(knock_y, 0, 0.2);
-
-depth = -bbox_bottom;
-#endregion
-
 // sprite control
 #region
 
-// ── FIX tap rápido ──────────────────────────────────────────────
+
 // Se há input, atualiza direção e "acende" o timer de walk
 if (_horizKey != 0 || _vertKey != 0)
 {
@@ -100,7 +118,6 @@ if (walk_timer > 0) walk_timer--;
 
 // Só trava no frame 0 (idle) quando o timer zerou
 if (walk_timer == 0) image_index = 0;
-// ────────────────────────────────────────────────────────────────
 
 mask_index   = sprite[3];
 sprite_index = sprite[face];

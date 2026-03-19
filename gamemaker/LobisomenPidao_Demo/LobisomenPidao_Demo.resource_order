@@ -42,6 +42,7 @@
     {"name":"sPortaAberta","order":10,"path":"sprites/sPortaAberta/sPortaAberta.yy",},
     {"name":"sPortaFechada","order":9,"path":"sprites/sPortaFechada/sPortaFechada.yy",},
     {"name":"sPunk","order":5,"path":"sprites/sPunk/sPunk.yy",},
+    {"name":"sSeta","order":11,"path":"sprites/sSeta/sSeta.yy",},
     {"name":"sSolidWall","order":1,"path":"sprites/sSolidWall/sSolidWall.yy",},
     {"name":"sTileSet_teste","order":3,"path":"sprites/sTileSet_teste/sTileSet_teste.yy",},
     {"name":"TileSet2","order":1,"path":"tilesets/TileSet2/TileSet2.yy",},
