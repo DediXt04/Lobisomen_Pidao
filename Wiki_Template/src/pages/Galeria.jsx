@@ -1,7 +1,7 @@
 import React from "react";
 
 const imageModules = import.meta.glob(
-  "../assets/galery/*.{png,jpg,jpeg,gif,webp,svg}",
+  "../assets/gallery/*.{png,jpg,jpeg,gif,webp,svg}",
   { eager: true }
 );
 const imgs = Object.entries(imageModules).map(([path, mod]) => ({
