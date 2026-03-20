@@ -1,5 +1,11 @@
 window_set_caption("Lobisomem pidão")
 
+// crir um grid
+grid = mp_grid_create(0, 0, room_width/16, room_height/16, 16, 16)
+
+// acrescentar as paredes no grid
+mp_grid_add_instances(grid, oWall, 0)
+
 // vida
 vida    = 6;
 vidaMax = 6;
