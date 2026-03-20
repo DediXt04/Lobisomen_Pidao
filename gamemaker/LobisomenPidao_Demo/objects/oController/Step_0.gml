@@ -3,6 +3,7 @@ if keyboard_check_pressed(ord("R")) vida -= 1;
 if keyboard_check_pressed(ord("T")) vida += 1;
 if keyboard_check_pressed(ord("Y")) tempoFome += 15;
 if keyboard_check_pressed(ord("U")) tempoFome -= 15;
+if keyboard_check_pressed(ord("I")) global.comida += 1;
 
 // fome diminuindo
 tempoFome -= delta_time / 1000000;
@@ -29,4 +30,10 @@ if (vida <= 0) {
 if (tempoFome <= 0) {
     global.motivoMorte = "fome";
     room_goto(rm_gameOver);
+}
+
+// checagem se pegou todas as comidas
+if global.comida >= global.comidaMax
+{
+	global.comidaCheia = true;
 }

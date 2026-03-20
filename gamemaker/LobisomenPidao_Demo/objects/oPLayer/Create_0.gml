@@ -15,6 +15,8 @@ faminto = false;
 invencivel = false;
 
 // sprite control
+walk_timer = 0;
+
 face = 3;
 sprite[0] = sLoboSide;
 sprite[1] = sLoboDUp;
