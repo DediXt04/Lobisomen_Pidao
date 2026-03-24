@@ -24,7 +24,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.3.217",
+    "IDEVersion":"2024.14.2.213",
   },
   "name":"LobisomenPidao_Demo",
   "resources":[
@@ -35,6 +35,7 @@
     {"id":{"name":"oDanoso","path":"objects/oDanoso/oDanoso.yy",},},
     {"id":{"name":"oFreddy","path":"objects/oFreddy/oFreddy.yy",},},
     {"id":{"name":"oGameOver","path":"objects/oGameOver/oGameOver.yy",},},
+    {"id":{"name":"oNpc","path":"objects/oNpc/oNpc.yy",},},
     {"id":{"name":"oParedeFina","path":"objects/oParedeFina/oParedeFina.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"oPunk","path":"objects/oPunk/oPunk.yy",},},
@@ -48,6 +49,8 @@
     {"id":{"name":"scr_drawComida","path":"scripts/scr_drawComida/scr_drawComida.yy",},},
     {"id":{"name":"scr_drawFome","path":"scripts/scr_drawFome/scr_drawFome.yy",},},
     {"id":{"name":"scr_drawVida","path":"scripts/scr_drawVida/scr_drawVida.yy",},},
+    {"id":{"name":"scr_escolherDirecao","path":"scripts/scr_escolherDirecao/scr_escolherDirecao.yy",},},
+    {"id":{"name":"sAbacate","path":"sprites/sAbacate/sAbacate.yy",},},
     {"id":{"name":"sBurguer","path":"sprites/sBurguer/sBurguer.yy",},},
     {"id":{"name":"sFomeG","path":"sprites/sFomeG/sFomeG.yy",},},
     {"id":{"name":"sFreddyFasbear","path":"sprites/sFreddyFasbear/sFreddyFasbear.yy",},},

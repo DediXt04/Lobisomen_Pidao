@@ -42,7 +42,10 @@ yspd = move_y + knock_y;
 
 
 if place_meeting(x + xspd, y, oWall) xspd = 0;
+if place_meeting(x + xspd, y, oNpc)  xspd = 0;
+
 if place_meeting(x, y + yspd, oWall) yspd = 0;
+if place_meeting(x, y + yspd, oNpc)  yspd = 0;
 
 //colisao com oSaida
 if place_meeting(x + xspd, y, oSaida)
