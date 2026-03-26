@@ -13,7 +13,7 @@ const Home = () => {
         <div className="text-center text-md-start">
           <h1 className="fw-bold display-6 display-md-5">Lobisomem Pidão</h1>
 
-          <p className="subtitle lead mb-4 col-12 col-md-6 mx-auto mx-md-0">
+          <p className="subtitle lead mb-4 col-12 col-sm-10 col-md-6 mx-auto mx-md-0">
             Stealth e humor em top-down – aproxime-se, peça comida e fuja antes
             que te peguem.
           </p>
