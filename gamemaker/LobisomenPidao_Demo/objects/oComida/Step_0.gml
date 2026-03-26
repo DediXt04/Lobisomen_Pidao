@@ -8,7 +8,7 @@ if (_dist < 16 && oController.interagir)
 {
     with (oController)
     {
-        comida += other.valor;
+        global.comida += other.valor;
     }
     instance_destroy();
 }

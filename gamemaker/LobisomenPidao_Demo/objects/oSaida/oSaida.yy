@@ -1,20 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"oFreddy",
+  "%Name":"oSaida",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oFreddy",
+  "name":"oSaida",
   "overriddenProperties":[],
   "parent":{
     "name":"objs",
     "path":"folders/objs.yy",
   },
-  "parentObjectId":{
-    "name":"oInimigo",
-    "path":"objects/oInimigo/oInimigo.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -33,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sFreddyFasbear",
-    "path":"sprites/sFreddyFasbear/sFreddyFasbear.yy",
+    "name":"sPortaAberta",
+    "path":"sprites/sPortaAberta/sPortaAberta.yy",
   },
   "spriteMaskId":null,
   "visible":true,
