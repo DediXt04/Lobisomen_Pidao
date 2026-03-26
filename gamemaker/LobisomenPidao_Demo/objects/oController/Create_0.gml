@@ -1,7 +1,7 @@
 window_set_caption("Lobisomem pidão")
 
 // crir um grid
-grid = mp_grid_create(0, 0, room_width/16, room_height/16, 16, 16)
+grid = mp_grid_create(0, 0, room_width/4, room_height/4, 4, 4)
 
 // acrescentar as paredes no grid
 mp_grid_add_instances(grid, oWall, 0)
