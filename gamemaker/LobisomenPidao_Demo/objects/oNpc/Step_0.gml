@@ -30,7 +30,7 @@ var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 
 if (_dist < 32 && oController.interagir && paciencia > 0 && cooldown <= 0)
 {
-    if (irandom(99) < chance_comida)
+    if (irandom(99) <= chance_comida)
     {
         global.comida += valor_comida;
     }
