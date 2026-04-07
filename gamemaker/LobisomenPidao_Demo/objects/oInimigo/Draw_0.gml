@@ -1,3 +1,6 @@
 draw_self();
 
-draw_path(path, x, y, 1)
+#region
+if (is_debug) {
+	draw_path(path, x, y, 1);
+}

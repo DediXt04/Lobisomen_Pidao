@@ -24,7 +24,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.3.217",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"LobisomenPidao_Demo",
   "resources":[
@@ -48,6 +48,7 @@
     {"id":{"name":"scr_drawComida","path":"scripts/scr_drawComida/scr_drawComida.yy",},},
     {"id":{"name":"scr_drawFome","path":"scripts/scr_drawFome/scr_drawFome.yy",},},
     {"id":{"name":"scr_drawVida","path":"scripts/scr_drawVida/scr_drawVida.yy",},},
+    {"id":{"name":"src_CampoVisao","path":"scripts/src_CampoVisao/src_CampoVisao.yy",},},
     {"id":{"name":"sBurguer","path":"sprites/sBurguer/sBurguer.yy",},},
     {"id":{"name":"sFomeG","path":"sprites/sFomeG/sFomeG.yy",},},
     {"id":{"name":"sFreddyFasbear","path":"sprites/sFreddyFasbear/sFreddyFasbear.yy",},},
