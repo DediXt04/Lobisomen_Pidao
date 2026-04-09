@@ -285,8 +285,8 @@
   ],
   "name":"room_02",
   "parent":{
-    "name":"rooms",
-    "path":"folders/rooms.yy",
+    "name":"fases",
+    "path":"folders/rooms/fases.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

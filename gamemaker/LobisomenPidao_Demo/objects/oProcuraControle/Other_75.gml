@@ -1,8 +1,7 @@
-// Async System do oController
+// Esse é o mesmo código que já está no oController
 var _gamepad = async_load[? "pad_index"];
 
-switch (async_load[? "event_type"])
-{
+switch (async_load[? "event_type"]) {
     case "gamepad discovered":
         array_push(global.gamepads, _gamepad);
         gamepad_set_axis_deadzone(_gamepad, 0.2);
