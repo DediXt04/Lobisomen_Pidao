@@ -23,13 +23,13 @@ draw_set_font(fnt_pixel);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_color(make_color_rgb(80, 200, 210));
-draw_text(_cx, _cy - 80, "VOCE VENCEU!");
+draw_text(_cx, _cy - 80, "VOCÊ VENCEU!");
 
 // -------------------------------------------------------
 // MENSAGEM
 // -------------------------------------------------------
 draw_set_color(make_color_rgb(130, 165, 180));
-draw_text(_cx, _cy - 30, "Os lobisomens estao satisfeitos... por enquanto.");
+draw_text(_cx, _cy - 30, "Mim de papai.");
 
 // -------------------------------------------------------
 // BOTÃO — voltar ao menu
