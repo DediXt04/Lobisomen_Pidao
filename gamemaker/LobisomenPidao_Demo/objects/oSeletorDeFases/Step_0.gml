@@ -1,12 +1,14 @@
 // -------------------------------------------------------
-// DETECTAR MODO DE INPUT (para o rodapé dinâmico)
+// DETECTAR MODO DE INPUT
 // -------------------------------------------------------
 if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main)) {
     var _ax = gamepad_axis_value(global.gamepad_main, gp_axislh);
     var _ay = gamepad_axis_value(global.gamepad_main, gp_axislv);
     var _btn_any = gamepad_button_check_pressed(global.gamepad_main, gp_face1)
                 || gamepad_button_check_pressed(global.gamepad_main, gp_padu)
-                || gamepad_button_check_pressed(global.gamepad_main, gp_padd);
+                || gamepad_button_check_pressed(global.gamepad_main, gp_padd)
+                || gamepad_button_check_pressed(global.gamepad_main, gp_padl)
+                || gamepad_button_check_pressed(global.gamepad_main, gp_padr);
 
     if (abs(_ax) > DEADZONE || abs(_ay) > DEADZONE || _btn_any) {
         input_mode = "controle";
@@ -18,50 +20,66 @@ if (keyboard_check_pressed(vk_anykey)) {
 }
 
 // -------------------------------------------------------
-// COOLDOWN DE NAVEGAÇÃO
+// COOLDOWN
 // -------------------------------------------------------
 if (nav_cooldown > 0) nav_cooldown--;
 
 // -------------------------------------------------------
-// NAVEGAÇÃO — TECLADO
+// NAVEGAÇÃO EM GRADE — horizontal e vertical
 // -------------------------------------------------------
-var _nav = 0;
+var _nav_h = 0; // movimento horizontal (-1 esq, +1 dir)
+var _nav_v = 0; // movimento vertical   (-1 cima, +1 baixo)
 
-if (keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S"))) _nav =  1;
-if (keyboard_check_pressed(vk_up)   || keyboard_check_pressed(ord("W"))) _nav = -1;
+// Teclado
+if (keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"))) _nav_h =  1;
+if (keyboard_check_pressed(vk_left)  || keyboard_check_pressed(ord("A"))) _nav_h = -1;
+if (keyboard_check_pressed(vk_down)  || keyboard_check_pressed(ord("S"))) _nav_v =  1;
+if (keyboard_check_pressed(vk_up)    || keyboard_check_pressed(ord("W"))) _nav_v = -1;
 
-// -------------------------------------------------------
-// NAVEGAÇÃO — CONTROLE
-// -------------------------------------------------------
+// Controle
 if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main) && nav_cooldown == 0) {
 
-    // D-pad
-    if (gamepad_button_check_pressed(global.gamepad_main, gp_padd)) _nav =  1;
-    if (gamepad_button_check_pressed(global.gamepad_main, gp_padu)) _nav = -1;
+    if (gamepad_button_check_pressed(global.gamepad_main, gp_padr)) _nav_h =  1;
+    if (gamepad_button_check_pressed(global.gamepad_main, gp_padl)) _nav_h = -1;
+    if (gamepad_button_check_pressed(global.gamepad_main, gp_padd)) _nav_v =  1;
+    if (gamepad_button_check_pressed(global.gamepad_main, gp_padu)) _nav_v = -1;
 
-    // Analógico esquerdo
+    var _ax = gamepad_axis_value(global.gamepad_main, gp_axislh);
     var _ay = gamepad_axis_value(global.gamepad_main, gp_axislv);
-    if (_ay >  DEADZONE) _nav =  1;
-    if (_ay < -DEADZONE) _nav = -1;
+    if (_ax >  DEADZONE) _nav_h =  1;
+    if (_ax < -DEADZONE) _nav_h = -1;
+    if (_ay >  DEADZONE) _nav_v =  1;
+    if (_ay < -DEADZONE) _nav_v = -1;
 
-    if (_nav != 0) nav_cooldown = NAV_COOLDOWN_MAX;
+    if (_nav_h != 0 || _nav_v != 0) nav_cooldown = NAV_COOLDOWN_MAX;
 }
 
-// Aplica navegação
-if (_nav != 0) {
-    fase_selecionada += _nav;
-    if (fase_selecionada >= total_fases) fase_selecionada = 0;
-    if (fase_selecionada < 0)            fase_selecionada = total_fases - 1;
+// Aplica navegação na grade
+if (_nav_h != 0 || _nav_v != 0) {
+
+    var _linha  = fase_selecionada div colunas;
+    var _coluna = fase_selecionada mod colunas;
+
+    _coluna += _nav_h;
+    _linha  += _nav_v;
+
+    // Limita coluna entre 0 e (colunas-1)
+    _coluna = clamp(_coluna, 0, colunas - 1);
+
+    // Calcula novo índice e garante que não passa do total de fases
+    var _novo = _linha * colunas + _coluna;
+    _novo = clamp(_novo, 0, total_fases - 1);
+
+    fase_selecionada = _novo;
 }
 
 // -------------------------------------------------------
-// CONFIRMAR — TECLADO (ENTER ou E)
+// CONFIRMAR — ENTER / E / botão A
 // -------------------------------------------------------
 var _confirmar = keyboard_check_pressed(vk_enter)
               || keyboard_check_pressed(ord("E"));
 
-// CONFIRMAR — CONTROLE (botão Sul = A no Xbox / Cruz no PS)
-if (global.gamepad_main != undefined &&gamepad_is_connected(global.gamepad_main)) {
+if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main)) {
     _confirmar = _confirmar
               || gamepad_button_check_pressed(global.gamepad_main, gp_face1);
 }

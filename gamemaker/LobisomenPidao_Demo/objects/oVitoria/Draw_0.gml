@@ -1,39 +1,31 @@
 var _cx = room_width  / 2;
 var _cy = room_height / 2;
 
-// -------------------------------------------------------
-// FUNDO
-// -------------------------------------------------------
+//Fundo
 draw_set_alpha(0.85);
 draw_set_color(make_color_rgb(14, 14, 26));
 draw_rectangle(0, 0, room_width, room_height, false);
 draw_set_alpha(1);
 
-// Linhas decorativas — teal
+//Linhas decorativas
 draw_set_color(make_color_rgb(60, 160, 170));
 draw_set_alpha(0.35);
 draw_line_width(0, _cy - 140, room_width, _cy - 140, 2);
 draw_line_width(0, _cy + 140, room_width, _cy + 140, 2);
 draw_set_alpha(1);
 
-// -------------------------------------------------------
-// TÍTULO — ciano vivo (vitória = cor positiva da paleta)
-// -------------------------------------------------------
+//Titulo
 draw_set_font(fnt_pixel);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_color(make_color_rgb(80, 200, 210));
 draw_text(_cx, _cy - 80, "VOCÊ VENCEU!");
 
-// -------------------------------------------------------
-// MENSAGEM
-// -------------------------------------------------------
+//Mensagem
 draw_set_color(make_color_rgb(130, 165, 180));
 draw_text(_cx, _cy - 30, "Mim de papai.");
 
-// -------------------------------------------------------
-// BOTÃO — voltar ao menu
-// -------------------------------------------------------
+//Botao
 var _bw = 280;
 var _bh = 54;
 var _bx = _cx - _bw / 2;
@@ -68,7 +60,7 @@ var _temControle = (_gp != undefined) && gamepad_is_connected(_gp);
 
 draw_set_color(make_color_rgb(45, 80, 95));
 if (_temControle) {
-    draw_text(_cx, _by + _bh + 36, "A / Cruz  para voltar");
+    draw_text(_cx, _by + _bh + 36, "A / X  para voltar");
 } else {
     draw_text(_cx, _by + _bh + 36, "ENTER para voltar");
 }
