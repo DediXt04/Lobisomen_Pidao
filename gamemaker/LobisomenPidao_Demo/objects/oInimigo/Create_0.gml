@@ -1,24 +1,20 @@
 //Setando Variaveis
 #region
 vel = 0.5;
-velh = 0;
-velv = 0;
 dano = 1;
+alvo = noone;
 estado = noone;
+ultimo_estado = noone;
 tempo_max_estado = room_speed * 5;
 timer_estado = 0;
-sprite = sprite_index;
 xscale = 1;
 yscale = 1;
-alvo = noone;
-
-//coordenadas jogador
-target_x = oPlayer.x;
-target_y = oPlayer.y;
+perseguindo_iniciado = false;
 
 //coordenadas passeando
 destino_x = x;
 destino_y = y;
+path_passeio_ativo = false;
 
 // "update" path
 path = path_add();
@@ -48,7 +44,7 @@ campo_visao = function(_largura, _altura, _xscale){
 	_x2 = _x1 + _largura * _xscale;
 	_y2 = _y1 - _altura;
 	//Desenhando o quadrado:
-	//draw_rectangle(_x1, _y1, _x2, _y2, false);
+	if (is_debug) draw_rectangle(_x1, _y1, _x2, _y2, false);
 	
 	//Checando se o player está no campo de visão
 	var _alvo = collision_rectangle(_x1, _y1, _x2, _y2, oPlayer, 0, 1);
@@ -58,59 +54,76 @@ campo_visao = function(_largura, _altura, _xscale){
 
 //Estados do Inimigo
 estado_parado = function(){
-	// Verifica se avistou ou não o player
-	alvo = campo_visao(larg_visao, sprite_height * alt_visao, xscale);
-	if (alvo) {
-		estado = estado_perseguindo;
-	}
-	
-	show_debug_message("Estou Parado!");
-	
-	image_blend = c_white;
-	
-	//Zerando a velocidade
-	velh = 0;
-	velv = 0;
-	
-	muda_estado([estado_parado, estado_passeando]);
+	//Verifica se está vendo o player
+    alvo = campo_visao(larg_visao, sprite_height * alt_visao, xscale);
+    if (alvo) {
+        estado = estado_perseguindo;
+    }
+	perseguindo_iniciado = false;
+
+    image_blend = c_white;
+
+    // Para o path imediatamente ao entrar no estado
+    if (path_passeio_ativo) {
+        path_end();
+        path_passeio_ativo = false;
+    }
+
+    muda_estado([estado_parado, estado_passeando]);
 }
 
 estado_passeando = function(){
-	// Verifica se avistou ou não o player
-	alvo = campo_visao(larg_visao, sprite_height * alt_visao, xscale);
-	if (alvo) {
-		estado = estado_perseguindo;
-	}
-	
-	//Condição de troca de destino
-	var _dist = point_distance(x, y, destino_x, destino_y);
-	
-	//Ele escolhe um destino aleatorio da sala e se move pra ele
-	if (_dist < 100) {
-		var destino = scr_pegar_destino_valido(x, y);
-		destino_x = destino[0];
-		destino_y = destino[1];
-	}
-	
-	//Acha a direção do destino
-	var _dir = point_direction(x, y, destino_x, destino_y);
-	//Vai até o destino
-	velh = lengthdir_x(vel, _dir);
-	velv = lengthdir_y(vel, _dir);
-	
-	//Olhando para onde anda
-	if (velh != 0) {
-		xscale = sign(velh);
-	}
-	
-	image_blend = c_red;
-	
-	muda_estado([estado_parado, estado_passeando]);
+	//Verifica se está vendo o player
+    alvo = campo_visao(larg_visao, sprite_height * alt_visao, xscale);
+    if (alvo) {
+        path_end(); // Para o path de passeio
+        path_passeio_ativo = false;
+        estado = estado_perseguindo;
+        exit;
+    }
+	perseguindo_iniciado = false;
+
+    image_blend = c_red;
+
+    // Se ainda não tem um destino ativo, escolhe um novo
+    if (!path_passeio_ativo) {
+        var destino = scr_pegar_destino_valido(x, y);
+        destino_x = destino[0];
+        destino_y = destino[1];
+
+        path_delete(path);
+        path = path_add();
+        // Cria o caminho pelo grid até o destino
+        var _achou = mp_grid_path(oController.grid, path, x, y, destino_x, destino_y, 1);
+
+        if (_achou) {
+            path_start(path, vel, path_action_stop, true);
+            path_passeio_ativo = true;
+        }
+        // Se não achou caminho válido, tenta de novo no próximo frame
+    }
+
+    // Quando chega no destino, libera para escolher outro
+    if (path_position >= 1) {
+        path_passeio_ativo = false;
+    }
+
+    // Olhando para onde anda
+    if (speed != 0) {
+        image_xscale = sign(hspeed);
+        xscale = image_xscale;
+    }
+
+    muda_estado([estado_parado, estado_passeando]);
 }
 
 estado_perseguindo = function(){
 	image_blend = c_fuchsia;
-	alarm[0] = 120; // atualiza a cada 2s por ser 60 frames
+	// Só aciona o alarme uma vez ao entrar no estado
+    if (!perseguindo_iniciado) {
+        perseguindo_iniciado = true;
+        alarm[0] = 1; // Dispara já no próximo frame
+    }
 }
 
 //Definindo estado inicial dele
