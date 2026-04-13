@@ -132,6 +132,7 @@
     {"name":"inst_5ADBEE7D","path":"rooms/room_01/room_01.yy",},
     {"name":"inst_6EF71A16","path":"rooms/room_01/room_01.yy",},
     {"name":"inst_5EDE5DFA","path":"rooms/room_01/room_01.yy",},
+    {"name":"inst_530CCC64","path":"rooms/room_01/room_01.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -145,6 +146,7 @@
         {"$GMRInstance":"v4","%Name":"inst_5ED6FEAB","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_5ED6FEAB","objectId":{"name":"oPunk","path":"objects/oPunk/oPunk.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":456.0,"y":260.0,},
         {"$GMRInstance":"v4","%Name":"inst_6FD0566F","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6FD0566F","objectId":{"name":"oFreddy","path":"objects/oFreddy/oFreddy.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":272.0,"y":112.0,},
         {"$GMRInstance":"v4","%Name":"inst_5EDE5DFA","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_5EDE5DFA","objectId":{"name":"oSaida","path":"objects/oSaida/oSaida.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":344.0,"y":40.0,},
+        {"$GMRInstance":"v4","%Name":"inst_530CCC64","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_530CCC64","objectId":{"name":"oFreddy","path":"objects/oFreddy/oFreddy.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":432.0,"y":176.0,},
       ],"layers":[],"name":"instancias","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRTileLayer":"","%Name":"tiles","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"tiles","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":23,"SerialiseWidth":40,"TileCompressedData":[
           -89,-2147483648,1,1,-6,2,6,20,2,2,20,2,0,-9,2,1,3,-17,-2147483648,1,9,-4,10,1,16,-7,10,1,24,-3,10,1,

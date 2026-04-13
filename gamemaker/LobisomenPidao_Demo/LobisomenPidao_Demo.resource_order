@@ -26,6 +26,7 @@
     {"name":"scr_drawComida","order":2,"path":"scripts/scr_drawComida/scr_drawComida.yy",},
     {"name":"scr_drawFome","order":1,"path":"scripts/scr_drawFome/scr_drawFome.yy",},
     {"name":"src_CampoVisao","order":3,"path":"scripts/src_CampoVisao/src_CampoVisao.yy",},
+    {"name":"src_pegar_destino_valido","order":4,"path":"scripts/src_pegar_destino_valido/src_pegar_destino_valido.yy",},
     {"name":"sBurguer","order":4,"path":"sprites/sBurguer/sBurguer.yy",},
     {"name":"sFomeG","order":2,"path":"sprites/sFomeG/sFomeG.yy",},
     {"name":"sFreddyFasbear","order":6,"path":"sprites/sFreddyFasbear/sFreddyFasbear.yy",},

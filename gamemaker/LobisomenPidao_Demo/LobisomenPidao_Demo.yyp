@@ -49,6 +49,7 @@
     {"id":{"name":"scr_drawFome","path":"scripts/scr_drawFome/scr_drawFome.yy",},},
     {"id":{"name":"scr_drawVida","path":"scripts/scr_drawVida/scr_drawVida.yy",},},
     {"id":{"name":"src_CampoVisao","path":"scripts/src_CampoVisao/src_CampoVisao.yy",},},
+    {"id":{"name":"src_pegar_destino_valido","path":"scripts/src_pegar_destino_valido/src_pegar_destino_valido.yy",},},
     {"id":{"name":"sBurguer","path":"sprites/sBurguer/sBurguer.yy",},},
     {"id":{"name":"sFomeG","path":"sprites/sFomeG/sFomeG.yy",},},
     {"id":{"name":"sFreddyFasbear","path":"sprites/sFreddyFasbear/sFreddyFasbear.yy",},},
