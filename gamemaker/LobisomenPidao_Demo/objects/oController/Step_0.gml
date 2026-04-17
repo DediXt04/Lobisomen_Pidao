@@ -4,7 +4,9 @@ if keyboard_check_pressed(ord("T")) vida += 1;
 if keyboard_check_pressed(ord("Y")) tempoFome += 15;
 if keyboard_check_pressed(ord("U")) tempoFome -= 15;
 if keyboard_check_pressed(ord("I")) global.comida += 1;
-
+if (keyboard_check_pressed(vk_f11)) {
+    window_set_fullscreen(!window_get_fullscreen());
+}
 // fome diminuindo
 tempoFome -= delta_time / 1000000;
 tempoFome  = max(tempoFome, 0);
@@ -13,7 +15,7 @@ tempoFome  = max(tempoFome, 0);
 var _gp = global.gamepad_main;
 var _gpInteragir = (_gp != undefined) && gamepad_button_check_pressed(_gp, gp_face1); // botão A (Xbox) / X (PS)
 
-if keyboard_check_pressed(ord("E")) || _gpInteragir
+if keyboard_check_pressed(ord("E")) || _gpInteragir || keyboard_check_pressed(vk_space)
 {
     interagir = true;
 }

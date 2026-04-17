@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sAbacate",
-    "path":"sprites/sAbacate/sAbacate.yy",
+    "name":"sNpcDown",
+    "path":"sprites/sNpcDown/sNpcDown.yy",
   },
   "spriteMaskId":null,
   "visible":true,

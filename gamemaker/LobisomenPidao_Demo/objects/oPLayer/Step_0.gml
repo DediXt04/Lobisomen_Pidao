@@ -70,7 +70,6 @@ y += yspd;
 knock_x = lerp(knock_x, 0, 0.2);
 knock_y = lerp(knock_y, 0, 0.2);
 
-depth = -bbox_bottom;
 #endregion
 
 // escolher sprites lobo
@@ -124,6 +123,7 @@ if (walk_timer == 0) image_index = 0;
 
 mask_index   = sprite[3];
 sprite_index = sprite[face];
+depth = -y;
 #endregion
 
 // invencibilidade

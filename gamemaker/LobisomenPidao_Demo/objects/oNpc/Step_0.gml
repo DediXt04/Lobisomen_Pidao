@@ -22,22 +22,62 @@ if (pixels_walked > 0) {
 }
 #endregion
 
+// Controle de sprite
+#region
+depth = -y;
+var _movendo = (pixels_walked > 0);
+
+if (_movendo) {
+    if (vy > 0) {
+        if (sprite_index != sNpcDown) { sprite_index = sNpcDown; image_index = 0; }
+    } else if (vy < 0) {
+        if (sprite_index != sNpcUp)   { sprite_index = sNpcUp;   image_index = 0; }
+    } else if (vx != 0) {
+        if (sprite_index != sNpcSide) { sprite_index = sNpcSide; image_index = 0; }
+        image_xscale = (vx > 0) ? 1 : -1;
+    }
+    image_speed = 1;
+} else {
+    image_speed = 0;
+    image_index = 0;
+}
+#endregion
+
 // Cooldown
 if (cooldown > 0) cooldown--;
 
+// Timer da reação
+if (reacao_timer > 0) {
+    reacao_timer--;
+    if (reacao_timer <= 0) reacao_frame = -1;
+}
+
 // Interação
+#region
 var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 
-if (_dist < 32 && oController.interagir && paciencia > 0 && cooldown <= 0)
+if (_dist < 32 && oController.interagir && cooldown <= 0)
 {
-    if (irandom(99) <= chance_comida)
-    {
-        global.comida += valor_comida;
+    // Sem paciência — reação 2
+    if (paciencia <= 0) {
+        reacao_frame = 2;
+        reacao_timer = reacao_dur;
+
+    } else {
+        // Tem paciência — tenta dar comida
+        if (irandom(99) <= chance_comida) {
+            global.comida += valor_comida;
+            reacao_frame = 0;   // deu comida
+        } else {
+            reacao_frame = 1;   // não deu nada
+        }
+
+        reacao_timer   = reacao_dur;
+        chance_comida += irandom_range(10, 15);
+        chance_comida  = min(chance_comida, 100);
+        paciencia--;
     }
 
-    chance_comida += irandom_range(10, 15);
-    chance_comida  = min(chance_comida, 100);
-
-    paciencia--;
     cooldown = cooldown_max;
 }
+#endregion
