@@ -50,7 +50,6 @@ campo_visao = function(_dist, _angulo_visao)
     return false;
 }
 
-
 // Estados do Inimigo
 #region
 // PARADO
@@ -59,7 +58,7 @@ estado_parado = function()
     xspd = 0;
     yspd = 0;
 
-    image_blend = c_white;
+    if (is_debug) image_blend = c_white;
 
     // vê o player
     if (campo_visao(120, 60))
@@ -79,7 +78,7 @@ estado_parado = function()
 // PASSEANDO
 estado_passeando = function()
 {
-    image_blend = c_red;
+     if (is_debug) image_blend = c_red;
 
     // se ver o player
     if (campo_visao(120, 60))
@@ -108,7 +107,7 @@ estado_passeando = function()
 // PERSEGUINDO
 estado_perseguindo = function()
 {
-    image_blend = c_fuchsia;
+     if (is_debug) image_blend = c_fuchsia;
 
     var dir = point_direction(x, y, oPlayer.x, oPlayer.y);
 

@@ -1,3 +1,6 @@
+// Setando a profundidade de acordo com y
+depth = -bbox_bottom;
+
 //step
 var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 

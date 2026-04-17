@@ -1,4 +1,4 @@
-// Depth (ordem de desenho)
+// Setando a profundidade de acordo com y
 depth = -bbox_bottom;
  
 // Executa Estado
