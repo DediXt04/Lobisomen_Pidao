@@ -22,8 +22,17 @@ export default function Devlog() {
       data: '13/03/2026',
       titulo:'Sprint 03',
       texto:'Jogo adaptado para controle, com mecânica de lobisomem faminto que altera o sprite e aumenta a velocidade do personagem.'
-    }
-    
+    },
+    {
+      data: '20/03/2026',
+      titulo: 'Sprint 04',
+      texto: 'Criação da tela de vitória, implementação da condição de vitória após coletar os itens necessários, adição de mecânica de perseguição do player pelo inimigo.'
+    },
+    {
+      data: '27/03/2026',
+      titulo: 'Sprint 05',
+      texto: 'Finalização dos sprites de NPC e do tileset, implementação de mecânicas básicas de NPC (movimentação e interação), melhorias no sistema de perseguição.'
+    },
   ]
 
   // Ordena por data decrescente

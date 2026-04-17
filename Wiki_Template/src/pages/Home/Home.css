@@ -7,12 +7,13 @@
   position: relative;
 }
 
-/* Overlay para melhorar contraste no mobile */
+/* Overlay para melhorar contraste */
 .header::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
 }
 
 .header > * {
@@ -22,23 +23,42 @@
 
 @media (max-width: 767px) {
   .header {
-    min-height: 60vh;
+    min-height: 70vh;
     text-align: center;
+    background-position: top center;
+  }
+
+  .header::before {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.2) 100%);
+  }
+
+  .header .subtitle {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 575px) {
   .header {
-    min-height: 50vh;
-    padding: 1.5rem !important;
+    min-height: 65vh;
+    padding: 1.25rem !important;
   }
 
   .header h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
-  .header .lead {
-    font-size: 1rem;
+  .header .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .header .btn-lg {
+    font-size: 0.95rem;
+    padding: 0.5rem 1.25rem;
+  }
+
+  .header .badge {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.6rem !important;
   }
 }
 
