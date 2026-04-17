@@ -21,6 +21,7 @@ if (reacao_frame >= 0) {
 // -------------------------------------------------------
 // Debug — bem acima da cabeça
 // -------------------------------------------------------
+/*
 var _tx = x;
 var _ty = y - sprite_height - 28;   // subiu bastante
 
@@ -38,3 +39,4 @@ draw_text_transformed(_tx, _ty + 16, cooldown > 0 ? string(cooldown) : "ok", 0.3
 
 draw_set_halign(fa_left);
 draw_set_color(c_white);
+*/
