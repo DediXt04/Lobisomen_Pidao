@@ -33,6 +33,11 @@ export default function Devlog() {
       titulo: 'Sprint 05',
       texto: 'Finalização dos sprites de NPC e do tileset, implementação de mecânicas básicas de NPC (movimentação e interação), melhorias no sistema de perseguição.'
     },
+    {
+      data: '17/04/2026',
+      titulo: 'Sprint 06',
+      texto: 'Implementação da tela de seleção de fases, melhorias nas telas de vitória e derrota, desenvolvimento das mecânicas do inimigo (campo de visão e movimentação) e aprimoramentos no NPC, incluindo feedback visual de interação e aplicação de sprites.'
+    }
   ]
 
   // Ordena por data decrescente
