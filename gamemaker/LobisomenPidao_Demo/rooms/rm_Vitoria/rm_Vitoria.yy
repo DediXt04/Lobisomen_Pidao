@@ -17,8 +17,8 @@
   ],
   "name":"rm_Vitoria",
   "parent":{
-    "name":"rooms",
-    "path":"folders/rooms.yy",
+    "name":"menus",
+    "path":"folders/rooms/menus.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

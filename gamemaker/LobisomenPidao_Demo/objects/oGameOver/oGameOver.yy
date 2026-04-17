@@ -10,8 +10,8 @@
   "name":"oGameOver",
   "overriddenProperties":[],
   "parent":{
-    "name":"objs",
-    "path":"folders/objs.yy",
+    "name":"telas",
+    "path":"folders/objs/telas.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -1,7 +1,7 @@
 window_set_caption("Lobisomem pidão")
 
 // crir um grid
-grid = mp_grid_create(0, 0, room_width/16, room_height/16, 16, 16)
+grid = mp_grid_create(0, 0, room_width/4,room_height/4, 4, 4)
 
 // acrescentar as paredes no grid
 mp_grid_add_instances(grid, oWall, 0);
@@ -25,21 +25,4 @@ interagir = false;
 
 // game over
 global.motivoMorte = "";
-
-//gamepad
-global.gamepads = [];
-global.gamepad_main = undefined;
-
-for (var i = 0; i < 12; i++)
-{
-    if (gamepad_is_connected(i))
-    {
-        array_push(global.gamepads, i);
-        gamepad_set_axis_deadzone(i, 0.2);
-    }
-}
-if (array_length(global.gamepads) > 0)
-{
-    global.gamepad_main = global.gamepads[0];
-}
 

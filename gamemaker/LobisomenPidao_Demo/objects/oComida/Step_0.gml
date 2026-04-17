@@ -6,6 +6,7 @@ var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 
 //Flutuar
 y = base_y + sin(current_time / 200) * 1.5;
+depth = -y;
 
 if (_dist < 16 && oController.interagir)
 {

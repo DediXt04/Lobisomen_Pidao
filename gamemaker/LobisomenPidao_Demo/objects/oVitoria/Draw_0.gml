@@ -1,43 +1,70 @@
 var _cx = room_width  / 2;
 var _cy = room_height / 2;
 
-// fundo escuro semitransparente
-draw_set_alpha(0.7);
-draw_set_color(c_black);
+//Fundo
+draw_set_alpha(0.85);
+draw_set_color(make_color_rgb(14, 14, 26));
 draw_rectangle(0, 0, room_width, room_height, false);
 draw_set_alpha(1);
 
-// título VOCÊ VENCEU!
+//Linhas decorativas
+draw_set_color(make_color_rgb(60, 160, 170));
+draw_set_alpha(0.35);
+draw_line_width(0, _cy - 140, room_width, _cy - 140, 2);
+draw_line_width(0, _cy + 140, room_width, _cy + 140, 2);
+draw_set_alpha(1);
+
+//Titulo
+draw_set_font(fnt_pixel);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_set_color(c_yellow);
-draw_set_font(fnt_pixel); // troque pelo nome da sua font, ou delete essa linha para usar a padrão
-draw_text(_cx, _cy - 60, "VOCÊ VENCEU!");
+draw_set_color(make_color_rgb(80, 200, 210));
+draw_text(_cx, _cy - 80, "VOCÊ VENCEU!");
 
-// subtítulo / mensagem
-draw_set_color(c_white);
-draw_set_font(fnt_pixel); // troque pelo nome da sua font, ou delete essa linha para usar a padrão
-draw_text(_cx, _cy, "Todas as comidas coletadas!");
+//Mensagem
+draw_set_color(make_color_rgb(130, 165, 180));
+draw_text(_cx, _cy - 30, "Mim de papai.");
 
-// botão continuar
-var _bw = 200;
-var _bh = 50;
+//Botao
+var _bw = 280;
+var _bh = 54;
 var _bx = _cx - _bw / 2;
-var _by = _cy + 60;
+var _by = _cy + 30;
 
-// hover no botão
 var _hover = (mouse_x > _bx && mouse_x < _bx + _bw &&
               mouse_y > _by && mouse_y < _by + _bh);
 
-draw_set_color(_hover ? c_yellow : c_white);
+draw_set_color(_hover
+    ? make_color_rgb(30, 60, 80)
+    : make_color_rgb(20, 35, 55));
+draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, false);
+
+draw_set_color(make_color_rgb(80, 200, 210));
+draw_rectangle(_bx, _by, _bx + 5, _by + _bh, false);
+
+draw_set_color(make_color_rgb(80, 200, 210));
+draw_set_alpha(_hover ? 0.8 : 0.4);
 draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, true);
-draw_set_color(_hover ? c_yellow : c_white);
-draw_text(_cx, _by + _bh / 2, "Continuar");
+draw_set_alpha(1);
 
-// dica teclado
-draw_set_color(c_gray);
-draw_text(_cx, _by + _bh + 30, "ou pressione Enter");
+draw_set_color(_hover
+    ? make_color_rgb(120, 225, 235)
+    : make_color_rgb(80, 200, 210));
+draw_text(_cx, _by + _bh / 2, "Voltar ao menu");
 
-// reset alinhamento
+// -------------------------------------------------------
+// RODAPÉ — dica de input dinâmica
+// -------------------------------------------------------
+var _gp = global.gamepad_main;
+var _temControle = (_gp != undefined) && gamepad_is_connected(_gp);
+
+draw_set_color(make_color_rgb(45, 80, 95));
+if (_temControle) {
+    draw_text(_cx, _by + _bh + 36, "A / X  para voltar");
+} else {
+    draw_text(_cx, _by + _bh + 36, "ENTER para voltar");
+}
+
+// Reset
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

@@ -45,7 +45,10 @@ yspd = move_y + knock_y;
 
 
 if place_meeting(x + xspd, y, oWall) xspd = 0;
+if place_meeting(x + xspd, y, oNpc)  xspd = 0;
+
 if place_meeting(x, y + yspd, oWall) yspd = 0;
+if place_meeting(x, y + yspd, oNpc)  yspd = 0;
 
 //colisao com oSaida
 if place_meeting(x + xspd, y, oSaida)
@@ -70,7 +73,6 @@ y += yspd;
 knock_x = lerp(knock_x, 0, 0.2);
 knock_y = lerp(knock_y, 0, 0.2);
 
-depth = -bbox_bottom;
 #endregion
 
 // escolher sprites lobo
@@ -124,6 +126,7 @@ if (walk_timer == 0) image_index = 0;
 
 mask_index   = sprite[3];
 sprite_index = sprite[face];
+depth = -y;
 #endregion
 
 // invencibilidade
