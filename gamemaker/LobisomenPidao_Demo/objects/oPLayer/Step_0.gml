@@ -94,6 +94,7 @@ if (_novoEstado != faminto)
     }
     else
     {
+        moveSpd = 2;
         sprite[0] = sLoboSide;
         sprite[1] = sLoboDUp;
         sprite[2] = sLoboUp;
