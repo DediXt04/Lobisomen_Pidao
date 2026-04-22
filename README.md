@@ -7,13 +7,6 @@
 
 Jogo indie 2D top-down onde você controla um lobisomem faminto que precisa explorar fases, pedir comida aos NPCs e escapar dos inimigos antes que a fome acabe ou que ele seja capturado.
 
-<p align="center">
-  <img src="Wiki_Template/src/assets/gallery/lobisomenDDown.png" alt="Lobisomem" width="120" />
-  <img src="Wiki_Template/src/assets/gallery/burguer.png" alt="Burger" width="120" />
-  <img src="Wiki_Template/src/assets/gallery/pizza.png" alt="Pizza" width="120" />
-  <img src="gamemaker\LobisomenPidao_Demo\sprites\sNpcDown\32c78989-5ab8-4314-b29f-90d9fc89d257.png" alt="NPC" width="120" />
-</p>
-
 ---
 
 ## 🎮 Mecânicas
