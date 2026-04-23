@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer className="bg-dark text-white text-center py-4 mt-5">
       <div className="container">
-        <nav className="d-flex flex-wrap justify-content-center justify-content-center gap-3">
+        <nav className="d-flex flex-wrap justify-content-center gap-3">
           <Link to="/" className="mx-2 text-decoration-none text-white">
             Início
           </Link>

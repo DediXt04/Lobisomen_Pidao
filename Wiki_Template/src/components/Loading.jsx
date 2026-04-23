@@ -1,11 +1,12 @@
-import React from "react";
-
 function Loading() {
   return (
-    <div className="d-flex justify-content-center align-items-center vh-50">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Carregando...</span>
-      </div>
+    <div className="loading-container d-flex flex-column justify-content-center align-items-center vh-50">
+      <img
+        src="/Lobo_Face.png"
+        alt="Carregando..."
+        className="loading-logo"
+      />
+      <span className="mt-3 text-muted">Carregando...</span>
     </div>
   );
 }
