@@ -14,7 +14,6 @@
   "ResourceOrderSettings":[
     {"name":"oBurger","order":9,"path":"objects/oBurger/oBurger.yy",},
     {"name":"oComida","order":4,"path":"objects/oComida/oComida.yy",},
-    {"name":"oDanoso","order":5,"path":"objects/oDanoso/oDanoso.yy",},
     {"name":"oFreddy","order":11,"path":"objects/oFreddy/oFreddy.yy",},
     {"name":"oGameOver","order":2,"path":"objects/oGameOver/oGameOver.yy",},
     {"name":"oParedeFina","order":12,"path":"objects/oParedeFina/oParedeFina.yy",},

@@ -12,9 +12,12 @@ if (place_meeting(x + xspd, y, oWall)) xspd = 0;
 // colisão Y
 if (place_meeting(x, y + yspd, oWall)) yspd = 0;
 
-// aplica movimento
-x += xspd;
-y += yspd;
+// só usa movimento manual se NÃO estiver em path
+if (!path_index)
+{
+    x += xspd;
+    y += yspd;
+}
 #endregion
 
 // Direção Visual
@@ -28,15 +31,18 @@ if (xspd != 0)
 
 //Trocar sprite
 #region
-var _h = sign(xspd);
-var _v = sign(yspd);
+if (path_index != -1)
+{
+    var dir = point_direction(xprevious, yprevious, x, y);
 
-// mesma lógica do player
-if (_h != 0 && _v == 0)  { face = 0; image_xscale = _h; }
-if (_h == 0 && _v != 0)  { face = (_v == -1) ? 2 : 3; image_xscale = 1; }
-if (_h != 0 && _v == -1) { face = 1; image_xscale = _h; }
-if (_h != 0 && _v == 1)  { face = 4; image_xscale = _h; }
+    var _h = sign(lengthdir_x(1, dir));
+    var _v = sign(lengthdir_y(1, dir));
 
-// aplica sprite
-sprite_index = sprite[face];
+    if (_h != 0 && _v == 0)  { face = 0; image_xscale = _h; }
+    if (_h == 0 && _v != 0)  { face = (_v == -1) ? 2 : 3; image_xscale = 1; }
+    if (_h != 0 && _v == -1) { face = 1; image_xscale = _h; }
+    if (_h != 0 && _v == 1)  { face = 4; image_xscale = _h; }
+
+    sprite_index = sprite[face];
+}
 #endregion

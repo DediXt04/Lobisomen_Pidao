@@ -2,6 +2,9 @@
 #region
 vel = 0.5;
 dano = 1;
+path = path_add();
+path_timer = 0;
+timer_see = room_speed * 3;
 
 // movimento
 xspd = 0;
@@ -107,16 +110,37 @@ estado_passeando = function()
 // PERSEGUINDO
 estado_perseguindo = function()
 {
-     if (is_debug) image_blend = c_fuchsia;
+    if (is_debug) image_blend = c_fuchsia;
 
-    var dir = point_direction(x, y, oPlayer.x, oPlayer.y);
+    // atualiza o path a cada X frames
+    if (path_timer <= 0)
+    {
+        path_timer = 20; // recalcula a cada 20 frames (~0.3s)
 
-    xspd = lengthdir_x(vel, dir);
-    yspd = lengthdir_y(vel, dir);
+        path_delete(path);
+        path = path_add();
+
+        var target_x = oPlayer.x;
+        var target_y = oPlayer.y;
+
+        if (mp_grid_path(oController.grid, path, x, y, target_x, target_y, 1))
+        {
+            path_start(path, vel, path_action_stop, true);
+        }
+    }
+    else
+    {
+        path_timer--;
+    }
+	
+	// seta tempo para que continue perseguindo
+	if (campo_visao(120, 60)) timer_see = room_speed * 3;
+	timer_see--;
 
     // perdeu o player
-    if (!campo_visao(120, 60))
+    if (!campo_visao(120, 60) and timer_see <= 0)
     {
+        path_end(); // IMPORTANTE
         estado = estado_parado;
     }
 }
