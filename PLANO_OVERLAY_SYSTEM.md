@@ -5,15 +5,18 @@
 | Item | Valor Atual |
 |---|---|
 | Engine | GameMaker 2024.14.4 (GML) |
-| Resolução GUI | 1920×1080 |
+| Resolução GUI | **NÃO setada** — usa default (tamanho da janela) |
 | Room inicial | `rm_SelecaoDeFases` |
-| Rooms de gameplay | `room_01`, `room_02` |
-| Telas de fim (atuais) | `rm_gameOver`, `rm_Vitoria` (rooms separadas) |
+| Rooms de gameplay | `room_01`, `room_02` (view 320×180 → port 1920×1080) |
+| Telas de fim (atuais) | `rm_gameOver` (1366×768), `rm_Vitoria` (1366×768) — rooms separadas |
 | Input | Teclado (WASD/Arrows/Enter/E/Space) + Gamepad (D-pad/Stick/Face buttons) |
 | `global.gamepad_main` | Gerenciado por `oProcuraControle` (persistente, singleton) |
 | `global.motivoMorte` | `"dano"` ou `"fome"` — setado pelo `oController` antes de game over |
 | `global.game_paused` | **NÃO EXISTE AINDA** — precisa ser criado |
 | Estado do jogo | `oController` gerencia vida, fome, comida (não é persistente) |
+| **Transição de vitória** | Em `oPLayer/Step_0.gml:58,66` (NÃO em `oSaida`!) — `oSaida` apenas troca sprite da porta |
+| **Transição de game over** | Em `oController/Step_0.gml:30,34` (vida≤0 ou fome≤0) |
+| HUD | `oController/Draw_64.gml` (Draw GUI 64) — chama `scr_drawVida/Fome/Comida` |
 
 ---
 
@@ -101,8 +104,8 @@
 
 | Room | Mudança |
 |---|---|
-| `rm_SelecaoDeFases` | Renomear para `rm_MenuPrincipal`. Substituir `oSeletorDeFases` por `oMenuPrincipal`. Adicionar `oOverlayManager` e `oProcuraControle`. |
-| `room_01`, `room_02` | Adicionar `oOverlayManager` como instância. |
+| `rm_SelecaoDeFases` | Renomear para `rm_MenuPrincipal`. Substituir `oSeletorDeFases` por `oMenuPrincipal`. Adicionar `oOverlayManager` (será persistente — não precisa em outras rooms) e manter `oProcuraControle`. |
+| `room_01`, `room_02` | **NÃO** precisa adicionar `oOverlayManager` — ele é persistente, sobrevive ao `room_goto`. |
 | `rm_gameOver` | **Remover** — substituída por overlay. |
 | `rm_Vitoria` | **Remover** — substituída por overlay. |
 
@@ -119,14 +122,16 @@ rm_MenuPrincipal → room_01 → room_02
 ```gml
 // ===== Em oOverlayManager / Create_0.gml =====
 
+// IMPORTANTE: garantir GUI size consistente
+display_set_gui_size(1920, 1080);
+
 // Sistema de pause
 global.game_paused = false;
 
-// Overlay ativo (string ou noone)
-// Valores possíveis: "menu", "fases", "derrota", "vitoria", noone
+// Overlay ativo (id de instância ou noone)
 global.overlay_ativo = noone;
 
-// Stack de overlays (para permitir overlay sobre overlay)
+// Stack de overlays (guarda IDs de instância, não objetos)
 global.overlay_stack = [];
 
 // Motivo da morte (já existe)
@@ -139,10 +144,14 @@ global.run_dano     = 0;     // dano total recebido
 global.run_estrelas = 0;     // 1-3 estrelas baseado em performance
 
 // Progresso de fases
-global.fase_atual       = 0;       // índice da fase jogando
-global.fases_concluidas = [];      // array de booleans [false, false, ...]
-global.fases_estrelas   = [];      // array de ints [0, 0, ...] (0-3 estrelas cada)
 global.total_fases      = 5;
+global.fase_atual       = 0;
+global.fases_concluidas = array_create(global.total_fases, false);
+global.fases_estrelas   = array_create(global.total_fases, 0);
+
+// Lista global de rooms das fases (usada por todos os overlays)
+global.fase_rooms = [room_01, room_02, room_01, room_02, room_01];
+global.fase_nomes = ["Fase 1", "Fase 2", "Fase 3", "Fase 4", "Fase 5"];
 
 // Configurações (para menu de configurações futuro)
 global.volume_musica = 1.0;
@@ -172,7 +181,8 @@ dim_alpha    = 0;
 dim_alpha_alvo = 0.7;
 
 // Estado
-overlay_saindo = false;   // true quando está fechando
+overlay_saindo  = false;  // true quando está fechando
+overlay_inativo = false;  // true quando outro overlay está empilhado em cima
 ```
 
 ### Step Event — Lógica de Animação
@@ -208,7 +218,15 @@ else {
 
 ### Draw GUI Event — Estrutura Base
 
+> 📐 **Importante sobre camadas**: a HUD do `oController` está em `Draw GUI` (evento 64). Para garantir que o overlay desenhe **sempre acima** da HUD, use:
+> - `Draw GUI Begin` (evento 72) — para HUD de fundo
+> - `Draw GUI End` (evento 74) — para overlays que ficam em cima
+>
+> Como a HUD atual já está em `Draw_64`, basta colocar os overlays em `Draw_74` (Draw GUI End) e a ordem fica garantida.
+
 ```gml
+// ===== EVENTO: Draw GUI End (evento 74) =====
+
 // ===== 1. Fundo escurecido =====
 draw_set_alpha(dim_alpha);
 draw_set_colour(c_black);
@@ -275,8 +293,8 @@ input_mode = "teclado";  // "teclado" ou "controle"
 ### Lógica de Navegação (Step Event)
 
 ```gml
-// ===== Só processar input quando animação terminou =====
-if (!anim_pronto || overlay_saindo) exit;
+// ===== Não processar input quando: animação não terminou, está saindo, ou outro overlay está em cima =====
+if (!anim_pronto || overlay_saindo || overlay_inativo) exit;
 
 var _gp = global.gamepad_main;
 var _tem_controle = (_gp != undefined) && gamepad_is_connected(_gp);
@@ -430,6 +448,15 @@ function overlay_draw_input_hint(_x, _y, _largura) {
 
 ### Etapa 1 — Infraestrutura Base
 
+- [ ] **1.0 Inicialização Global** (verificar antes de tudo)
+
+  | Item | Onde | Por quê |
+  |---|---|---|
+  | `display_set_gui_size(1920, 1080)` | `oOverlayManager/Create_0.gml` | GUI nunca é setada hoje — sem isso overlays saem em tamanho da janela e coords ficam inconsistentes. HUD atual é compatível (usa coords pequenas no canto). |
+  | Instanciar `oOverlayManager` apenas em `rm_MenuPrincipal` | Room creation code | Como é `persistent = true`, sobrevive a `room_goto`. Mesmo padrão de `oProcuraControle`. |
+  | Definir `global.fase_rooms`, `global.fase_nomes`, `global.total_fases` no `oOverlayManager/Create` | Antes de `array_create()` | Evita ordem inversa. Usado por `oOverlayFases` e `oOverlayVitoria`. |
+  | Resetar `global.run_*` no `oController/Create` | A cada início de fase | Garante stats limpas em retry e troca de fase. |
+
 - [ ] **1.1 Criar `global.game_paused`**
   - No `oOverlayManager/Create_0.gml`, inicializar `global.game_paused = false`
   
@@ -478,31 +505,59 @@ function overlay_draw_input_hint(_x, _y, _largura) {
 
   ```gml
   /// scr_overlay_abrir(overlay_obj)
-  /// Cria uma instância do overlay e pausa o jogo
+  /// Cria uma instância do overlay e pausa o jogo.
+  /// Esconde o overlay anterior (se houver) sem destruí-lo.
   function scr_overlay_abrir(_obj) {
-      if (global.overlay_ativo != noone) {
-          // Empilhar overlay atual
+      // Se já existe overlay desse mesmo tipo ativo, ignora
+      if (global.overlay_ativo != noone
+       && instance_exists(global.overlay_ativo)
+       && global.overlay_ativo.object_index == _obj) {
+          return;
+      }
+
+      // Empilha INSTÂNCIA (não objeto) e marca como inativa
+      if (global.overlay_ativo != noone && instance_exists(global.overlay_ativo)) {
+          global.overlay_ativo.overlay_inativo = true;  // pausa input do anterior
           array_push(global.overlay_stack, global.overlay_ativo);
       }
+
       global.game_paused   = true;
-      global.overlay_ativo = _obj;
-      instance_create_depth(0, 0, -9999, _obj);
+      var _inst = instance_create_depth(0, 0, -9999, _obj);
+      global.overlay_ativo = _inst;
   }
-  
+
   /// scr_overlay_fechar()
-  /// Remove overlay atual e despausa (ou volta ao anterior)
+  /// Remove overlay atual e despausa (ou volta ao anterior na stack)
   function scr_overlay_fechar() {
+      // Destruir overlay atual (se ainda existir)
+      if (global.overlay_ativo != noone && instance_exists(global.overlay_ativo)) {
+          instance_destroy(global.overlay_ativo);
+      }
       global.overlay_ativo = noone;
-      
+
       if (array_length(global.overlay_stack) > 0) {
-          // Voltar ao overlay anterior
-          global.overlay_ativo = array_pop(global.overlay_stack);
+          // Voltar ao overlay anterior — reativar
+          var _anterior = array_pop(global.overlay_stack);
+          if (instance_exists(_anterior)) {
+              _anterior.overlay_inativo = false;
+              global.overlay_ativo = _anterior;
+          }
       } else {
           // Sem overlays — despausa o jogo
           global.game_paused = false;
       }
   }
+
+  /// scr_overlay_limpar_tudo()
+  /// Limpa stack e estado. Chamar antes de room_goto para evitar referências sujas.
+  function scr_overlay_limpar_tudo() {
+      global.game_paused   = false;
+      global.overlay_ativo = noone;
+      global.overlay_stack = [];
+  }
   ```
+
+> ⚠️ **Importante**: cada overlay deve declarar `overlay_inativo = false;` no Create event e checar `if (overlay_inativo) exit;` no início do Step para não processar input quando outro overlay está em cima dele.
 
 ---
 
@@ -537,8 +592,15 @@ function overlay_draw_input_hint(_x, _y, _largura) {
   // Step_0.gml
   // [Animação lerp — mesmo padrão da seção de animação]
   // [Navegação de botões — mesmo padrão da seção de navegação]
-  
-  // Ação dos botões:
+  // (NÃO definir funções aqui — definir no Create event)
+  ```
+
+  ```gml
+  // Create_0.gml — definir AÇÕES no Create (não no Step!)
+  // [Variáveis de animação — padrão]
+  // [Variáveis de navegação — padrão]
+  overlay_inativo = false;
+
   function overlay_botao_acao(_idx) {
       switch (_idx) {
           case 0: // Jogar → abrir overlay de seleção de fases
@@ -552,9 +614,13 @@ function overlay_draw_input_hint(_x, _y, _largura) {
               break;
       }
   }
-  
+
   function overlay_voltar() {
       // No menu principal, não faz nada (não tem pra onde voltar)
+  }
+
+  function overlay_fechar_callback() {
+      // Menu principal não fecha — fica permanente
   }
   ```
 
@@ -616,26 +682,22 @@ function overlay_draw_input_hint(_x, _y, _largura) {
   // Create_0.gml
   // [Animação — padrão]
   dim_alpha_alvo = 0.7;  // dim sobre o menu principal
-  
-  // Fases
-  fase_rooms = [room_01, room_02, room_01, room_02, room_01];
-  fase_nomes = ["Fase 1", "Fase 2", "Fase 3", "Fase 4", "Fase 5"];
+  overlay_inativo = false;
+
+  // Layout grade (usa global.fase_rooms / global.fase_nomes)
   fase_selecionada = 0;
-  
-  // Layout grade
-  colunas = 3;
-  card_w  = 280;
-  card_h  = 200;
+  colunas  = 3;
+  card_w   = 280;
+  card_h   = 200;
   card_gap = 30;
-  
-  // Botão voltar
-  botao_voltar_focado = false;
-  
+
   // Nav
   botao_focado = 0;
-  total_botoes = global.total_fases;  // + 1 para voltar
+  total_botoes = global.total_fases;
   nav_cooldown = 0;  NAV_COOLDOWN_MAX = 12;
   input_mode = "teclado";
+
+  // Definir AÇÕES aqui (não no Step!) — corpo abaixo na seção de Step
   ```
 
   ```gml
@@ -744,24 +806,29 @@ function overlay_draw_input_hint(_x, _y, _largura) {
   ```
 
   ```gml
-  // Ação dos botões:
+  // Ação dos botões (definir no CREATE, não no Step):
   function overlay_botao_acao(_idx) {
       switch (_idx) {
           case 0: // Tentar Novamente — reiniciar a fase
-              global.game_paused = false;
-              global.overlay_ativo = noone;
-              global.overlay_stack = [];
+              scr_overlay_limpar_tudo();
               global.comida = 0;
               global.comidaCheia = false;
               room_restart();
               break;
           case 1: // Voltar ao Menu
-              global.game_paused = false;
-              global.overlay_ativo = noone;
-              global.overlay_stack = [];
+              scr_overlay_limpar_tudo();
               room_goto(rm_MenuPrincipal);
               break;
       }
+  }
+
+  function overlay_voltar() {
+      // ESC = voltar ao menu (mesma ação do botão 1)
+      overlay_botao_acao(1);
+  }
+
+  function overlay_fechar_callback() {
+      scr_overlay_fechar();
   }
   ```
 
@@ -868,34 +935,34 @@ function overlay_draw_input_hint(_x, _y, _largura) {
       if (confetes[i].y > 1100) confetes[i].y = irandom_range(-100, -20);
   }
   
-  // Ações dos botões
+  // Ações dos botões (definir no CREATE, não no Step)
   function overlay_botao_acao(_idx) {
       switch (_idx) {
           case 0: // Próxima Fase
               var _prox = global.fase_atual + 1;
+              scr_overlay_limpar_tudo();
+              global.comida = 0;
+              global.comidaCheia = false;
               if (_prox < global.total_fases) {
                   global.fase_atual = _prox;
-                  global.game_paused = false;
-                  global.overlay_ativo = noone;
-                  global.overlay_stack = [];
-                  global.comida = 0;
-                  global.comidaCheia = false;
-                  room_goto(fase_rooms[_prox]);
+                  room_goto(global.fase_rooms[_prox]);  // ← global, não local!
               } else {
-                  // Última fase — voltar ao menu
-                  global.game_paused = false;
-                  global.overlay_ativo = noone;
-                  global.overlay_stack = [];
                   room_goto(rm_MenuPrincipal);
               }
               break;
           case 1: // Voltar ao Menu
-              global.game_paused = false;
-              global.overlay_ativo = noone;
-              global.overlay_stack = [];
+              scr_overlay_limpar_tudo();
               room_goto(rm_MenuPrincipal);
               break;
       }
+  }
+
+  function overlay_voltar() {
+      overlay_botao_acao(1);
+  }
+
+  function overlay_fechar_callback() {
+      scr_overlay_fechar();
   }
   ```
 
@@ -906,13 +973,19 @@ function overlay_draw_input_hint(_x, _y, _largura) {
   - Confetes caindo por cima de tudo
   - Dois botões
 
-- [ ] **5.2 Modificar `oSaida`** para usar overlay em vez de `room_goto`
+- [ ] **5.2 Modificar `oPLayer/Step_0.gml`** para usar overlay em vez de `room_goto`
+  > ⚠️ **Atenção**: a transição de vitória atual está no `oPLayer` (linhas 58 e 66), **não** em `oSaida`. O `oSaida/Step_0.gml` apenas muda sprite da porta.
+
   ```gml
-  // ANTES:
-  if (global.comidaCheia) { room_goto(rm_Vitoria); }
-  
+  // ANTES (em oPLayer/Step_0.gml):
+  if (global.comidaCheia) {
+      room_goto(rm_Vitoria);
+  }
+
   // DEPOIS:
-  if (global.comidaCheia && place_meeting(x, y, oPlayer)) {
+  if (global.comidaCheia
+   && global.overlay_ativo == noone
+   && place_meeting(x, y, oSaida)) {
       scr_overlay_abrir(oOverlayVitoria);
   }
   ```
@@ -931,13 +1004,20 @@ function overlay_draw_input_hint(_x, _y, _largura) {
 
 - [ ] **6.3 Adicionar tracking de estatísticas no `oController`**
   ```gml
-  // No Step_0.gml, antes da guarda de pause:
+  // No Step_0.gml, no início (antes da guarda de pause):
   if (!global.game_paused) {
       global.run_tempo += delta_time / 1000000;
   }
-  
-  // Quando player toma dano (no collision event ou onde é processado):
+
+  // Quando player toma dano (no Collision_oInimigo do oPlayer):
   global.run_dano++;
+  ```
+
+- [ ] **6.3.1 Tracking de comida no `oComida/Step_0.gml`**
+  ```gml
+  // Quando coleta comida, ANTES do instance_destroy:
+  global.comida    += other.valor;
+  global.run_comida += other.valor;  // ← NOVO: tracking pra tela de vitória
   ```
 
 - [ ] **6.4 Resetar stats no início de cada fase**
@@ -963,9 +1043,12 @@ function overlay_draw_input_hint(_x, _y, _largura) {
 | Problema | Causa | Solução |
 |---|---|---|
 | **Mouse interfere na navegação por controle** | `device_mouse_x_to_gui()` retorna posição do mouse mesmo sem mover | Só processar hover do mouse se `input_mode == "teclado"`. Quando `input_mode == "controle"`, ignorar posição do mouse. |
-| **Overlay aparece atrás da HUD** | `depth` do overlay maior que a HUD | Usar `instance_create_depth(0, 0, -9999, obj)` para garantir que overlay está acima de tudo. No Draw GUI, a ordem depende da **ordem de criação** — criar overlay DEPOIS da HUD. |
+| **Overlay aparece atrás da HUD** | `depth` do overlay maior que a HUD, ou Draw GUI ignorando depth | **Draw GUI ignora depth**. Solução: usar evento **Draw GUI End** (74) para overlays e **Draw GUI** (64) para HUD. Garante ordem de camadas. |
 | **Jogo continua rodando atrás do overlay** | Objetos não checam `global.game_paused` | Adicionar `if (global.game_paused) exit;` no **início** do Step de TODOS os objetos de gameplay. Lista completa na Etapa 1.2. |
 | **Coordenadas de mouse erradas no GUI** | Usar `mouse_x`/`mouse_y` em Draw GUI | Sempre usar `device_mouse_x_to_gui(0)` e `device_mouse_y_to_gui(0)` no evento Draw GUI. Nunca `mouse_x`/`mouse_y`. |
+| **Overlay desenha por baixo da HUD** | Em `Draw GUI` (evento 64) a ordem depende da ordem de criação, NÃO do depth | Colocar overlay em **Draw GUI End** (evento 74) — sempre desenha depois do `Draw GUI` (evento 64) usado pela HUD. |
+| **GUI sai em tamanho errado** | `display_set_gui_size()` nunca chamada | Chamar `display_set_gui_size(1920, 1080)` no `Create` do `oOverlayManager`. Sem isso, GUI usa o tamanho da janela e coords ficam inconsistentes. |
+| **HUD continua visível na tela de Game Over/Vitória** | HUD do `oController/Draw_64` desenha sempre | Em `oController/Draw_64.gml`, condicionar: `if (global.overlay_ativo == noone || !instance_exists(global.overlay_ativo) || (global.overlay_ativo.object_index != oOverlayDerrota && global.overlay_ativo.object_index != oOverlayVitoria)) { scr_drawVida(...); ... }` |
 | **Conflito mouse vs controle** | Ambos ativos simultaneamente | Usar variável `input_mode` ("teclado" / "controle"). Trocar ao detectar input de cada tipo. O modo ativo define se usa hover (mouse) ou `botao_focado` (controle). |
 | **Botão focado "pula" ao trocar de overlay** | `botao_focado` não resetado | Inicializar `botao_focado = 0` no Create de cada overlay. |
 | **Overlay não fecha ao trocar de room** | Instância persiste ou referência fica suja | Sempre limpar `global.overlay_ativo = noone` e `global.overlay_stack = []` antes de `room_goto()`. |
