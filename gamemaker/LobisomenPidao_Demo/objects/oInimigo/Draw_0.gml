@@ -5,12 +5,16 @@ if (is_debug)
 {
     var dist = 120;
 	var ang = 60;
+	
+	// desenha o caminho até o jogador
+	draw_path(path, x, y, 1);
 
 	// direção base
-	var dir = point_direction(0, 0, xspd, yspd);
+	// direção baseada no movimento real (path)
+	var dir = point_direction(xprevious, yprevious, x, y);
 
 	// fallback se parado
-	if (xspd == 0 && yspd == 0)
+	if (x == xprevious && y == yprevious)
 	{
 	    switch(face)
 	    {
