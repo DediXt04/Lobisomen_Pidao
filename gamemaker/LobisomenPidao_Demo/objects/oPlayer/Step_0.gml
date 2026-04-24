@@ -1,4 +1,4 @@
-//Setando a profundidade de acordo com y
+// Setando a profundidade de acordo com y
 depth = -bbox_bottom;
 
 //input teclado e gamepad

@@ -1,11 +1,13 @@
-// Depth (ordem de desenho)
+// depth (ordem de desenho)
 depth = -bbox_bottom;
- 
-// Executa Estado
+
+// executa estado
 estado();
 
-// Movimento
-#region
+// =======================
+// MOVIMENTO (IGUAL PLAYER)
+// =======================
+
 // colisão X
 if (place_meeting(x + xspd, y, oWall)) xspd = 0;
 
@@ -15,18 +17,18 @@ if (place_meeting(x, y + yspd, oWall)) yspd = 0;
 // aplica movimento
 x += xspd;
 y += yspd;
-#endregion
 
-// Direção Visual
-#region
+// =======================
+// DIREÇÃO VISUAL
+// =======================
 if (xspd != 0)
 {
     xscale = sign(xspd);
     image_xscale = xscale;
 }
-#endregion
 
-//Trocar sprite
+
+// sprite control
 #region
 var _h = sign(xspd);
 var _v = sign(yspd);
@@ -39,4 +41,24 @@ if (_h != 0 && _v == 1)  { face = 4; image_xscale = _h; }
 
 // aplica sprite
 sprite_index = sprite[face];
+#endregion
+
+// escolher sprites
+#region
+if (flag_parado)
+{
+	sprite[0] = sGuardaStopSide;
+	sprite[1] = sGuardaStopDUp;
+	sprite[2] = sGuardaStopUp;
+	sprite[3] = sGuardaStopDown;
+	sprite[4] = sGuardaStopDDown;
+}
+else
+{
+	sprite[0] = sGuardaSide;
+	sprite[1] = sGuardaDUp;
+	sprite[2] = sGuardaUp;
+	sprite[3] = sGuardaDown;
+	sprite[4] = sGuardaDDown;
+}
 #endregion
