@@ -1,48 +1,64 @@
-// Setando a profundidade de acordo com y
+// depth (ordem de desenho)
 depth = -bbox_bottom;
- 
-// Executa Estado
+
+// executa estado
 estado();
 
-// Movimento
-#region
+// =======================
+// MOVIMENTO (IGUAL PLAYER)
+// =======================
+
 // colisão X
 if (place_meeting(x + xspd, y, oWall)) xspd = 0;
 
 // colisão Y
 if (place_meeting(x, y + yspd, oWall)) yspd = 0;
 
-// só usa movimento manual se NÃO estiver em path
-if (!path_index)
-{
-    x += xspd;
-    y += yspd;
-}
-#endregion
+// aplica movimento
+x += xspd;
+y += yspd;
 
-// Direção Visual
-#region
+// =======================
+// DIREÇÃO VISUAL
+// =======================
 if (xspd != 0)
 {
     xscale = sign(xspd);
     image_xscale = xscale;
 }
+
+
+// sprite control
+#region
+var _h = sign(xspd);
+var _v = sign(yspd);
+
+// mesma lógica do player
+if (_h != 0 && _v == 0)  { face = 0; image_xscale = _h; }
+if (_h == 0 && _v != 0)  { face = (_v == -1) ? 2 : 3; image_xscale = 1; }
+if (_h != 0 && _v == -1) { face = 1; image_xscale = _h; }
+if (_h != 0 && _v == 1)  { face = 4; image_xscale = _h; }
+
+// aplica sprite
+sprite_index = sprite[face];
 #endregion
 
-//Trocar sprite
+// escolher sprites
 #region
-if (path_index != -1)
+if (flag_parado)
 {
-    var dir = point_direction(xprevious, yprevious, x, y);
-
-    var _h = sign(lengthdir_x(1, dir));
-    var _v = sign(lengthdir_y(1, dir));
-
-    if (_h != 0 && _v == 0)  { face = 0; image_xscale = _h; }
-    if (_h == 0 && _v != 0)  { face = (_v == -1) ? 2 : 3; image_xscale = 1; }
-    if (_h != 0 && _v == -1) { face = 1; image_xscale = _h; }
-    if (_h != 0 && _v == 1)  { face = 4; image_xscale = _h; }
-
-    sprite_index = sprite[face];
+	sprite[0] = sGuardaStopSide;
+	sprite[1] = sGuardaStopDUp;
+	sprite[2] = sGuardaStopUp;
+	sprite[3] = sGuardaStopDown;
+	sprite[4] = sGuardaStopDDown;
+}
+else
+{
+	sprite[0] = sGuardaSide;
+	sprite[1] = sGuardaDUp;
+	sprite[2] = sGuardaUp;
+	sprite[3] = sGuardaDown;
+	sprite[4] = sGuardaDDown;
 }
 #endregion

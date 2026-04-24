@@ -5,16 +5,12 @@ if (is_debug)
 {
     var dist = 120;
 	var ang = 60;
-	
-	// desenha o caminho até o jogador
-	draw_path(path, x, y, 1);
 
 	// direção base
-	// direção baseada no movimento real (path)
-	var dir = point_direction(xprevious, yprevious, x, y);
+	var dir = point_direction(0, 0, xspd, yspd);
 
 	// fallback se parado
-	if (x == xprevious && y == yprevious)
+	if (xspd == 0 && yspd == 0)
 	{
 	    switch(face)
 	    {
@@ -48,4 +44,11 @@ if (is_debug)
 	// bordas
 	draw_line(x, y, x1, y1);
 	draw_line(x, y, x2, y2);
+}
+
+if (campo_visao(120, 60)) {
+	draw_set_font(fnt_pixel);
+    draw_set_halign(fa_center);
+    draw_set_colour(c_white);
+    draw_text_transformed(x + 0.5 , y - 30, "!", 0.35, 0.35, 0);
 }
