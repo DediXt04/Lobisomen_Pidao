@@ -144,7 +144,8 @@ if (_dist < 32 && oController.interagir && cooldown <= 0)
         // Tem paciência — tenta dar comida
         if (irandom(99) <= chance_comida) {
             global.comida += valor_comida;
-            reacao_frame = 0;   // deu comida
+            reacao_frame = 0;          // deu comida
+            paciencia = paciencia_max; // reseta paciência ao dar comida
         } else {
             reacao_frame = 1;   // não deu nada
         }
@@ -235,8 +236,8 @@ function scr_escolherDirecao() {
 |---|---|---|---|
 | `chance_comida` | real | 10 | % de chance de dar comida (incrementa a cada tentativa) |
 | `valor_comida` | real | 1 | Quanto de comida dá por sucesso |
-| `paciencia` | real | 5 | Tentativas restantes antes de recusar |
-| `paciencia_max` | real | 5 | Paciência máxima (referência) |
+| `paciencia` | real | 5 | Tentativas restantes antes de recusar (reseta ao máximo quando dá comida) |
+| `paciencia_max` | real | 5 | Paciência máxima — usada para reset ao dar comida |
 | `cooldown` | real | 0 | Frames restantes de cooldown |
 | `cooldown_max` | real | 120 | Cooldown entre interações (~2s a 60fps) |
 
