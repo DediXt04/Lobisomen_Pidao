@@ -1,7 +1,8 @@
-# 🔄 Documentação da Movimentação do NPC — Estado Atual
+# 🔄 Padronização da Movimentação do NPC com o Player
 
-> Documentação do padrão de movimentação e controle de sprite do `oNpc`, com comparativo ao `oPlayer`.  
-> **Última atualização:** Abril 2026 — extraída diretamente do código-fonte.
+> Guia de refatoração para alinhar as variáveis e padrões do `oNpc` com o `oPlayer`.  
+> **Objetivo:** Manter a mesma nomenclatura e estrutura de código entre os dois objetos.  
+> **Nota:** O `oInimigo` já foi padronizado e usa o padrão do Player.
 
 ---
 
@@ -9,38 +10,80 @@
 
 ### Variáveis de Movimento
 
-| Conceito | oPlayer | oNpc | Observação |
+| Conceito | oPlayer (padrão alvo) | oNpc (atual) | Problema |
 |---|---|---|---|
-| Velocidade base | `moveSpd = 2` | `move_speed = 2` | Nomes diferentes, mesmo valor |
-| Velocidade X | `xspd` | `vx` | Nomes diferentes |
-| Velocidade Y | `yspd` | `vy` | Nomes diferentes |
-| Direção visual | `face` (0–4, usado ativamente) | `direcao_sprite` (inicializado mas **não usado**) | NPC não utiliza essa variável |
-| Sprites | `sprite[]` (array com 5 sprites) | Atribuição direta a `sprite_index` | Padrões diferentes |
-| Timer de animação | `walk_timer` (10 frames pós-input) | `image_speed` toggle (0/1) | Padrões diferentes |
+| Velocidade base | `moveSpd` | `move_speed` | Nome diferente |
+| Velocidade X | `xspd` | `vx` | Nome diferente |
+| Velocidade Y | `yspd` | `vy` | Nome diferente |
+| Direção visual | `face` (0–4) | `direcao_sprite` (não usado!) | Variável existe mas não é utilizada |
+| Sprites | `sprite[]` (array com 5 sprites) | Atribuição direta a `sprite_index` | Padrão completamente diferente |
+| Timer de animação | `walk_timer` (10 frames pós-input) | `image_speed` toggle (0/1) | Padrão diferente |
 | Colisão máscara | `mask_index = sprite[3]` | `mask_index = sNpcDown` | Player usa array, NPC atribui direto |
-| Movimentação | Contínua (input do jogador) | Por distância (`pixels_walked`) | NPC anda distância fixa e para |
 
-> **Nota:** O `oInimigo` já foi padronizado e usa o mesmo padrão do Player (`xspd`/`yspd`, `face`, `sprite[]`).
+### Estrutura de Sprite Control
+
+**Player (padrão alvo):**
+```gml
+// Create_0.gml
+face = 3;
+sprite[0] = sLoboSide;
+sprite[1] = sLoboDUp;
+sprite[2] = sLoboUp;
+sprite[3] = sLoboDown;
+sprite[4] = sLoboDDown;
+
+// Step_0.gml — controle de sprite
+sprite_index = sprite[face];
+mask_index   = sprite[3];
+```
+
+**NPC (padrão atual — a ser refatorado):**
+```gml
+// Create_0.gml
+direcao_sprite = 0;   // não é usado em lugar nenhum!
+sprite_index = sNpcDown;
+
+// Step_0.gml — controle de sprite (atribuição direta)
+if (vy > 0)  sprite_index = sNpcDown;
+if (vy < 0)  sprite_index = sNpcUp;
+if (vx != 0) sprite_index = sNpcSide;
+```
 
 ---
 
-## 📁 Arquivos do oNpc
+## 🗺️ Mapeamento de Renomeação
+
+| Variável Atual (NPC) | Nova Variável (NPC) | Referência (Player) |
+|---|---|---|
+| `move_speed` | `moveSpd` | `moveSpd` |
+| `vx` | `xspd` | `xspd` |
+| `vy` | `yspd` | `yspd` |
+| `direcao_sprite` | `face` | `face` |
+| _(não existia)_ | `sprite[]` | `sprite[]` |
+| _(não existia)_ | `walk_timer` | `walk_timer` |
+
+> **Nota:** O NPC possui apenas **3 sprites direcionais** (Side, Up, Down), enquanto o Player possui **5** (inclui diagonais). O array `sprite[]` do NPC usará os índices **0, 2 e 3** para manter compatibilidade com os valores de `face` do Player.
+
+---
+
+## 📁 Arquivos a Modificar
 
 ### 1. `objects/oNpc/Create_0.gml`
 ### 2. `objects/oNpc/Step_0.gml`
-### 3. `objects/oNpc/Draw_0.gml`
-### 4. `scripts/scr_escolherDirecao/scr_escolherDirecao.gml`
+### 3. `scripts/scr_escolherDirecao/scr_escolherDirecao.gml`
+### 4. `objects/oNpc/Draw_0.gml` — **Sem mudanças** (não referencia variáveis renomeadas)
 
 ---
 
-## 💻 Código Atual
+## 💻 Código Sugerido
 
-### 1. `objects/oNpc/Create_0.gml`
+### 1. `objects/oNpc/Create_0.gml` — NOVO
 
 ```gml
-vx = 0;
-vy = 0;
-move_speed = 2;
+// movimento (mesmo padrão do oPlayer)
+moveSpd = 2;
+xspd = 0;
+yspd = 0;
 
 timer = 0;
 timer_max = 180;
@@ -56,23 +99,37 @@ paciencia_max = 5;
 cooldown      = 0;
 cooldown_max  = 120;
 
-// Direção do sprite
-direcao_sprite = 0;   // inicializado mas NÃO usado em nenhum evento
+// sprite control (mesmo padrão do oPlayer)
+walk_timer = 0;
 
-sprite_index = sNpcDown;
+face = 3;              // 3 = baixo (mesmo valor inicial do Player)
+sprite[0] = sNpcSide;  // face 0 = lado
+sprite[2] = sNpcUp;    // face 2 = cima
+sprite[3] = sNpcDown;  // face 3 = baixo
+
+sprite_index = sprite[face];
 image_speed  = 0;
-mask_index   = sNpcDown;
+mask_index   = sprite[3];
 
 // Reação (balão acima da cabeça)
 // frame 0 = deu comida | frame 1 = não deu nada | frame 2 = sem paciência
-reacao_frame  = -1;   // -1 = nenhuma reação ativa
+reacao_frame  = -1;
 reacao_timer  = 0;
-reacao_dur    = 90;   // frames que o balão fica (~1.5s a 60fps)
+reacao_dur    = 90;
 ```
+
+**Mudanças:**
+- `move_speed` → `moveSpd`
+- `vx`, `vy` → `xspd`, `yspd`
+- `direcao_sprite` removido → substituído por `face = 3`
+- Adicionado array `sprite[]` com 3 sprites (índices 0, 2, 3)
+- Adicionado `walk_timer = 0`
+- `sprite_index` agora usa `sprite[face]`
+- `mask_index` agora usa `sprite[3]` (igual ao Player)
 
 ---
 
-### 2. `objects/oNpc/Step_0.gml`
+### 2. `objects/oNpc/Step_0.gml` — NOVO
 
 ```gml
 // Movimentação
@@ -85,39 +142,38 @@ if (timer >= timer_max) {
 
 if (pixels_walked > 0) {
 
-    if (vx != 0) {
-        if place_meeting(x + vx, y, oWall)   { pixels_walked = 0; vx = 0; }
-        if place_meeting(x + vx, y, oPlayer) { pixels_walked = 0; vx = 0; }
-        if (vx != 0) { x += vx; pixels_walked -= abs(vx); }
+    if (xspd != 0) {
+        if place_meeting(x + xspd, y, oWall)   { pixels_walked = 0; xspd = 0; }
+        if place_meeting(x + xspd, y, oPlayer) { pixels_walked = 0; xspd = 0; }
+        if (xspd != 0) { x += xspd; pixels_walked -= abs(xspd); }
     }
 
-    if (vy != 0) {
-        if place_meeting(x, y + vy, oWall)   { pixels_walked = 0; vy = 0; }
-        if place_meeting(x, y + vy, oPlayer) { pixels_walked = 0; vy = 0; }
-        if (vy != 0) { y += vy; pixels_walked -= abs(vy); }
+    if (yspd != 0) {
+        if place_meeting(x, y + yspd, oWall)   { pixels_walked = 0; yspd = 0; }
+        if place_meeting(x, y + yspd, oPlayer) { pixels_walked = 0; yspd = 0; }
+        if (yspd != 0) { y += yspd; pixels_walked -= abs(yspd); }
     }
 }
 #endregion
 
-// Controle de sprite
+// sprite control (mesmo padrão do oPlayer)
 #region
-depth = -y;
 var _movendo = (pixels_walked > 0);
 
 if (_movendo) {
-    if (vy > 0) {
-        if (sprite_index != sNpcDown) { sprite_index = sNpcDown; image_index = 0; }
-    } else if (vy < 0) {
-        if (sprite_index != sNpcUp)   { sprite_index = sNpcUp;   image_index = 0; }
-    } else if (vx != 0) {
-        if (sprite_index != sNpcSide) { sprite_index = sNpcSide; image_index = 0; }
-        image_xscale = (vx > 0) ? 1 : -1;
-    }
-    image_speed = 1;
-} else {
-    image_speed = 0;
-    image_index = 0;
+    walk_timer = 10;
+
+    if (xspd != 0 && yspd == 0) { face = 0; image_xscale = (xspd > 0) ? 1 : -1; }
+    if (xspd == 0 && yspd != 0) { face = (yspd < 0) ? 2 : 3; image_xscale = 1; }
 }
+
+if (walk_timer > 0) walk_timer--;
+
+if (walk_timer == 0) image_index = 0;
+
+mask_index   = sprite[3];
+sprite_index = sprite[face];
+depth = -y;
 #endregion
 
 // Cooldown
@@ -144,10 +200,10 @@ if (_dist < 32 && oController.interagir && cooldown <= 0)
         // Tem paciência — tenta dar comida
         if (irandom(99) <= chance_comida) {
             global.comida += valor_comida;
-            reacao_frame = 0;          // deu comida
-            paciencia = paciencia_max; // reseta paciência ao dar comida
+            reacao_frame = 0;
+            paciencia = paciencia_max;  // reseta paciência ao dar comida
         } else {
-            reacao_frame = 1;   // não deu nada
+            reacao_frame = 1;
         }
 
         reacao_timer   = reacao_dur;
@@ -161,160 +217,105 @@ if (_dist < 32 && oController.interagir && cooldown <= 0)
 #endregion
 ```
 
----
+**Mudanças no Step_0:**
 
-### 3. `objects/oNpc/Draw_0.gml`
-
-```gml
-draw_self();
-
-// Reação — balão acima da cabeça
-if (reacao_frame >= 0) {
-    var _bx = x;
-    var _by = y - sprite_height - 6;
-
-    draw_sprite_ext(
-        sReacao,          // sprite de reações (3 frames)
-        reacao_frame,     // 0 = comida | 1 = nada | 2 = sem paciência
-        _bx, _by,
-        1, 1,             // scale
-        0,                // rotação
-        c_white,          // cor
-        1                 // alpha
-    );
-}
-```
+| Seção | Antes | Depois |
+|---|---|---|
+| **Movimentação** | `vx` / `vy` | `xspd` / `yspd` |
+| **Sprite control** | `if (vy > 0) sprite_index = sNpcDown;` etc. | `face = 3; sprite_index = sprite[face];` |
+| **Animação** | `image_speed = 1` (movendo) / `image_speed = 0` (parado) | `walk_timer = 10` (movendo) / decrementa até 0 → `image_index = 0` |
+| **Flip horizontal** | `image_xscale = (vx > 0) ? 1 : -1;` | `image_xscale = (xspd > 0) ? 1 : -1;` |
+| **Mask** | _(não definido)_ | `mask_index = sprite[3];` |
+| **Profundidade** | `depth = -y;` no início | `depth = -y;` na seção de sprite (igual ao Player) |
+| **Paciência** | `paciencia--` sempre (sucesso ou falha) | Sucesso: `paciencia = paciencia_max` → depois `paciencia--` |
 
 ---
 
-### 4. `scripts/scr_escolherDirecao/scr_escolherDirecao.gml`
+### 3. `scripts/scr_escolherDirecao/scr_escolherDirecao.gml` — NOVO
 
 ```gml
 function scr_escolherDirecao() {
     var d = irandom(3);
-    vx = 0;
-    vy = 0;
+    xspd = 0;
+    yspd = 0;
 
     switch (d) {
-        case 0: vx =  move_speed; break; // direita
-        case 1: vx = -move_speed; break; // esquerda
-        case 2: vy =  move_speed; break; // baixo
-        case 3: vy = -move_speed; break; // cima
+        case 0: xspd =  moveSpd; break; // direita
+        case 1: xspd = -moveSpd; break; // esquerda
+        case 2: yspd =  moveSpd; break; // baixo
+        case 3: yspd = -moveSpd; break; // cima
     }
 
     pixels_walked = irandom_range(16, 64);
 }
 ```
 
----
-
-## 📋 Resumo de Variáveis do oNpc
-
-### Movimento
-
-| Variável | Tipo | Valor Inicial | Uso |
-|---|---|---|---|
-| `vx` | real | 0 | Velocidade horizontal atual |
-| `vy` | real | 0 | Velocidade vertical atual |
-| `move_speed` | real | 2 | Velocidade base (pixels/frame) |
-| `timer` | real | 0 | Contador para decidir nova direção |
-| `timer_max` | real | 180 | Intervalo entre mudanças de direção (~3s a 60fps) |
-| `pixels_walked` | real | 0 | Pixels restantes a caminhar na direção atual |
-
-### Sprite
-
-| Variável | Tipo | Valor Inicial | Uso |
-|---|---|---|---|
-| `direcao_sprite` | real | 0 | **NÃO USADO** — inicializado mas nunca lido |
-| `sprite_index` | asset | `sNpcDown` | Sprite atual — atribuído diretamente no Step |
-| `image_speed` | real | 0 | 0 = parado, 1 = animando |
-| `mask_index` | asset | `sNpcDown` | Máscara de colisão fixa |
-
-### Interação
-
-| Variável | Tipo | Valor Inicial | Uso |
-|---|---|---|---|
-| `chance_comida` | real | 10 | % de chance de dar comida (incrementa a cada tentativa) |
-| `valor_comida` | real | 1 | Quanto de comida dá por sucesso |
-| `paciencia` | real | 5 | Tentativas restantes antes de recusar (reseta ao máximo quando dá comida) |
-| `paciencia_max` | real | 5 | Paciência máxima — usada para reset ao dar comida |
-| `cooldown` | real | 0 | Frames restantes de cooldown |
-| `cooldown_max` | real | 120 | Cooldown entre interações (~2s a 60fps) |
-
-### Reação Visual
-
-| Variável | Tipo | Valor Inicial | Uso |
-|---|---|---|---|
-| `reacao_frame` | real | -1 | Frame do sprite `sReacao` (-1 = sem reação) |
-| `reacao_timer` | real | 0 | Frames restantes da reação visível |
-| `reacao_dur` | real | 90 | Duração da reação (~1.5s a 60fps) |
+**Mudanças:**
+- `vx` → `xspd`
+- `vy` → `yspd`
+- `move_speed` → `moveSpd`
 
 ---
 
-## 🔄 Controle de Sprite — Como Funciona
+## 🆕 Mudança de Mecânica — Reset de Paciência
 
-### Sprites Direcionais
+Além da padronização de variáveis, este guia inclui uma **mudança de mecânica**:
 
-O NPC possui **3 sprites direcionais** (sem diagonais):
-
-| Sprite | Direção | Condição de ativação |
+| Aspecto | Antes | Depois |
 |---|---|---|
-| `sNpcDown` | Baixo | `vy > 0` |
-| `sNpcUp` | Cima | `vy < 0` |
-| `sNpcSide` | Lado | `vx != 0` (com flip via `image_xscale`) |
-
-### Prioridade de Direção
-
-```
-1. vy > 0  → sNpcDown (prioridade máxima)
-2. vy < 0  → sNpcUp
-3. vx != 0 → sNpcSide (com image_xscale para espelhar)
-```
-
-### Animação
-
-- **Movendo** (`pixels_walked > 0`): `image_speed = 1` (anima normalmente)
-- **Parado** (`pixels_walked ≤ 0`): `image_speed = 0`, `image_index = 0` (trava no frame 0)
-- Troca de sprite reseta `image_index = 0` para evitar glitch visual
-
-### Diferença vs Player
-
-O Player usa um sistema mais sofisticado:
-- Array `sprite[]` indexado por `face` (0–4, incluindo diagonais)
-- `walk_timer` de 10 frames para manter animação após soltar input
-- `mask_index = sprite[3]` dinâmico
-
-O NPC usa um sistema mais simples:
-- Atribuição direta de `sprite_index` por comparação de velocidade
-- Toggle de `image_speed` (0/1) para controle de animação
-- `mask_index = sNpcDown` fixo
+| **Sucesso (deu comida)** | `paciencia--` | `paciencia = paciencia_max;` depois `paciencia--;` |
+| **Falha (não deu)** | `paciencia--` | `paciencia--` (sem mudança) |
+| **Efeito** | NPC esgota paciência em 5 tentativas fixas | NPC só esgota se todas as tentativas falharem seguidas |
 
 ---
 
-## 📐 Sistema de Movimentação — Como Funciona
+## 🔍 Checklist de Validação
 
-### Fluxo
+Após aplicar as mudanças, verificar que:
 
-```
-1. timer++ a cada frame
-2. Quando timer >= 180: chama scr_escolherDirecao()
-   → Escolhe direção aleatória (0-3)
-   → Define vx/vy com move_speed
-   → Define pixels_walked (16-64 px aleatório)
-3. Enquanto pixels_walked > 0:
-   → Verifica colisão antes de mover
-   → Move x += vx / y += vy
-   → Decrementa pixels_walked
-4. Se colide com oWall ou oPlayer:
-   → Para imediatamente (pixels_walked = 0, velocidade = 0)
-```
-
-### Colisão
-
-- Verifica `oWall` e `oPlayer` separadamente para X e Y
-- Colisão cancela o movimento restante (`pixels_walked = 0`)
-- Profundidade: `depth = -y` (ordenação por posição vertical)
+- [ ] `move_speed` não aparece mais em nenhum arquivo do oNpc nem em scr_escolherDirecao
+- [ ] `vx` e `vy` não aparecem mais em nenhum arquivo do oNpc nem em scr_escolherDirecao
+- [ ] `direcao_sprite` não aparece mais no código
+- [ ] `sprite_index` no Step_0 do NPC agora usa `sprite[face]` (não atribuição direta)
+- [ ] `image_speed` não é mais usado para controle de animação no NPC
+- [ ] O NPC continua vagando normalmente pelo mapa
+- [ ] O NPC continua dando comida quando interagido
+- [ ] Ao dar comida, a paciência do NPC reseta ao máximo
+- [ ] As reações visuais (balão) continuam funcionando
+- [ ] A colisão com paredes e jogador continua funcionando
+- [ ] O sprite muda de direção corretamente (lado, cima, baixo)
+- [ ] O sprite para (frame 0) quando o NPC não está se movendo
 
 ---
 
-> 📝 **Nota:** Esta documentação reflete o código-fonte atual. Variáveis e valores podem mudar durante o desenvolvimento.
+## ⚠️ Observações Importantes
+
+1. **Comportamento quase idêntico** — A única mudança de mecânica é o reset de paciência no sucesso. O resto é renomeação de variáveis e reestruturação de padrão.
+
+2. **Índices do array `sprite[]`** — O NPC usa apenas 3 dos 5 índices do Player:
+   - `sprite[0]` = `sNpcSide` (lado)
+   - `sprite[2]` = `sNpcUp` (cima)
+   - `sprite[3]` = `sNpcDown` (baixo)
+   - `sprite[1]` e `sprite[4]` (diagonais) — **não existem** para o NPC
+
+3. **Valores de `face`** — Compatíveis com o Player:
+   - `0` = lado (esquerda/direita controlado por `image_xscale`)
+   - `2` = cima
+   - `3` = baixo
+
+4. **`scr_escolherDirecao`** — Este script é chamado **apenas** pelo oNpc, então renomear as variáveis nele é seguro e não afeta nenhum outro objeto.
+
+5. **`walk_timer`** — No Player, mantém a animação de andar por 10 frames após soltar o input. No NPC, serve o mesmo propósito: mantém a animação por 10 frames após o NPC parar de se mover.
+
+6. **`mask_index`** — Adicionado `mask_index = sprite[3]` (sprite de baixo), igual ao Player, para garantir colisão consistente independente da direção visual.
+
+---
+
+## 📋 Resumo das Mudanças por Arquivo
+
+| Arquivo | Tipo | Mudanças |
+|---|---|---|
+| `objects/oNpc/Create_0.gml` | Variáveis | Renomear 3 variáveis, adicionar `face`, `sprite[]`, `walk_timer` |
+| `objects/oNpc/Step_0.gml` | Lógica | Substituir nomes + reestruturar sprite control e animação + reset de paciência |
+| `scripts/scr_escolherDirecao/scr_escolherDirecao.gml` | Script | Renomear 3 variáveis |
+| `objects/oNpc/Draw_0.gml` | **Sem mudanças** | Não referencia nenhuma variável renomeada |
