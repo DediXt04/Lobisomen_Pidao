@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sPortaAberta",
-    "path":"sprites/sPortaAberta/sPortaAberta.yy",
+    "name":"sPortaFechada",
+    "path":"sprites/sPortaFechada/sPortaFechada.yy",
   },
   "spriteMaskId":null,
   "visible":true,
