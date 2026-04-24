@@ -2,8 +2,8 @@ import React from 'react'
 import { FiDownload } from 'react-icons/fi'
 
 const Download = () => {
-  // Substitua o caminho abaixo pelo link real do arquivo quando disponível
-  const downloadUrl = '/jogo.zip'
+
+  const downloadUrl = 'src\assets\download\LobisomenPidao_Demo.exe'
 
   return (
     <div className="container py-4">
