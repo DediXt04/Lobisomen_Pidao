@@ -8,41 +8,42 @@ if (timer >= timer_max) {
 
 if (pixels_walked > 0) {
 
-    if (vx != 0) {
-        if place_meeting(x + vx, y, oWall)   { pixels_walked = 0; vx = 0; }
-        if place_meeting(x + vx, y, oPlayer) { pixels_walked = 0; vx = 0; }
-        if (vx != 0) { x += vx; pixels_walked -= abs(vx); }
+    if (xspd != 0) {
+        if place_meeting(x + xspd, y, oWall)   { pixels_walked = 0; xspd = 0; }
+        if place_meeting(x + xspd, y, oPlayer) { pixels_walked = 0; xspd = 0; }
+        if (xspd != 0) { x += xspd; pixels_walked -= abs(xspd); }
     }
 
-    if (vy != 0) {
-        if place_meeting(x, y + vy, oWall)   { pixels_walked = 0; vy = 0; }
-        if place_meeting(x, y + vy, oPlayer) { pixels_walked = 0; vy = 0; }
-        if (vy != 0) { y += vy; pixels_walked -= abs(vy); }
+    if (yspd != 0) {
+        if place_meeting(x, y + yspd, oWall)   { pixels_walked = 0; yspd = 0; }
+        if place_meeting(x, y + yspd, oPlayer) { pixels_walked = 0; yspd = 0; }
+        if (yspd != 0) { y += yspd; pixels_walked -= abs(yspd); }
     }
 }
 #endregion
 
-// Controle de sprite
+// sprite control
 #region
-depth = -y;
 var _movendo = (pixels_walked > 0);
 
 if (_movendo) {
-    if (vy > 0) {
-        if (sprite_index != sNpcDown) { sprite_index = sNpcDown; image_index = 0; }
-    } else if (vy < 0) {
-        if (sprite_index != sNpcUp)   { sprite_index = sNpcUp;   image_index = 0; }
-    } else if (vx != 0) {
-        if (sprite_index != sNpcSide) { sprite_index = sNpcSide; image_index = 0; }
-        image_xscale = (vx > 0) ? 1 : -1;
-    }
-    image_speed = 1;
-} else {
-    image_speed = 0;
-    image_index = 0;
+    walk_timer = 10;
+
+    if (xspd != 0 && yspd == 0) { face = 0; image_xscale = (xspd > 0) ? 1 : -1; }
+    if (xspd == 0 && yspd != 0) { face = (yspd < 0) ? 2 : 3; image_xscale = 1; }
 }
+
+if (walk_timer > 0) walk_timer--;
+
+if (walk_timer == 0) image_index = 0;
+
+mask_index   = sprite[3];
+sprite_index = sprite[face];
+depth = -y;
 #endregion
 
+// Interação
+#region
 // Cooldown
 if (cooldown > 0) cooldown--;
 
@@ -52,8 +53,6 @@ if (reacao_timer > 0) {
     if (reacao_timer <= 0) reacao_frame = -1;
 }
 
-// Interação
-#region
 var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 
 if (_dist < 32 && oController.interagir && cooldown <= 0)
@@ -68,6 +67,7 @@ if (_dist < 32 && oController.interagir && cooldown <= 0)
         if (irandom(99) <= chance_comida) {
             global.comida += valor_comida;
             reacao_frame = 0;   // deu comida
+			paciencia = 0;
         } else {
             reacao_frame = 1;   // não deu nada
         }
