@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"oFreddy",
+  "%Name":"oGuarda1",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oFreddy",
+  "name":"oGuarda1",
   "overriddenProperties":[],
   "parent":{
     "name":"objs",
@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sFreddyFasbear",
-    "path":"sprites/sFreddyFasbear/sFreddyFasbear.yy",
+    "name":"sGuardaDDown",
+    "path":"sprites/sGuardaDDown/sGuardaDDown.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -1,6 +1,5 @@
 // VARIÁVEIS BÁSICAS
 #region
-mask_index = sGuardaUp;
 vel = 1;
 dano = 1;
 flag_parado = false;
@@ -143,11 +142,3 @@ estado_perseguindo = function()
 estado = estado_parado;
 #endregion
 
-// controle de sprite
-face = 3;
-
-sprite[0] = sGuardaSide;
-sprite[1] = sGuardaDUp;
-sprite[2] = sGuardaUp;
-sprite[3] = sGuardaDown;
-sprite[4] = sGuardaDDown;

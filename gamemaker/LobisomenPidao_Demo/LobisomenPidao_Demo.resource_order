@@ -19,6 +19,7 @@
     {"name":"oComida","order":4,"path":"objects/oComida/oComida.yy",},
     {"name":"oFreddy","order":11,"path":"objects/oFreddy/oFreddy.yy",},
     {"name":"oGameOver","order":2,"path":"objects/oGameOver/oGameOver.yy",},
+    {"name":"oGuarda1","order":13,"path":"objects/oGuarda1/oGuarda1.yy",},
     {"name":"oParedeFina","order":12,"path":"objects/oParedeFina/oParedeFina.yy",},
     {"name":"oPlayer","order":6,"path":"objects/oPlayer/oPlayer.yy",},
     {"name":"oPunk","order":10,"path":"objects/oPunk/oPunk.yy",},
