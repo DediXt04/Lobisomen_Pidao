@@ -37,6 +37,11 @@ export default function Devlog() {
       data: '17/04/2026',
       titulo: 'Sprint 06',
       texto: 'Implementação da tela de seleção de fases, melhorias nas telas de vitória e derrota, desenvolvimento das mecânicas do inimigo (campo de visão e movimentação) e aprimoramentos no NPC, incluindo feedback visual de interação e aplicação de sprites.'
+    },
+    {
+      data: '24/04/2026',
+      titulo: 'Sprint 07',
+      texto: 'Melhorias na wiki do projeto, incluindo disponibilização do executável do jogo para download; polimento das mecânicas do inimigo (ajustes em comportamento e movimentação); aplicação da skin do guarda com integração visual ao jogo.'
     }
   ]
 
