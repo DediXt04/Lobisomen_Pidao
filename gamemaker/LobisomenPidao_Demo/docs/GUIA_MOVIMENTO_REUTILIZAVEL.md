@@ -90,7 +90,7 @@ function scr_escolherDirecao(_spd = moveSpd, _min_px = 16, _max_px = 64, _diagon
     pixels_walked = irandom_range(_min_px, _max_px);
 
     // re-sorteia o timer para a próxima mudança de direção
-    timer_max = irandom_range(timer_min, timer_max);
+    timer_max = irandom_range(timer_min, timer_max_base);
 }
 ```
 
@@ -100,6 +100,7 @@ function scr_escolherDirecao(_spd = moveSpd, _min_px = 16, _max_px = 64, _diagon
 - `_min_px` / `_max_px` defaults = 16 / 64 → mesmo comportamento de antes
 - **`_diagonal`** default = `false` → 4 direções (retrocompatível). Se `true` → 8 direções
 - Velocidade diagonal normalizada com fator `0.707` (1/√2) para que mover na diagonal não seja mais rápido que nas cardinais
+- Usa `timer_max_base` para guardar o teto original e re-sortear `timer_max` sem encolhimento
 - Adicionada documentação JSDoc
 
 ### Sobre a normalização diagonal
@@ -126,17 +127,18 @@ Usa o **mesmo padrão do `oPlayer`**: `point_direction` + `lengthdir_x/y` com `c
 /// @param {real} [_timer_max] Máximo de frames entre mudanças de direção (default: 300)
 
 function scr_initMovimento(_spd = 2, _timer_min = 90, _timer_max = 300) {
-    moveSpd       = _spd;
-    xspd          = 0;
-    yspd          = 0;
-    timer         = 0;
-    timer_min     = _timer_min;
-    timer_max     = irandom_range(_timer_min, _timer_max);
-    pixels_walked = 0;
+    moveSpd        = _spd;
+    xspd           = 0;
+    yspd           = 0;
+    timer          = 0;
+    timer_min      = _timer_min;
+    timer_max_base = _timer_max;
+    timer_max      = irandom_range(_timer_min, _timer_max);
+    pixels_walked  = 0;
 }
 ```
 
-> **Timer aleatório:** Cada instância recebe um `timer_max` diferente dentro do range, evitando que todos os objetos mudem de direção ao mesmo tempo. Além disso, a cada mudança de direção (no Step), o `timer_max` é re-sorteado — veja a Mudança 1 abaixo.
+> **Timer aleatório:** Cada instância recebe um `timer_max` diferente dentro do range, evitando que todos os objetos mudem de direção ao mesmo tempo. O valor original do limite superior é guardado em `timer_max_base`, e a cada mudança de direção (no `scr_escolherDirecao`), o `timer_max` é re-sorteado usando `timer_max_base` como teto — evitando que o timer encolha ao longo do tempo.
 
 **Criar arquivo:** `scripts/scr_initMovimento/scr_initMovimento.yy`
 
@@ -194,7 +196,9 @@ pixels_walked = 0;
 scr_initMovimento(2, 90, 300);
 ```
 
-> `scr_initMovimento(2, 90, 300)` → vel=2, timer entre 90–300 frames (1.5–5 seg). O timer é re-sorteado automaticamente a cada mudança de direção.
+> `scr_initMovimento(2, 90, 300)` → vel=2, timer entre 90–300 frames (1.5–5 seg). O timer é re-sorteado automaticamente a cada mudança de direção usando `timer_max_base` como teto.
+
+O `oNpc/Step_0.gml` **não precisa de alteração** — ele já checa `timer >= timer_max` e chama `scr_escolherDirecao()`, que agora cuida de re-sortear `timer_max` internamente. As variáveis `timer_min` e `timer_max_base` são criadas pelo `scr_initMovimento` e usadas pelo `scr_escolherDirecao`.
 
 O restante do arquivo (`// Interação`, `// sprite control`, `// Reação`) permanece **inalterado**.
 
@@ -305,7 +309,7 @@ depth = -y;
 | `_timer_min` | `90` | Mínimo de frames entre mudanças de direção (90 = 1.5 seg) |
 | `_timer_max` | `300` | Máximo de frames entre mudanças de direção (300 = 5 seg) |
 
-> O `timer_max` é sorteado no init e **re-sorteado** a cada chamada de `scr_escolherDirecao`, gerando um comportamento mais orgânico.
+> O `timer_max_base` guarda o valor original de `_timer_max`. O `timer_max` é sorteado no init entre `_timer_min` e `_timer_max`, e **re-sorteado** a cada chamada de `scr_escolherDirecao` usando `timer_max_base` como teto — garantindo que o intervalo não encolha ao longo do tempo.
 
 ### `scr_escolherDirecao(_spd, _min_px, _max_px, _diagonal)`
 

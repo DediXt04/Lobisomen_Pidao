@@ -760,7 +760,7 @@ function overlay_draw_input_hint(_x, _y, _largura) {
           global.game_paused = false;
           global.overlay_ativo = noone;
           global.overlay_stack = [];
-          room_goto(fase_rooms[_idx]);
+          room_goto(global.fase_rooms[_idx]);
       }
   }
   
