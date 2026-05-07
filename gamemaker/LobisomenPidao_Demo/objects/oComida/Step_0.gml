@@ -8,7 +8,8 @@ var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 y = base_y + sin(current_time / 200) * 1.5;
 depth = -y;
 
-if (_dist < 16 && oController.interagir)
+if (_dist < 16 && oController.interagir
+ && !collision_line(x, y, oPlayer.x, oPlayer.y, oWall, false, true))
 {
     with (oController)
     {

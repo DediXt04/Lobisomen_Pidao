@@ -1,11 +1,4 @@
-moveSpd = 2;
-xspd = 0;
-yspd = 0;
-
-timer = 0;
-timer_max = 180;
-
-pixels_walked = 0;
+scr_initMovimento(2, 90, 300);
 
 // Interação
 chance_comida = 10;

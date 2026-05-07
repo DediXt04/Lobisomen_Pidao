@@ -10,8 +10,8 @@
   "name":"oComida",
   "overriddenProperties":[],
   "parent":{
-    "name":"objs",
-    "path":"folders/objs.yy",
+    "name":"comida",
+    "path":"folders/objs/comida.yy",
   },
   "parentObjectId":null,
   "persistent":false,

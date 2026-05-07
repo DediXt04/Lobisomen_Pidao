@@ -55,7 +55,8 @@ if (reacao_timer > 0) {
 
 var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 
-if (_dist < 32 && oController.interagir && cooldown <= 0)
+if (_dist < 32 && oController.interagir && cooldown <= 0
+ && !collision_line(x, y, oPlayer.x, oPlayer.y, oWall, false, true))
 {
     // Sem paciência — reação 2
     if (paciencia <= 0) {

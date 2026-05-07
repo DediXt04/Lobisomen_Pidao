@@ -1,18 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"oBurger",
+  "%Name":"oSpawnZone",
   "eventList":[],
   "managed":true,
-  "name":"oBurger",
+  "name":"oSpawnZone",
   "overriddenProperties":[],
   "parent":{
     "name":"comida",
     "path":"folders/objs/comida.yy",
   },
-  "parentObjectId":{
-    "name":"oComida",
-    "path":"objects/oComida/oComida.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -31,9 +28,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sBurguer",
-    "path":"sprites/sBurguer/sBurguer.yy",
+    "name":"sSpawnZone",
+    "path":"sprites/sSpawnZone/sSpawnZone.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }
