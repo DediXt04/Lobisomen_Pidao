@@ -80,7 +80,7 @@ draw_set_color(make_color_rgb(45, 80, 95));
 if (_temControle) {
     draw_text(_cx, _by + _bh + 36, "A / Cruz  para voltar");
 } else {
-    draw_text(_cx, _by + _bh + 36, "ENTER para voltar");
+    draw_text(_cx, _by + _bh + 36, "SPACE para voltar");
 }
 
 // Reset

@@ -138,7 +138,7 @@ draw_set_color(make_color_rgb(50, 90, 110));
 if (input_mode == "controle") {
     draw_text(cx, 1055, "D-pad / Analogico  para navegar     A / Cruz  para entrar");
 } else {
-    draw_text(cx, 1055, "A D W S  ou  setas  para navegar     ENTER / E  para entrar");
+    draw_text(cx, 1055, "A D W S  ou  setas  para navegar     SPACE / E  para entrar");
 }
 
 // Indicador de controle conectado

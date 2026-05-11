@@ -74,9 +74,9 @@ if (_nav_h != 0 || _nav_v != 0) {
 }
 
 // -------------------------------------------------------
-// CONFIRMAR — ENTER / E / botão A
+// CONFIRMAR — SPACE / E / botão A
 // -------------------------------------------------------
-var _confirmar = keyboard_check_pressed(vk_enter)
+var _confirmar = keyboard_check_pressed(vk_space)
               || keyboard_check_pressed(ord("E"));
 
 if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main)) {
