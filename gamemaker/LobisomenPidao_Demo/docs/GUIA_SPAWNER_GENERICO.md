@@ -9,6 +9,7 @@
 | Item | Valor Atual | Problema |
 |---|---|---|
 | `global.comidaMax` | `5` (fixo no `oController`) | Todas as fases têm a mesma meta |
+| `tempoFome` / `tempoMax` | `90` (fixo no `oController`) | Todas as fases têm o mesmo tempo |
 | Qtd de spawn | `global.comidaMax - 2` (fixo no spawner) | Não configurável por fase |
 | NPCs | Colocados **manualmente** no room editor | Trabalhoso, não escala |
 | Múltiplas zonas | Bug — só spawna na primeira zona | Ordem de criação no GameMaker |
@@ -68,6 +69,7 @@ No GameMaker, abra a room → no painel de propriedades → **Creation Code** (�
 global.comidaMax   = 3;   // meta de comida para vencer a fase
 global.comidaSpawn = 3;   // quantas comidas spawnar no mapa
 global.npcSpawn    = 2;   // quantos NPCs spawnar
+global.tempoFomeMax = 120; // tempo máximo de fome (em segundos) — fase fácil, mais tempo
 ```
 
 **`rooms/room_02/RoomCreationCode.gml`:**
@@ -77,6 +79,7 @@ global.npcSpawn    = 2;   // quantos NPCs spawnar
 global.comidaMax   = 5;
 global.comidaSpawn = 5;
 global.npcSpawn    = 3;
+global.tempoFomeMax = 90;  // menos tempo — fase mais difícil
 ```
 
 > Repita para cada room de gameplay, ajustando os valores.
@@ -93,10 +96,23 @@ global.comidaCheia = false;
 
 // DEPOIS:
 global.comida = 0;
-if (!variable_global_exists("comidaMax"))   global.comidaMax   = 5;
-if (!variable_global_exists("comidaSpawn")) global.comidaSpawn = 5;
-if (!variable_global_exists("npcSpawn"))    global.npcSpawn    = 2;
+if (!variable_global_exists("comidaMax"))    global.comidaMax    = 5;
+if (!variable_global_exists("comidaSpawn"))  global.comidaSpawn  = 5;
+if (!variable_global_exists("npcSpawn"))     global.npcSpawn     = 2;
+if (!variable_global_exists("tempoFomeMax")) global.tempoFomeMax = 90;
 global.comidaCheia = false;
+```
+
+E logo abaixo, onde define `tempoFome` e `tempoMax`, usar o global:
+
+```gml
+// ANTES:
+tempoFome = 90;
+tempoMax  = 90;
+
+// DEPOIS:
+tempoFome = global.tempoFomeMax;
+tempoMax  = global.tempoFomeMax;
 ```
 
 > **Fallback** protege contra rodar a room direto pelo IDE sem passar pelo Room Creation Code.
@@ -216,12 +232,14 @@ Jogador seleciona Fase 2
 room_02 carrega
   │
   ├─ Room Creation Code:
-  │   global.comidaMax   = 5
-  │   global.comidaSpawn = 5
-  │   global.npcSpawn    = 3
+  │   global.comidaMax    = 5
+  │   global.comidaSpawn  = 5
+  │   global.npcSpawn     = 3
+  │   global.tempoFomeMax = 90
   │
   ├─ oController/Create:
   │   lê global.comidaMax (meta = 5)
+  │   tempoFome = global.tempoFomeMax (tempo = 90)
   │
   ├─ oSpawner/Create:
   │   alarm[0] = 1
@@ -270,33 +288,37 @@ var _config = [
 ### Fase fácil (tutorial)
 
 ```gml
-global.comidaMax   = 3;
-global.comidaSpawn = 3;
-global.npcSpawn    = 1;
+global.comidaMax    = 3;
+global.comidaSpawn  = 3;
+global.npcSpawn     = 1;
+global.tempoFomeMax = 120;  // bastante tempo
 ```
 
 ### Fase média
 
 ```gml
-global.comidaMax   = 5;
-global.comidaSpawn = 5;
-global.npcSpawn    = 3;
+global.comidaMax    = 5;
+global.comidaSpawn  = 5;
+global.npcSpawn     = 3;
+global.tempoFomeMax = 90;   // tempo padrão
 ```
 
 ### Fase difícil (pouca comida no mapa, obriga interação com NPCs)
 
 ```gml
-global.comidaMax   = 10;
-global.comidaSpawn = 8;
-global.npcSpawn    = 2;
+global.comidaMax    = 10;
+global.comidaSpawn  = 8;
+global.npcSpawn     = 2;
+global.tempoFomeMax = 60;   // tempo apertado
 ```
 
 ### Fase caótica
 
 ```gml
-global.comidaMax   = 7;
-global.comidaSpawn = 10;  // mais comida que a meta — jogador escolhe
-global.npcSpawn    = 6;
+global.comidaMax    = 7;
+global.comidaSpawn  = 10;  // mais comida que a meta — jogador escolhe
+global.npcSpawn     = 6;
+global.tempoFomeMax = 45;  // muito pouco tempo — correria total
 ```
 
 > `comidaSpawn` pode ser **maior ou menor** que `comidaMax`. Se menor, o jogador precisa de NPCs para conseguir comida extra.
