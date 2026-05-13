@@ -1,12 +1,6 @@
 // --- testes (remover depois) ---
-if keyboard_check_pressed(ord("R")) vida -= 1;
-if keyboard_check_pressed(ord("T")) vida += 1;
-if keyboard_check_pressed(ord("Y")) tempoFome += 15;
-if keyboard_check_pressed(ord("U")) tempoFome -= 15;
 if keyboard_check_pressed(ord("I")) global.comida += 1;
-if (keyboard_check_pressed(vk_f11)) {
-    window_set_fullscreen(!window_get_fullscreen());
-}
+
 // fome diminuindo
 tempoFome -= delta_time / 1000000;
 tempoFome  = max(tempoFome, 0);

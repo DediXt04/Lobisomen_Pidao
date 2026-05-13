@@ -10,8 +10,8 @@
   "name":"oNpc",
   "overriddenProperties":[],
   "parent":{
-    "name":"objs",
-    "path":"folders/objs.yy",
+    "name":"spawner",
+    "path":"folders/objs/spawner.yy",
   },
   "parentObjectId":null,
   "persistent":false,

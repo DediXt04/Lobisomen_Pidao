@@ -6,8 +6,8 @@
   "name":"oPunk",
   "overriddenProperties":[],
   "parent":{
-    "name":"comida",
-    "path":"folders/objs/comida.yy",
+    "name":"spawner",
+    "path":"folders/objs/spawner.yy",
   },
   "parentObjectId":{
     "name":"oComida",

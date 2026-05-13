@@ -12,7 +12,7 @@
   "Folders":[
     {"$GMFolder":"","%Name":"font","folderPath":"folders/font.yy","name":"font","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"objs","folderPath":"folders/objs.yy","name":"objs","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"comida","folderPath":"folders/objs/comida.yy","name":"comida","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"spawner","folderPath":"folders/objs/spawner.yy","name":"spawner","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"telas","folderPath":"folders/objs/telas.yy","name":"telas","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"rooms","folderPath":"folders/rooms.yy","name":"rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"fases","folderPath":"folders/rooms/fases.yy","name":"fases","resourceType":"GMFolder","resourceVersion":"2.0",},
