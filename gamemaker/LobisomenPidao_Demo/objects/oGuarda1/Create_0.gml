@@ -1,9 +1,8 @@
 // Inherit the parent event
 event_inherited();
 
+// DEFINE AS SPRITES INICIAIS
 mask_index = sGuardaUp;
-
-// controle de sprite
 face = 3;
 
 sprite[0] = sGuardaSide;

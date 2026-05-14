@@ -1,6 +1,7 @@
 // Inherit the parent event
 event_inherited();
 
+// RETORNO VISUAL DE AVISTADO
 if (campo_visao(120, 60)) {
 	draw_set_font(fnt_pixel);
     draw_set_halign(fa_center);

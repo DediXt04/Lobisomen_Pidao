@@ -5,7 +5,7 @@ dano = 1;
 flag_parado = false;
 timer_see = room_speed * 2;
 
-// movimento (igual player)
+// movimento
 xspd = 0;
 yspd = 0;
 
@@ -138,7 +138,15 @@ estado_perseguindo = function()
 	if (campo_visao(120, 60)) timer_see = room_speed * 2;
 }
 
-// estado inicial
+// DEFINE ESTADO INICIAL
 estado = estado_parado;
 #endregion
 
+// DEFINE AS SPRITES INICIAIS
+face = 3;
+
+sprite[0] = sFreddyFasbear;
+sprite[1] = sFreddyFasbear;
+sprite[2] = sFreddyFasbear;
+sprite[3] = sFreddyFasbear;
+sprite[4] = sFreddyFasbear;
