@@ -29,3 +29,13 @@ interagir = false;
 // game over
 global.motivoMorte = "";
 
+// pausa
+global.pausado = false;
+pause_selecionado = 0;
+pause_opcoes = ["Continuar", "Reiniciar Fase", "Sair"];
+pause_total = array_length(pause_opcoes);
+pause_nav_cooldown = 0;
+PAUSE_NAV_CD_MAX = 12;
+
+//salva room atual
+global.fase_room_atual = room;

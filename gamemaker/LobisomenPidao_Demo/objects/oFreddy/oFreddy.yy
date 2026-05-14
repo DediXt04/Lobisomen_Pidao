@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sGuardaStopDown",
-    "path":"sprites/sGuardaStopDown/sGuardaStopDown.yy",
+    "name":"sFreddyFasbear",
+    "path":"sprites/sFreddyFasbear/sFreddyFasbear.yy",
   },
   "spriteMaskId":null,
   "visible":true,

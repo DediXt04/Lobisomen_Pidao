@@ -1,3 +1,6 @@
+//Pausar
+if (global.pausado) exit;
+
 // depth (ordem de desenho)
 depth = -bbox_bottom;
 

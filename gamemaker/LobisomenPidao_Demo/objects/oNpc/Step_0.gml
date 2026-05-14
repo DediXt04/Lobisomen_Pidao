@@ -1,3 +1,6 @@
+//Pausar
+if (global.pausado) exit;
+
 // Movimentação
 #region
 timer++;
