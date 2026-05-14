@@ -1,5 +1,3 @@
-motivo = global.motivoMorte;
-
 btn_selecionado = 0;
 btn_opcoes = ["Reiniciar Fase", "Sair"];
 btn_total = array_length(btn_opcoes);

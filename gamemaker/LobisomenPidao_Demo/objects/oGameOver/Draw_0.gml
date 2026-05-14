@@ -42,45 +42,50 @@ if (motivo == "dano") {
 // -------------------------------------------------------
 var _bw = 280;
 var _bh = 54;
-var _bx = _cx - _bw / 2;
+var _gap = 24;
+var _blocoW = btn_total * _bw + (btn_total - 1) * _gap;
+var _startX = _cx - _blocoW / 2;
 var _by = _cy + 30;
 
-var _hover = (mouse_x > _bx && mouse_x < _bx + _bw &&
-              mouse_y > _by && mouse_y < _by + _bh);
+for (var i = 0; i < btn_total; i++) {
+    var _bx = _startX + i * (_bw + _gap);
+    var _sel = (i == btn_selecionado);
 
-// Fundo do botão
-draw_set_color(_hover
-    ? make_color_rgb(30, 60, 80)
-    : make_color_rgb(20, 35, 55));
-draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, false);
+    // Fundo do botão
+    draw_set_color(_sel
+        ? make_color_rgb(30, 60, 80)
+        : make_color_rgb(20, 35, 55));
+    draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, false);
 
-// Borda esquerda colorida
-draw_set_color(make_color_rgb(80, 200, 210));
-draw_rectangle(_bx, _by, _bx + 5, _by + _bh, false);
+    // Borda esquerda colorida (só no selecionado)
+    if (_sel) {
+        draw_set_color(make_color_rgb(80, 200, 210));
+        draw_rectangle(_bx, _by, _bx + 5, _by + _bh, false);
+    }
 
-// Borda geral
-draw_set_color(make_color_rgb(80, 200, 210));
-draw_set_alpha(_hover ? 0.8 : 0.4);
-draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, true);
-draw_set_alpha(1);
+    // Borda geral
+    draw_set_color(make_color_rgb(80, 200, 210));
+    draw_set_alpha(_sel ? 0.8 : 0.3);
+    draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, true);
+    draw_set_alpha(1);
 
-// Texto do botão
-draw_set_color(_hover
-    ? make_color_rgb(120, 225, 235)
-    : make_color_rgb(80, 200, 210));
-draw_text(_cx, _by + _bh / 2, "Voltar ao menu");
+    // Texto do botão
+    draw_set_color(_sel
+        ? make_color_rgb(120, 225, 235)
+        : make_color_rgb(80, 200, 210));
+    draw_text(_bx + _bw / 2, _by + _bh / 2, btn_opcoes[i]);
+}
 
-// -------------------------------------------------------
-// RODAPÉ — dica de input dinâmica
-// -------------------------------------------------------
+// --- Rodapé ---
 var _gp = global.gamepad_main;
 var _temControle = (_gp != undefined) && gamepad_is_connected(_gp);
-
 draw_set_color(make_color_rgb(45, 80, 95));
+var _footerY = _by + _bh + 36;
+
 if (_temControle) {
-    draw_text(_cx, _by + _bh + 36, "A / Cruz  para voltar");
+    draw_text(_cx, _footerY, "D-pad  para navegar     A / Cruz  para confirmar");
 } else {
-    draw_text(_cx, _by + _bh + 36, "SPACE para voltar");
+    draw_text(_cx, _footerY, "A D  para navegar     SPACE / E  para confirmar");
 }
 
 // Reset
