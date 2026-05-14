@@ -206,11 +206,19 @@ if (global.pausado) {
     draw_rectangle(0, 0, _gui_w, _gui_h, false);
     draw_set_alpha(1);
 
-    // --- Linhas decorativas teal ---
+    // --- Calcular posições dos botões primeiro ---
+    var _bw = 320;
+    var _bh = 54;
+    var _gap = 16;
+    var _blocoH = _bh * pause_total + _gap * (pause_total - 1);
+    var _startY = _cy - _blocoH / 2;
+    var _footerY = _startY + _blocoH + 30;
+
+    // --- Linhas decorativas teal (relativas ao conteúdo) ---
     draw_set_color(make_color_rgb(60, 160, 170));
     draw_set_alpha(0.35);
-    draw_line_width(0, _cy - 160, _gui_w, _cy - 160, 2);
-    draw_line_width(0, _cy + 160, _gui_w, _cy + 160, 2);
+    draw_line_width(0, _startY - 120, _gui_w, _startY - 120, 2);
+    draw_line_width(0, _footerY + 40, _gui_w, _footerY + 40, 2);
     draw_set_alpha(1);
 
     // --- Título "PAUSADO" ---
@@ -218,13 +226,9 @@ if (global.pausado) {
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_set_color(make_color_rgb(120, 220, 230));
-    draw_text(_cx, _cy - 100, "PAUSADO");
+    draw_text(_cx, _startY - 60, "PAUSADO");
 
     // --- Botões do menu ---
-    var _bw = 320;
-    var _bh = 54;
-    var _gap = 16;
-    var _startY = _cy - 20;
 
     for (var i = 0; i < pause_total; i++) {
         var _bx = _cx - _bw / 2;
@@ -260,7 +264,6 @@ if (global.pausado) {
     var _gp = global.gamepad_main;
     var _temControle = (_gp != undefined) && gamepad_is_connected(_gp);
     draw_set_color(make_color_rgb(45, 80, 95));
-    var _footerY = _startY + pause_total * (_bh + _gap) + 30;
 
     if (_temControle) {
         draw_text(_cx, _footerY, "D-pad  para navegar     A / Cruz  para confirmar");
@@ -328,3 +331,186 @@ Porque `instance_deactivate_all()` desativa o próprio `oController`, impedindo 
 - **Não pausar em rooms de menu** — o toggle só funciona em rooms de gameplay (onde oController existe). As rooms `rm_SelecaoDeFases`, `rm_gameOver` e `rm_Vitoria` não têm oController, então ESC não faz nada nelas.
 - **Reset ao trocar de room** — quando `room_restart()` ou `room_goto()` é chamado, o `Create_0` do oController roda novamente e reseta `global.pausado = false`.
 - **Ordem do código** — o bloco de pausa DEVE ser o primeiro no `Step_0.gml` do oController, antes de qualquer lógica de jogo.
+
+---
+
+## 🏆💀 Botões Horizontais nas Telas de Vitória e Game Over
+
+As telas `oVitoria` e `oGameOver` atualmente têm um único botão "Voltar ao menu". Vamos substituir por **dois botões horizontais**: **Reiniciar Fase** e **Sair**.
+
+### Pré-requisito: salvar a room atual
+
+Antes de ir para a tela de vitória ou game over, o jogo precisa lembrar qual room reiniciar. Adicionar no `oController/Create_0.gml`:
+
+```gml
+global.fase_room_atual = room;
+```
+
+Isso salva a room de gameplay atual para que os botões de "Reiniciar" saibam para onde voltar.
+
+### Layout Visual
+
+```
+┌──────────────────────────────────────────────────────┐
+│                ═══════════════                        │
+│                                                      │
+│               VOCÊ VENCEU!                           │  ← ou "GAME OVER"
+│              Mim de papai.                           │  ← ou motivo da morte
+│                                                      │
+│         ┌──────────────────┐  ┌──────────────────┐   │
+│         │▌ Reiniciar Fase  │  │    Sair          │   │  ← botões lado a lado
+│         └──────────────────┘  └──────────────────┘   │
+│                                                      │
+│          A D  para navegar    SPACE  para confirmar   │
+│                ═══════════════                        │
+└──────────────────────────────────────────────────────┘
+```
+
+### Modificar `oVitoria/Create_0.gml` (e `oGameOver/Create_0.gml`)
+
+Adicionar as variáveis de navegação. O `oGameOver` já tem `motivo = global.motivoMorte;` — adicionar **após**:
+
+```gml
+// botões horizontais
+btn_selecionado = 0;
+btn_opcoes = ["Reiniciar Fase", "Sair"];
+btn_total = array_length(btn_opcoes);
+btn_nav_cooldown = 0;
+BTN_NAV_CD_MAX = 12;
+```
+
+Para `oVitoria/Create_0.gml` (atualmente vazio), criar com:
+
+```gml
+// botões horizontais
+btn_selecionado = 0;
+btn_opcoes = ["Reiniciar Fase", "Sair"];
+btn_total = array_length(btn_opcoes);
+btn_nav_cooldown = 0;
+BTN_NAV_CD_MAX = 12;
+```
+
+### Modificar `oVitoria/Step_0.gml` (e `oGameOver/Step_0.gml`)
+
+Substituir todo o conteúdo por:
+
+```gml
+var _gp = global.gamepad_main;
+
+// cooldown de navegação (para analógico)
+if (btn_nav_cooldown > 0) btn_nav_cooldown--;
+
+// navegação horizontal: A/D no teclado
+var _nav = 0;
+if (keyboard_check_pressed(ord("D"))) _nav = 1;
+if (keyboard_check_pressed(ord("A"))) _nav = -1;
+
+// navegação horizontal: D-pad / analógico no gamepad
+if (_gp != undefined && gamepad_is_connected(_gp) && btn_nav_cooldown == 0) {
+    if (gamepad_button_check_pressed(_gp, gp_padr)) _nav = 1;
+    if (gamepad_button_check_pressed(_gp, gp_padl)) _nav = -1;
+    var _ax = gamepad_axis_value(_gp, gp_axislh);
+    if (_ax >  0.5) _nav =  1;
+    if (_ax < -0.5) _nav = -1;
+    if (_nav != 0) btn_nav_cooldown = BTN_NAV_CD_MAX;
+}
+
+btn_selecionado = clamp(btn_selecionado + _nav, 0, btn_total - 1);
+
+// confirmar seleção
+var _confirmar = keyboard_check_pressed(vk_space)
+              || keyboard_check_pressed(ord("E"))
+              || keyboard_check_pressed(vk_enter);
+if (_gp != undefined) _confirmar = _confirmar || gamepad_button_check_pressed(_gp, gp_face1);
+
+if (_confirmar) {
+    switch (btn_selecionado) {
+        case 0: // Reiniciar Fase
+            room_goto(global.fase_room_atual);
+            break;
+        case 1: // Sair para seletor
+            room_goto(rm_SelecaoDeFases);
+            break;
+    }
+}
+```
+
+### Modificar `oVitoria/Draw_0.gml` (e `oGameOver/Draw_0.gml`)
+
+Substituir o bloco do botão único (a partir de `// Botão` ou `// BOTÃO`) pelo bloco de dois botões horizontais:
+
+```gml
+// --- Botões horizontais ---
+var _bw = 280;
+var _bh = 54;
+var _gap = 24;
+var _blocoW = btn_total * _bw + (btn_total - 1) * _gap;
+var _startX = _cx - _blocoW / 2;
+var _by = _cy + 30;
+
+for (var i = 0; i < btn_total; i++) {
+    var _bx = _startX + i * (_bw + _gap);
+    var _sel = (i == btn_selecionado);
+
+    // Fundo do botão
+    draw_set_color(_sel
+        ? make_color_rgb(30, 60, 80)
+        : make_color_rgb(20, 35, 55));
+    draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, false);
+
+    // Borda esquerda colorida (só no selecionado)
+    if (_sel) {
+        draw_set_color(make_color_rgb(80, 200, 210));
+        draw_rectangle(_bx, _by, _bx + 5, _by + _bh, false);
+    }
+
+    // Borda geral
+    draw_set_color(make_color_rgb(80, 200, 210));
+    draw_set_alpha(_sel ? 0.8 : 0.3);
+    draw_rectangle(_bx, _by, _bx + _bw, _by + _bh, true);
+    draw_set_alpha(1);
+
+    // Texto do botão
+    draw_set_color(_sel
+        ? make_color_rgb(120, 225, 235)
+        : make_color_rgb(80, 200, 210));
+    draw_text(_bx + _bw / 2, _by + _bh / 2, btn_opcoes[i]);
+}
+
+// --- Rodapé ---
+var _gp = global.gamepad_main;
+var _temControle = (_gp != undefined) && gamepad_is_connected(_gp);
+draw_set_color(make_color_rgb(45, 80, 95));
+var _footerY = _by + _bh + 36;
+
+if (_temControle) {
+    draw_text(_cx, _footerY, "D-pad  para navegar     A / Cruz  para confirmar");
+} else {
+    draw_text(_cx, _footerY, "A D  para navegar     SPACE / E  para confirmar");
+}
+```
+
+**O que manter do código atual:** todo o bloco de fundo, linhas decorativas, título e mensagem (motivo) ficam iguais. Só substitui do comentário `// Botão` até o `// Reset`.
+
+### Diferenças entre oVitoria e oGameOver
+
+| | oVitoria | oGameOver |
+|---|---|---|
+| Título | `"VOCÊ VENCEU!"` (teal) | `"GAME OVER"` (vermelho) |
+| Mensagem | `"Mim de papai."` | Motivo dinâmico (dano/fome) |
+| Create_0 | Só botões | `motivo = global.motivoMorte;` + botões |
+| Step_0 / Draw_0 (botões) | **Idênticos** | **Idênticos** |
+
+### Linhas decorativas
+
+As linhas decorativas atuais em ambos os objetos usam `_cy ± 140`. Para acomodar os botões, ajustar a linha de baixo:
+
+```gml
+// Trocar:
+draw_line_width(0, _cy + 140, room_width, _cy + 140, 2);
+
+// Por:
+draw_line_width(0, _cy + 130, room_width, _cy + 130, 2);
+```
+
+Isso dá mais espaço entre a linha e os botões.
