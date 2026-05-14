@@ -42,23 +42,3 @@ if (_h != 0 && _v == 1)  { face = 4; image_xscale = _h; }
 // aplica sprite
 sprite_index = sprite[face];
 #endregion
-
-// escolher sprites
-#region
-if (flag_parado)
-{
-	sprite[0] = sGuardaStopSide;
-	sprite[1] = sGuardaStopDUp;
-	sprite[2] = sGuardaStopUp;
-	sprite[3] = sGuardaStopDown;
-	sprite[4] = sGuardaStopDDown;
-}
-else
-{
-	sprite[0] = sGuardaSide;
-	sprite[1] = sGuardaDUp;
-	sprite[2] = sGuardaUp;
-	sprite[3] = sGuardaDown;
-	sprite[4] = sGuardaDDown;
-}
-#endregion

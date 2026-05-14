@@ -43,6 +43,7 @@
     {"id":{"name":"oFoodSpawner","path":"objects/oFoodSpawner/oFoodSpawner.yy",},},
     {"id":{"name":"oFreddy","path":"objects/oFreddy/oFreddy.yy",},},
     {"id":{"name":"oGameOver","path":"objects/oGameOver/oGameOver.yy",},},
+    {"id":{"name":"oGuarda1","path":"objects/oGuarda1/oGuarda1.yy",},},
     {"id":{"name":"oInimigo","path":"objects/oInimigo/oInimigo.yy",},},
     {"id":{"name":"oNpc","path":"objects/oNpc/oNpc.yy",},},
     {"id":{"name":"oParedeFina","path":"objects/oParedeFina/oParedeFina.yy",},},

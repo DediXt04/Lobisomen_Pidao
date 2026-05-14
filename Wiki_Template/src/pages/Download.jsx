@@ -3,7 +3,7 @@ import { FiDownload } from 'react-icons/fi'
 
 const Download = () => {
 
-  const downloadUrl = 'src\assets\download\LobisomenPidao_Demo.exe'
+  const downloadUrl = '/downloads/LobisomenPidao_Demo.exe'
 
   return (
     <div className="container py-4">
