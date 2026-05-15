@@ -1,7 +1,7 @@
 // Inherit the parent event
 event_inherited();
 
-// controle de sprite
+// DEFINE AS SPRITES INICIAIS
 face = 3;
 
 sprite[0] = sFreddyFasbear;
