@@ -21,12 +21,16 @@ draw_set_color(make_color_rgb(120, 220, 230));
 draw_text(cx, 70, "Escolha sua Fase");
 
 // -------------------------------------------------------
-// GRADE DE CARDS
+// GRADE DE CARDS (só os da página atual)
 // -------------------------------------------------------
-for (var i = 0; i < total_fases; i++) {
+var _inicio = pagina * por_pagina;
+var _fim    = min(_inicio + por_pagina, total_fases);
 
-    var _col = i mod colunas;
-    var _row = i div colunas;
+for (var i = _inicio; i < _fim; i++) {
+
+    var _local = i - _inicio;  // índice local na página (0 a 5)
+    var _col = _local mod colunas;
+    var _row = _local div colunas;
 
     var _cx = grade_x + _col * (card_w + card_gap);
     var _cy = grade_y + _row * (card_h + card_gap);
@@ -71,7 +75,9 @@ for (var i = 0; i < total_fases; i++) {
     draw_set_alpha(1);
 
     // --- Área de info (parte de baixo do card) ---
-    var _info_y = _cy + thumb_h + 20;
+    var _info_y = _cy + thumb_h + 12;
+    var _max_text_w = card_w - 24;
+    var _info_bottom = _cy + card_h - 8;
 
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
@@ -80,13 +86,18 @@ for (var i = 0; i < total_fases; i++) {
     draw_set_color(_sel
     ? make_color_rgb(210, 240, 245)
     : make_color_rgb(130, 160, 175));
-	draw_text_ext(_cx + card_w / 2, _info_y, fase_nomes[i], -1, card_w - 24);
+	draw_text_ext(_cx + card_w / 2, _info_y, fase_nomes[i], -1, _max_text_w);
 
-    // Subtítulo
-    draw_set_color(_sel
-    ? make_color_rgb(80, 180, 195)
-    : make_color_rgb(50, 75, 95));
-	draw_text_ext(_cx + card_w / 2, _info_y + 30, fase_subtitulos[i], -1, card_w - 24);
+    // Subtítulo — posicionado abaixo do nome real
+    var _nome_h = string_height_ext(fase_nomes[i], -1, _max_text_w);
+    var _sub_y = _info_y + _nome_h + 6;
+
+    if (_sub_y < _info_bottom) {
+        draw_set_color(_sel
+        ? make_color_rgb(80, 180, 195)
+        : make_color_rgb(50, 75, 95));
+	    draw_text_ext(_cx + card_w / 2, _sub_y, fase_subtitulos[i], -1, _max_text_w);
+    }
 
     // --- Borda do card ---
     if (_sel) {
@@ -107,24 +118,23 @@ for (var i = 0; i < total_fases; i++) {
 }
 
 // -------------------------------------------------------
-// INDICADOR DE POSIÇÃO (pontinhos na base — estilo BTD6)
+// INDICADOR DE PÁGINA (pontinhos na base)
 // -------------------------------------------------------
-var _dot_r   = 7;
-var _dot_gap = 24;
-var _linhas  = ceil(total_fases / colunas);
-var _dot_total_w = _linhas * (_dot_r * 2 + _dot_gap) - _dot_gap;
-var _dot_x   = cx - _dot_total_w / 2 + _dot_r;
-var _dot_y   = 960;
+if (total_paginas > 1) {
+    var _dot_r   = 7;
+    var _dot_gap = 24;
+    var _dot_total_w = total_paginas * (_dot_r * 2 + _dot_gap) - _dot_gap;
+    var _dot_x   = cx - _dot_total_w / 2 + _dot_r;
+    var _dot_y   = 960;
 
-var _linha_sel = fase_selecionada div colunas;
-
-for (var d = 0; d < _linhas; d++) {
-    if (d == _linha_sel) {
-        draw_set_color(make_color_rgb(80, 200, 210));
-    } else {
-        draw_set_color(make_color_rgb(35, 55, 80));
+    for (var d = 0; d < total_paginas; d++) {
+        if (d == pagina) {
+            draw_set_color(make_color_rgb(80, 200, 210));
+        } else {
+            draw_set_color(make_color_rgb(35, 55, 80));
+        }
+        draw_circle(_dot_x + d * (_dot_r * 2 + _dot_gap), _dot_y, _dot_r, false);
     }
-    draw_circle(_dot_x + d * (_dot_r * 2 + _dot_gap), _dot_y, _dot_r, false);
 }
 
 // -------------------------------------------------------

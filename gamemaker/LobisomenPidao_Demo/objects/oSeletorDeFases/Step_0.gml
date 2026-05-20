@@ -71,6 +71,9 @@ if (_nav_h != 0 || _nav_v != 0) {
     _novo = clamp(_novo, 0, total_fases - 1);
 
     fase_selecionada = _novo;
+
+    // Atualiza página com base na fase selecionada
+    pagina = fase_selecionada div por_pagina;
 }
 
 // -------------------------------------------------------
