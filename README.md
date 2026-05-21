@@ -78,10 +78,10 @@ npm run dev
 
 | Nome | Função | GitHub |
 |---|---|---|
-| André Queiroz | Desenvolvedor / Game Designer | [@DediXt04](https://github.com/DediXt04) |
-| Caetano José | Desenvolvedor / Game Designer | [@Cae003](https://github.com/Cae003) |
-| Cesar Brossi | Desenvolvedor / Game Designer | [@cesaaa-r](https://github.com/cesaaa-r) |
-| Eduardo Rabelo | Desenvolvedor / Game Designer | [@Edu4rdoMarques](https://github.com/Edu4rdoMarques) |
+| André Queiroz | Desenvolvedor | [@DediXt04](https://github.com/DediXt04) |
+| Caetano José | Desenvolvedor | [@Cae003](https://github.com/Cae003) |
+| Cesar Brossi | Game Designer | [@cesaaa-r](https://github.com/cesaaa-r) |
+| Eduardo Rabelo | Game Designer | [@Edu4rdoMarques](https://github.com/Edu4rdoMarques) |
 
 ## 📖 Documentação
 

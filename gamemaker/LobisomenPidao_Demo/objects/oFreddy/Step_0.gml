@@ -1,7 +1,7 @@
 // Inherit the parent event
 event_inherited();
 
-// escolher sprites
+// ESCOLHE AS SPRITES DE ACORDO COM FLAG
 #region
 if (flag_parado)
 {
