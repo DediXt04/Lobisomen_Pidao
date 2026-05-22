@@ -57,18 +57,19 @@ if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main
 // Aplica navegação na grade
 if (_nav_h != 0 || _nav_v != 0) {
 
-    var _linha  = fase_selecionada div colunas;
-    var _coluna = fase_selecionada mod colunas;
+    var _novo = fase_selecionada;
 
-    _coluna += _nav_h;
-    _linha  += _nav_v;
+    // Navegação horizontal: avança/volta 1 card (muda linha e página automaticamente)
+    if (_nav_h != 0) {
+        _novo = fase_selecionada + _nav_h;
+        _novo = clamp(_novo, 0, total_fases - 1);
+    }
 
-    // Limita coluna entre 0 e (colunas-1)
-    _coluna = clamp(_coluna, 0, colunas - 1);
-
-    // Calcula novo índice e garante que não passa do total de fases
-    var _novo = _linha * colunas + _coluna;
-    _novo = clamp(_novo, 0, total_fases - 1);
+    // Navegação vertical: pula uma linha inteira
+    if (_nav_v != 0) {
+        _novo = fase_selecionada + (_nav_v * colunas);
+        _novo = clamp(_novo, 0, total_fases - 1);
+    }
 
     fase_selecionada = _novo;
 
