@@ -30,11 +30,11 @@ draw_text(_cx, _cy - 80, "GAME OVER");
 // -------------------------------------------------------
 draw_set_color(make_color_rgb(130, 165, 180));
 if (motivo == "dano") {
-    draw_text(_cx, _cy - 30, "Voce morreu por dano.");
+    draw_text(_cx, _cy - 30, "Você foi pego pelos guardas!");
 } else if (motivo == "fome") {
-    draw_text(_cx, _cy - 30, "Voce morreu de fome.");
+    draw_text(_cx, _cy - 30, "Você morreu de fome!");
 } else {
-    draw_text(_cx, _cy - 30, "Voce morreu.");
+    draw_text(_cx, _cy - 30, "Você morreu.");
 }
 
 // -------------------------------------------------------
@@ -79,13 +79,13 @@ for (var i = 0; i < btn_total; i++) {
 // --- Rodapé ---
 var _gp = global.gamepad_main;
 var _temControle = (_gp != undefined) && gamepad_is_connected(_gp);
-draw_set_color(make_color_rgb(45, 80, 95));
+draw_set_color(make_color_rgb(130, 180, 195));
 var _footerY = _by + _bh + 36;
 
 if (_temControle) {
-    draw_text(_cx, _footerY, "D-pad  para navegar     A / Cruz  para confirmar");
+    draw_text(_cx, _footerY, "[D-pad] Navegar  •  [A] Confirmar");
 } else {
-    draw_text(_cx, _footerY, "A D  para navegar     SPACE / E  para confirmar");
+    draw_text(_cx, _footerY, "[A/D] Navegar  •  [E] Confirmar");
 }
 
 // Reset

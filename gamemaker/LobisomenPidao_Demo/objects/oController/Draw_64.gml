@@ -74,12 +74,12 @@ if (global.pausado) {
     // --- Rodapé — dica de input dinâmica ---
     var _gp = global.gamepad_main;
     var _temControle = (_gp != undefined) && gamepad_is_connected(_gp);
-    draw_set_color(make_color_rgb(45, 80, 95));
+    draw_set_color(make_color_rgb(130, 180, 195));
 
     if (_temControle) {
-        draw_text(_cx, _footerY, "D-pad  para navegar     A / Cruz  para confirmar");
+        draw_text(_cx, _footerY, "[D-pad] Navegar  •  [A] Confirmar");
     } else {
-        draw_text(_cx, _footerY, "W S  para navegar     SPACE / E  para confirmar");
+        draw_text(_cx, _footerY, "[W/S] Navegar  •  [E] Confirmar");
     }
 
     // Reset alinhamento
