@@ -14,13 +14,13 @@ export default function Equipe() {
       github: 'https://github.com/Cae003'
     },
     { 
-      nome: 'Cesar',
-      funcao: 'Desenvolvedor / Game Designer',
+      nome: 'Cesar Brossi',
+      funcao: 'Game Designer / Pixel Artist',
       github: 'https://github.com/cesaaa-r'
     },
     { 
       nome: 'Eduardo Rabelo',
-      funcao: 'Desenvolvedor / Game Designer',
+      funcao: 'Game Designer / Pixel Artist',
       github: 'https://github.com/Edu4rdoMarques'
     },
   ]

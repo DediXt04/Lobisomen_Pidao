@@ -81,6 +81,10 @@ total_botoes = array_length(botoes);
 botao_focado = 0;
 
 // === LAYOUT (canto inferior direito) ===
+// Resolução base da GUI (fixa, independente de câmera)
+gui_w = display_get_gui_width();
+gui_h = display_get_gui_height();
+
 // Margem a partir do canto inferior direito da tela
 margem_direita = 120;   // distância da borda direita
 margem_inferior = 100;  // distância da borda inferior
@@ -91,14 +95,14 @@ btn_h = 50;
 btn_gap = 16;  // espaço vertical entre botões
 
 // Posição X dos botões (alinhados à direita)
-btn_x = 1920 - margem_direita - btn_w;
+btn_x = gui_w - margem_direita - btn_w;
 
 // Posição Y do grupo (calculada de baixo para cima)
 // Altura total: 3 botões + 2 gaps + espaço pro título
 var _altura_botoes = total_botoes * btn_h + (total_botoes - 1) * btn_gap;
 var _espaco_titulo = 80;  // espaço entre título e primeiro botão
 
-btn_y_inicio = 1080 - margem_inferior - _altura_botoes;
+btn_y_inicio = gui_h - margem_inferior - _altura_botoes;
 
 // Posição do título (acima dos botões)
 titulo_x = btn_x + btn_w / 2;  // centralizado com os botões
@@ -199,19 +203,24 @@ if (_confirmar) {
 
 ---
 
-### `objects/oMenuPrincipal/Draw_0.gml`
+### `objects/oMenuPrincipal/Draw_64.gml`
+
+> ⚠️ **IMPORTANTE:** Usar evento **Draw GUI** (Draw_64), NÃO Draw normal. O Draw GUI desenha na tela independente de câmera/views — funciona com qualquer configuração de room.
 
 ```gml
 // ===============================================================
 // FUNDO
 // ===============================================================
+var _gw = display_get_gui_width();
+var _gh = display_get_gui_height();
+
 draw_set_color(make_color_rgb(20, 22, 38));
-draw_rectangle(0, 0, 1920, 1080, false);
+draw_rectangle(0, 0, _gw, _gh, false);
 
 // Linhas decorativas (mesmo estilo do oSeletorDeFases)
 draw_set_color(make_color_rgb(60, 160, 170));
 draw_set_alpha(0.2);
-draw_line_width(0, 1080 - 140, 1920, 1080 - 140, 2);
+draw_line_width(0, _gh - 140, _gw, _gh - 140, 2);
 draw_set_alpha(1);
 
 // ===============================================================
@@ -289,9 +298,9 @@ var _gp = global.gamepad_main;
 var _tem_controle = (_gp != undefined) && gamepad_is_connected(_gp);
 
 if (_tem_controle && input_mode == "controle") {
-    draw_text(1920 / 2, 1060, "D-pad / Analogico: Navegar    A / Cruz: Confirmar");
+    draw_text(_gw / 2, _gh - 20, "D-pad / Analogico: Navegar    A / Cruz: Confirmar");
 } else {
-    draw_text(1920 / 2, 1060, "W S / Setas: Navegar    SPACE / E: Confirmar");
+    draw_text(_gw / 2, _gh - 20, "W S / Setas: Navegar    SPACE / E: Confirmar");
 }
 
 // Reset
@@ -394,7 +403,7 @@ Isso é o **mesmo padrão usado pelo `oSeletorDeFases`** — consistência visua
 1. No GameMaker, clique com botão direito em **Rooms** → **Create Room**
 2. Nomeie como `rm_MenuPrincipal`
 3. **Tamanho:** 1920 × 1080
-4. **Views:** desligadas (a tela inteira é usada)
+4. **Views:** não importa (o Draw GUI ignora câmera/views)
 5. Arraste `oMenuPrincipal` para a room (posição não importa)
 6. Arraste `oProcuraControle` para a room (se já estiver lá por persistência, pule)
 
@@ -406,7 +415,7 @@ Isso é o **mesmo padrão usado pelo `oSeletorDeFases`** — consistência visua
 4. Crie 3 eventos:
    - **Create** → cole o código do `Create_0.gml`
    - **Step** → cole o código do `Step_0.gml`
-   - **Draw** → cole o código do `Draw_0.gml`
+   - **Draw GUI** → cole o código do `Draw_64.gml` (⚠️ é Draw GUI, NÃO Draw normal!)
 
 ### Passo 3 — Mudar a Room Inicial
 
@@ -539,25 +548,27 @@ if (_confirmar) {
 
 #### 5.3 — Substituir o Draw do `oVitoria`
 
-**`objects/oVitoria/Draw_0.gml`** — substituir todo o conteúdo por:
+**`objects/oVitoria/Draw_64.gml`** (⚠️ Draw GUI!) — substituir todo o conteúdo por:
 
 ```gml
-var _cx = room_width  / 2;
-var _cy = room_height / 2;
+var _gw = display_get_gui_width();
+var _gh = display_get_gui_height();
+var _cx = _gw / 2;
+var _cy = _gh / 2;
 
 // ===============================================================
 // FUNDO
 // ===============================================================
 draw_set_alpha(0.85);
 draw_set_color(make_color_rgb(14, 14, 26));
-draw_rectangle(0, 0, room_width, room_height, false);
+draw_rectangle(0, 0, _gw, _gh, false);
 draw_set_alpha(1);
 
 // Linhas decorativas
 draw_set_color(make_color_rgb(60, 160, 170));
 draw_set_alpha(0.35);
-draw_line_width(0, _cy - 140, room_width, _cy - 140, 2);
-draw_line_width(0, _cy + 140, room_width, _cy + 140, 2);
+draw_line_width(0, _cy - 140, _gw, _cy - 140, 2);
+draw_line_width(0, _cy + 140, _gw, _cy + 140, 2);
 draw_set_alpha(1);
 
 // ===============================================================
@@ -631,7 +642,7 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 ```
 
-> **Nota:** O `oVitoria` não tinha evento Create antes — precisa ser adicionado pelo IDE (Add Event → Create). O `.yy` será atualizado automaticamente.
+> **Nota:** O `oVitoria` não tinha evento Create antes — precisa ser adicionado pelo IDE (Add Event → Create). O Draw deve ser **Draw GUI** (Draw_64), não Draw normal. O `.yy` será atualizado automaticamente.
 
 ### Passo 6 — Testar
 
@@ -703,7 +714,7 @@ draw_sprite_stretched(sMenuFundo, 0, 0, 0, 1920, 1080);
 
 1. **`oProcuraControle`** — Este objeto é persistente e se auto-previne de duplicação. Se ele já existe de uma sessão anterior, não será duplicado. Basta garantir que ele esteja na `rm_MenuPrincipal` (ou que já tenha sido criado antes).
 
-2. **Draw_0 vs Draw_64** — O guia usa `Draw_0` (Draw normal) porque a room do menu não tem views/câmera configuradas, e o tamanho da room (1920×1080) corresponde à tela. Se preferir usar `Draw GUI` (Draw_64), troque `room_width`/`room_height` por `display_get_gui_width()`/`display_get_gui_height()` e certifique-se de chamar `display_set_gui_size(1920, 1080)`.
+2. **Draw GUI (Draw_64)** — O guia usa `Draw_64` (Draw GUI) porque esse evento desenha **na tela independente de câmera/views**. Isso evita o problema de botões ficarem fora da área visível quando a room tem viewport/câmera ativa. Não precisa desabilitar views na room.
 
 3. **Paleta de cores** — As cores usadas seguem o mesmo padrão do `oSeletorDeFases`, `oGameOver` e `oVitoria` para manter consistência visual:
    - Fundo: `rgb(20, 22, 38)` — navy escuro

@@ -42,6 +42,16 @@ export default function Devlog() {
       data: '24/04/2026',
       titulo: 'Sprint 07',
       texto: 'Melhorias na wiki do projeto, incluindo disponibilização do executável do jogo para download; polimento das mecânicas do inimigo (ajustes em comportamento e movimentação); aplicação da skin do guarda com integração visual ao jogo.'
+    },
+    {
+    data: '08/05/2026',
+    titulo: 'Sprint 08',
+    texto: 'Implementação do sistema de spawn de comida, correção de bug que permitia interação através de paredes, refatoração da movimentação do NPC.'
+    },
+    {
+    data: '15/05/2026',
+    titulo: 'Sprint 09',
+    texto: 'Aprimoramento do comportamento dos inimigos e ajustes na estrutura de herança do código, melhorias nas interfaces de menu (incluindo seleção de fases, tela de game over e vitória), evolução do sistema de spawn, que passou a suportar tanto a geração de comida quanto de NPCs.'
     }
   ]
 

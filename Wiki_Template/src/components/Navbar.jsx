@@ -16,7 +16,7 @@ function Navbar() {
             alt="Logo" 
             style={{ width: "28px", height: "28px", objectFit: "contain" }}
           />
-          Wiki-Game
+          Lobisomem Pidão
         </Link>
         <button 
           className="navbar-toggler" 

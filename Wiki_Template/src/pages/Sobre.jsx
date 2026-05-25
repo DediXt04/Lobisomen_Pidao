@@ -3,30 +3,30 @@ import { FiEye, FiHeart, FiClock, FiAlertTriangle, FiUsers, FiZap } from 'react-
 
 export default function Sobre() {
   const mecanicas = [
-    { icone: <FiEye size={28} />, titulo: 'Stealth Top-Down', desc: 'Desvie de guardas, caçadores e NPCs medrosos usando cones de visão, sombras e cobertura.' },
-    { icone: <FiHeart size={28} />, titulo: 'Pedir Comida', desc: 'Aproxime-se devagar e acione a habilidade de "pedir", tentando convencer NPCs a te alimentar.' },
-    { icone: <FiClock size={28} />, titulo: 'Sistema de Fome', desc: 'Sua fome funciona como "tempo": quanto mais demora, pior fica.' },
-    { icone: <FiAlertTriangle size={28} />, titulo: 'Alertas', desc: 'NPCs assustados podem denunciar você, ativando guardas e chamando caçadores.' },
-    { icone: <FiUsers size={28} />, titulo: 'Tipos de NPC', desc: 'Normais, medrosos, seguranças, caçadores e até cozinheiros que dão muita comida.' },
-    { icone: <FiZap size={28} />, titulo: 'Fases Curtas', desc: 'Cada fase tem objetivos simples, como coletar certos alimentos ou alcançar o cozinheiro principal.' },
+    { icone: <FiEye size={28} />, titulo: 'Stealth Top-Down', desc: 'Desvie dos guardas que patrulham as fases com campo de visão em cone. Se te avistarem, a perseguição começa!' },
+    { icone: <FiHeart size={28} />, titulo: 'Pedir Comida', desc: 'Aproxime-se dos NPCs e interaja para pedir comida. Cada NPC tem paciência limitada e uma chance crescente de te alimentar.' },
+    { icone: <FiClock size={28} />, titulo: 'Sistema de Fome', desc: 'Sua barra de fome diminui em tempo real. Se zerar, o lobisomem morre — então corra atrás de comida!' },
+    { icone: <FiAlertTriangle size={28} />, titulo: 'Guardas', desc: 'Guardas patrulham em rotas definidas e perseguem ao te avistar. Desvie ou corra antes que te alcancem!' },
+    { icone: <FiUsers size={28} />, titulo: 'NPCs e Interação', desc: 'NPCs andam pelas fases e reagem ao lobisomem. Interaja para conseguir comida — mas nem todos vão colaborar.' },
+    { icone: <FiZap size={28} />, titulo: 'Fases e Saída', desc: 'Colete toda a comida necessária em cada fase e encontre a saída para avançar. Quanto mais rápido, melhor!' },
   ]
 
   return (
     <div className="container py-4">
       <h2 className="mb-3">Sobre o Jogo</h2>
-      <p className="lead text-muted mb-4">
+      <p className="lead mb-4">
         <strong>Lobisomem Pidão</strong> é um jogo top-down de stealth e humor onde você controla um
         lobisomem desajeitado que não quer atacar ninguém — ele só quer comida.
-        Em cada fase, o jogador precisa se aproximar das pessoas,
-        pedir comida e escapar antes que guardas e caçadores cheguem até ele.
+        Em cada fase, o jogador precisa se aproximar dos NPCs,
+        pedir comida e escapar antes que os guardas o encontrem.
       </p>
 
       <div className="card shadow-sm mb-5">
         <div className="card-body">
           <p className="mb-0">
-            Inspirado no ritmo rápido de jogos como <em>Hotline Miami</em>, o foco aqui não é combate,
-            mas sim movimentação estratégica, furtividade e situações caóticas criadas pelo comportamento
-            imprevisível dos NPCs. O lobisomem é bobo, estranho e faminto — e isso é o coração do humor do jogo.
+            O foco não é combate, mas sim movimentação estratégica, furtividade e situações caóticas
+            criadas pelo comportamento dos NPCs e guardas. O lobisomem é bobo, estranho e faminto
+            — e isso é o coração do humor do jogo. Com fome demais, ele fica ainda mais rápido e desesperado!
           </p>
         </div>
       </div>
@@ -47,7 +47,7 @@ export default function Sobre() {
       </div>
 
       <h3 className="mb-3">Tema e Estilo</h3>
-      <div className="card shadow-sm border-0 bg-dark text-white">
+      <div className="card shadow-sm border-0">
         <div className="card-body">
           <p className="mb-0">
             O jogo mistura tensão, comédia e um mundo cheio de personagens exagerados.
