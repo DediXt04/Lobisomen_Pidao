@@ -146,9 +146,9 @@ draw_set_valign(fa_bottom);
 draw_set_color(make_color_rgb(130, 180, 195));
 
 if (input_mode == "controle") {
-    draw_text(cx, 1055, "[D-pad] Navegar  •  [A] Confirmar");
+    draw_text(cx, 1055, "[D-pad] Navegar    [A] Confirmar");
 } else {
-    draw_text(cx, 1055, "[WASD] Navegar  •  [E] Confirmar");
+    draw_text(cx, 1055, "[WASD] Navegar    [E] Confirmar");
 }
 
 // Indicador de controle conectado

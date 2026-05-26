@@ -92,3 +92,14 @@ if (_confirmar) {
     global.comida = 0;
     room_goto(fase_rooms[fase_selecionada]);
 }
+
+
+var voltar = keyboard_check_pressed(vk_escape);
+
+if (!is_undefined(global.gamepad_main) && gamepad_is_connected(global.gamepad_main)) {
+    voltar = voltar || gamepad_button_check_pressed(global.gamepad_main, gp_face2);
+}
+
+if (voltar) {
+    room_goto(rm_MenuPrincipal);
+}
