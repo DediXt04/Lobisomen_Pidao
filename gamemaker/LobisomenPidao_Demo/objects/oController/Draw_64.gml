@@ -77,9 +77,9 @@ if (global.pausado) {
     draw_set_color(make_color_rgb(130, 180, 195));
 
     if (_temControle) {
-        draw_text(_cx, _footerY, "[D-pad] Navegar  •  [A] Confirmar");
+        draw_text(_cx, _footerY, "[D-pad] Navegar  |  [A] Confirmar");
     } else {
-        draw_text(_cx, _footerY, "[W/S] Navegar  •  [E] Confirmar");
+        draw_text(_cx, _footerY, "[W/S] Navegar  |  [E] Confirmar");
     }
 
     // Reset alinhamento
