@@ -1,7 +1,7 @@
 fase_rooms = [
     room_01,
     room_02,
-    room_01,  // mockup — remover depois
+    rm_fase03,
     room_02,  // mockup — remover depois
     room_01,  // mockup — remover depois
     room_02,  // mockup — remover depois
@@ -12,7 +12,7 @@ fase_rooms = [
 fase_nomes = [
     "Fase testes",
     "Fase testes tileset",
-    "Mockup 3",
+    "Fase nova",
     "Mockup 4",
     "Mockup 5",
     "Mockup 6",
@@ -23,7 +23,7 @@ fase_nomes = [
 fase_subtitulos = [
     "Ai! Ui! Um lobo me mordeu!",
     "Me jogue aos lobos",
-    "Teste de paginação",
+    "Faso nova",
     "Teste de paginação",
     "Teste de paginação",
     "Ultima da pagina 1",

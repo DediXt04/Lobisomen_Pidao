@@ -33,6 +33,7 @@
     {"name":"oSpawnZone","order":1,"path":"objects/oSpawnZone/oSpawnZone.yy",},
     {"name":"oVitoria","order":3,"path":"objects/oVitoria/oVitoria.yy",},
     {"name":"oWall","order":8,"path":"objects/oWall/oWall.yy",},
+    {"name":"rm_fase03","order":2,"path":"rooms/rm_fase03/rm_fase03.yy",},
     {"name":"rm_gameOver","order":1,"path":"rooms/rm_gameOver/rm_gameOver.yy",},
     {"name":"rm_MenuPrincipal","order":3,"path":"rooms/rm_MenuPrincipal/rm_MenuPrincipal.yy",},
     {"name":"rm_Vitoria","order":2,"path":"rooms/rm_Vitoria/rm_Vitoria.yy",},

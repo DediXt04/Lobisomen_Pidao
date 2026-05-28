@@ -1,7 +1,7 @@
 {
   "$GMRoom":"v1",
   "%Name":"room_02",
-  "creationCodeFile":"",
+  "creationCodeFile":"rooms/room_02/RoomCreationCode.gml",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
@@ -152,7 +152,7 @@
         {"$GMRInstance":"v4","%Name":"inst_74EA1E2C1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_74EA1E2C1","objectId":{"name":"oNpc","path":"objects/oNpc/oNpc.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":181.0,"y":151.0,},
         {"$GMRInstance":"v4","%Name":"inst_1418F433","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1418F433","objectId":{"name":"oFreddy","path":"objects/oFreddy/oFreddy.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":208.0,"y":80.0,},
       ],"layers":[],"name":"instancias","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRTileLayer":"","%Name":"tiles","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"tiles","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":23,"SerialiseWidth":40,"TileCompressedData":[
+    {"$GMRTileLayer":"","%Name":"tiles","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"tiles","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":20,"SerialiseWidth":40,"TileCompressedData":[
           -89,-2147483648,2,1,102,-4,34,1,102,-4,34,2,101,0,-7,34,3,101,34,3,-17,-2147483648,1,17,-4,18,1,82,-7,
           18,1,81,-3,18,1,81,-4,18,1,19,-17,-2147483648,1,17,-4,18,1,82,-7,18,1,81,-3,18,1,81,-4,18,1,19,-17,-2147483648,
           1,17,-4,18,1,82,-7,18,1,81,-3,18,1,81,-4,18,1,19,-17,-2147483648,1,17,-4,18,1,82,-7,18,1,81,-3,18,6,
@@ -161,7 +161,7 @@
           1,19,-17,-2147483648,1,17,-12,18,1,81,-8,18,1,19,-17,-2147483648,8,17,18,18,5,2,69,2,6,-5,18,1,81,-8,
           18,1,19,-17,-2147483648,4,17,18,18,81,-3,18,1,82,-5,18,1,113,-4,18,5,5,2,2,18,19,-17,-2147483648,8,17,
           18,18,21,70,99,99,22,-10,18,1,81,-3,18,1,19,-17,-2147483648,1,17,-17,18,1,81,-3,18,1,19,-17,-2147483648,
-          1,17,-17,18,1,81,-3,18,1,19,-17,-2147483648,3,33,34,118,-3,34,1,101,-7,34,1,101,-5,34,3,118,34,35,-208,
+          1,17,-17,18,1,81,-3,18,1,19,-17,-2147483648,3,33,34,118,-3,34,1,101,-7,34,1,101,-5,34,3,118,34,35,-88,
           -2147483648,
         ],"TileDataFormat":1,},"tilesetId":{"name":"TileSet3","path":"tilesets/TileSet3/TileSet3.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"$GMRInstanceLayer":"","%Name":"colisoes","depth":200,"effectEnabled":true,"effectType":null,"gridX":16,"gridY":16,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
@@ -301,7 +301,7 @@
   "resourceType":"GMRoom",
   "resourceVersion":"2.0",
   "roomSettings":{
-    "Height":360,
+    "Height":320,
     "inheritRoomSettings":false,
     "persistent":false,
     "Width":640,
