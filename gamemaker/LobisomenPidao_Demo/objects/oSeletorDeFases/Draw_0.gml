@@ -146,16 +146,19 @@ draw_set_valign(fa_bottom);
 draw_set_color(make_color_rgb(130, 180, 195));
 
 if (input_mode == "controle") {
-    draw_text(cx, 1055, "[D-pad] Navegar    [A] Confirmar    [O] Voltar");
+    draw_text(cx, 1055, "[D-pad] Navegar    [A] Confirmar    [B] Voltar");
 } else {
     draw_text(cx, 1055, "[WASD] Navegar    [E] Confirmar    [ESC] Voltar");
 }
 
-// Indicador de controle conectado
+// Indicador de controle
+draw_set_halign(fa_right);
 if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main)) {
     draw_set_color(make_color_rgb(50, 110, 120));
-    draw_set_halign(fa_right);
     draw_text(1900, 1055, "Controle conectado");
+} else {
+    draw_set_color(make_color_rgb(150, 60, 60));
+    draw_text(1900, 1055, "Nenhum controle encontrado");
 }
 
 // Reset

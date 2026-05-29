@@ -69,10 +69,21 @@ draw_set_color(make_color_rgb(130, 180, 195));
 var _footerY = _by + _bh + 36;
 
 if (_temControle) {
-draw_text(_cx, _footerY, "[D-pad] Navegar  |  [A] Confirmar");
+    draw_text(_cx, _footerY, "[D-pad] Navegar    [A] Confirmar");
 } else {
-    draw_text(_cx, _footerY, "[A/D] Navegar  |  [E] Confirmar");
+    draw_text(_cx, _footerY, "[A/D] Navegar    [E] Confirmar");
 }
+
+// Indicador de controle
+var _indicadorY = _footerY + 28;
+if (_temControle) {
+    draw_set_color(make_color_rgb(50, 110, 120));
+    draw_text(_cx, _indicadorY, "Controle conectado");
+} else {
+    draw_set_color(make_color_rgb(150, 60, 60));
+    draw_text(_cx, _indicadorY, "Nenhum controle encontrado");
+}
+
 // Reset
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

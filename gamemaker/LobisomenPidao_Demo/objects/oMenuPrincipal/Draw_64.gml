@@ -10,7 +10,7 @@ draw_rectangle(0, 0, _gw, _gh, false);
 // Linha decorativa
 draw_set_color(make_color_rgb(60, 160, 170));
 draw_set_alpha(0.2);
-draw_line_width(0, _gh - 140, _gw, _gh - 140, 2);
+draw_line_width(0, _gh - 100, _gw, _gh - 100, 2);
 draw_set_alpha(1);
 
 // ===============================================================
@@ -92,17 +92,28 @@ for (var i = 0; i < total_botoes; i++) {
 // ===============================================================
 // RODAPÉ
 // ===============================================================
+draw_set_font(fnt_pixel);
 draw_set_halign(fa_center);
 draw_set_valign(fa_bottom);
-draw_set_color(make_color_rgb(45, 80, 95));
+draw_set_color(make_color_rgb(130, 180, 195));
 
 var _gp = global.gamepad_main;
 var _tem_controle = (_gp != undefined) && gamepad_is_connected(_gp);
 
 if (_tem_controle && input_mode == "controle") {
-    draw_text(_gw / 2, _gh - 20, "D-pad / Analogico: Navegar    A / Cruz: Confirmar");
+    draw_text(_gw / 2, _gh - 25, "[D-pad] Navegar    [A] Confirmar");
 } else {
-    draw_text(_gw / 2, _gh - 20, "W S / Setas: Navegar    SPACE / E: Confirmar");
+    draw_text(_gw / 2, _gh - 25, "[WASD] Navegar    [E] Confirmar");
+}
+
+// Indicador de controle
+draw_set_halign(fa_right);
+if (_tem_controle) {
+    draw_set_color(make_color_rgb(50, 110, 120));
+    draw_text(_gw - 20, _gh - 25, "Controle conectado");
+} else {
+    draw_set_color(make_color_rgb(150, 60, 60));
+    draw_text(_gw - 20, _gh - 25, "Nenhum controle encontrado");
 }
 
 // reset
