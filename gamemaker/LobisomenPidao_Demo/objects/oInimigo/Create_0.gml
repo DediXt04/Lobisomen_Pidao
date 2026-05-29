@@ -1,13 +1,14 @@
 // VARIÁVEIS BÁSICAS
 #region
-vel = 1;
+//moveSpd = 1;
+scr_initMovimento(1, 90, 300);
 dano = 1;
 flag_parado = false;
 timer_see = room_speed * 2;
 
-// movimento
-xspd = 0;
-yspd = 0;
+//// movimento
+//xspd = 0;
+//yspd = 0;
 
 // estado
 estado = undefined;
@@ -24,6 +25,10 @@ xscale = 1;
 // FUNÇÃO CAMPO DE VISÃO
 campo_visao = function(_dist, _angulo_visao)
 {
+    // NOVO: checa distância primeiro
+    var _dist_player = point_distance(x, y, oPlayer.x, oPlayer.y);
+    if (_dist_player >= _dist) return false;
+
     // direção atual
     var dir = point_direction(0, 0, xspd, yspd);
 
@@ -90,7 +95,7 @@ estado_parado = function()
 // PASSEANDO
 estado_passeando = function()
 {
-    if (is_debug) image_blend = c_red;
+    if (is_debug) image_blend = c_green;
 
     // se ver o player
     if (campo_visao(120, 60))
@@ -108,24 +113,24 @@ estado_passeando = function()
     timer_estado--;
 
     // movimento aleatório
-    // movimento aleatório
     if (irandom(100) < 5)
     {
-        var dir = irandom(359);
-        xspd = lengthdir_x(vel, dir);
-        yspd = lengthdir_y(vel, dir);
+		scr_escolherDirecao();
+        //var dir = irandom(359);
+        //xspd = lengthdir_x(moveSpd, dir);
+        //yspd = lengthdir_y(moveSpd, dir);
     }
 }
 
 // PERSEGUINDO
 estado_perseguindo = function()
 {
-    if (is_debug) image_blend = c_fuchsia;
+    if (is_debug) image_blend = c_red;
 
     var dir = point_direction(x, y, oPlayer.x, oPlayer.y);
 
-    xspd = lengthdir_x(vel, dir);
-    yspd = lengthdir_y(vel, dir);
+    xspd = lengthdir_x(moveSpd, dir);
+    yspd = lengthdir_y(moveSpd, dir);
 	
 	timer_see--;
 
