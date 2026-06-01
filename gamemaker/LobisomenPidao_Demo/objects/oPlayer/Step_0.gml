@@ -53,6 +53,11 @@ if place_meeting(x + xspd, y, oNpc)  xspd = 0;
 if place_meeting(x, y + yspd, oWall) yspd = 0;
 if place_meeting(x, y + yspd, oNpc)  yspd = 0;
 
+if (!global.temChave) {
+    if place_meeting(x + xspd, y, oPorta) xspd = 0;
+    if place_meeting(x, y + yspd, oPorta) yspd = 0;
+}
+
 //colisao com oSaida
 if place_meeting(x + xspd, y, oSaida)
 {

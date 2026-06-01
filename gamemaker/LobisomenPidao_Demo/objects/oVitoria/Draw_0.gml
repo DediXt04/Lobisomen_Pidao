@@ -74,15 +74,6 @@ if (_temControle) {
     draw_text(_cx, _footerY, "[A/D] Navegar    [E] Confirmar");
 }
 
-// Indicador de controle
-var _indicadorY = _footerY + 28;
-if (_temControle) {
-    draw_set_color(make_color_rgb(50, 110, 120));
-    draw_text(_cx, _indicadorY, "Controle conectado");
-} else {
-    draw_set_color(make_color_rgb(150, 60, 60));
-    draw_text(_cx, _indicadorY, "Nenhum controle encontrado");
-}
 
 // Reset
 draw_set_halign(fa_left);
