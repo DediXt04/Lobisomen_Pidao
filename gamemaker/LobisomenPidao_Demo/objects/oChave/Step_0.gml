@@ -1,22 +1,20 @@
-//Pausar
+// Pausar
 if (global.pausado) exit;
 
-// Setando a profundidade de acordo com y
+// Profundidade baseada em Y
 depth = -bbox_bottom;
 
-//step
+// Distância até o player
 var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
 
-//Flutuar
+// Animação de flutuação (sobe e desce suavemente)
 y = base_y + sin(current_time / 200) * 1.5;
 depth = -y;
 
-if (_dist < 24 && oController.interagir
+// Coleta: perto + botão de interação + sem parede entre os dois
+if (_dist < 16 && oController.interagir
  && !collision_line(x, y, oPlayer.x, oPlayer.y, oWall, false, true))
 {
-    with (oController)
-    {
-        global.comida += other.valor;
-    }
+    global.temChave = true;
     instance_destroy();
 }

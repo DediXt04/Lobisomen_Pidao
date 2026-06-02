@@ -15,6 +15,9 @@ if (pixels_walked > 0) {
         if place_meeting(x + xspd, y, oWall)   { pixels_walked = 0; xspd = 0; }
         if place_meeting(x + xspd, y, oPlayer) { pixels_walked = 0; xspd = 0; }
         if place_meeting(x + xspd, y, oSaida)  { pixels_walked = 0; xspd = 0; }
+		if(!global.temChave){
+			if place_meeting(x + xspd, y, oPorta)  { pixels_walked = 0; xspd = 0; }
+		}
         if (xspd != 0) { x += xspd; pixels_walked -= abs(xspd); }
     }
 
@@ -22,6 +25,9 @@ if (pixels_walked > 0) {
         if place_meeting(x, y + yspd, oWall)   { pixels_walked = 0; yspd = 0; }
         if place_meeting(x, y + yspd, oPlayer) { pixels_walked = 0; yspd = 0; }
         if place_meeting(x, y + yspd, oSaida)  { pixels_walked = 0; yspd = 0; }
+		if(!global.temChave){
+			if place_meeting(x, y + yspd, oPorta)  { pixels_walked = 0; yspd = 0; }
+		}
         if (yspd != 0) { y += yspd; pixels_walked -= abs(yspd); }
     }
 }

@@ -19,6 +19,9 @@ if (!variable_global_exists("npcSpawn"))     global.npcSpawn     = 2;
 if (!variable_global_exists("tempoFomeMax")) global.tempoFomeMax = 90;
 global.comidaCheia = false;
 
+//chave
+global.temChave = false;
+
 // fome
 tempoFome = global.tempoFomeMax;
 tempoMax  = global.tempoFomeMax;
@@ -39,3 +42,5 @@ PAUSE_NAV_CD_MAX = 12;
 
 //salva room atual
 global.fase_room_atual = room;
+
+
