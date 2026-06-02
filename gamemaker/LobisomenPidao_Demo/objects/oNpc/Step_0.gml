@@ -58,10 +58,16 @@ if (reacao_timer > 0) {
     if (reacao_timer <= 0) reacao_frame = -1;
 }
 
-var _dist = point_distance(x, y, oPlayer.x, oPlayer.y);
+// Centro do bbox para não cair dentro de parede adjacente
+var _ncx = (bbox_left + bbox_right) * 0.5;
+var _ncy = (bbox_top + bbox_bottom) * 0.5;
+var _pcx = (oPlayer.bbox_left + oPlayer.bbox_right) * 0.5;
+var _pcy = (oPlayer.bbox_top + oPlayer.bbox_bottom) * 0.5;
+
+var _dist = point_distance(_ncx, _ncy, _pcx, _pcy);
 
 if (_dist < 32 && oController.interagir && cooldown <= 0
- && !collision_line(x, y, oPlayer.x, oPlayer.y, oWall, false, true))
+ && !collision_line(_ncx, _ncy, _pcx, _pcy, oWall, false, true))
 {
     // Sem paciência — reação 2
     if (paciencia <= 0) {
