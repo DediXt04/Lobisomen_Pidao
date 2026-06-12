@@ -92,6 +92,7 @@
     {"id":{"name":"sLoboDownHungry","path":"sprites/sLoboDownHungry/sLoboDownHungry.yy",},},
     {"id":{"name":"sLoboDUp","path":"sprites/sLoboDUp/sLoboDUp.yy",},},
     {"id":{"name":"sLoboDUpHungry","path":"sprites/sLoboDUpHungry/sLoboDUpHungry.yy",},},
+    {"id":{"name":"sLoboMenu","path":"sprites/sLoboMenu/sLoboMenu.yy",},},
     {"id":{"name":"sLoboSide","path":"sprites/sLoboSide/sLoboSide.yy",},},
     {"id":{"name":"sLoboSideHungry","path":"sprites/sLoboSideHungry/sLoboSideHungry.yy",},},
     {"id":{"name":"sLoboUp","path":"sprites/sLoboUp/sLoboUp.yy",},},

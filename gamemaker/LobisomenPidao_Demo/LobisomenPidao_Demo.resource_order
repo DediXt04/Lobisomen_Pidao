@@ -62,6 +62,7 @@
     {"name":"sLoboDownHungry","order":10,"path":"sprites/sLoboDownHungry/sLoboDownHungry.yy",},
     {"name":"sLoboDUp","order":3,"path":"sprites/sLoboDUp/sLoboDUp.yy",},
     {"name":"sLoboDUpHungry","order":11,"path":"sprites/sLoboDUpHungry/sLoboDUpHungry.yy",},
+    {"name":"sLoboMenu","order":20,"path":"sprites/sLoboMenu/sLoboMenu.yy",},
     {"name":"sLoboSide","order":2,"path":"sprites/sLoboSide/sLoboSide.yy",},
     {"name":"sLoboSideHungry","order":12,"path":"sprites/sLoboSideHungry/sLoboSideHungry.yy",},
     {"name":"sLoboUp","order":4,"path":"sprites/sLoboUp/sLoboUp.yy",},

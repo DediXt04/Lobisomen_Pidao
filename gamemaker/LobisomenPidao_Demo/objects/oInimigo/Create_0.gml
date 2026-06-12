@@ -73,7 +73,7 @@ estado_parado = function()
     yspd = 0;
 	flag_parado = true;
 
-    if (is_debug) image_blend = c_white;
+    if (is_debug) image_blend = c_green;
 
     // vê o player
     if (campo_visao(120, 60))
@@ -95,7 +95,7 @@ estado_parado = function()
 // PASSEANDO
 estado_passeando = function()
 {
-    if (is_debug) image_blend = c_green;
+    if (is_debug) image_blend = c_white;
 
     // se ver o player
     if (campo_visao(120, 60))
@@ -104,16 +104,16 @@ estado_passeando = function()
         exit;
     }
 
-    if (timer_estado <= 0)
-    {
-        estado = estado_parado;
-        exit;
-    }
+    //if (timer_estado <= 0)
+    //{
+    //    estado = estado_parado;
+    //    exit;
+    //}
 
     timer_estado--;
 
     // movimento aleatório
-    if (irandom(100) < 5)
+    if (irandom(100) < 2)
     {
 		scr_escolherDirecao();
         //var dir = irandom(359);
@@ -135,16 +135,16 @@ estado_perseguindo = function()
 	timer_see--;
 
     // perdeu o player
-    if (!campo_visao(120, 60) and timer_see <= 0)
+    if (!campo_visao(120, 60))
     {
-        estado = estado_parado;
+        estado = estado_passeando;
     }
 	
 	if (campo_visao(120, 60)) timer_see = room_speed * 2;
 }
 
 // DEFINE ESTADO INICIAL
-estado = estado_parado;
+estado = estado_passeando;
 #endregion
 
 // DEFINE AS SPRITES INICIAIS
