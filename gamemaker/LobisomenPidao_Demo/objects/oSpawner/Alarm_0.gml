@@ -1,5 +1,5 @@
 var _config = [
-    [global.comidaSpawn,  [oBurger, oPunk]],
+    [global.comidaSpawn,  [oBurger, oPunk, oCereja, oCoxinha]],
     [global.npcSpawn,     [oNpc]],
 ];
 var _tentativas_max = 200;
