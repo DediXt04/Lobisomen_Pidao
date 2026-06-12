@@ -2,39 +2,34 @@ fase_rooms = [
     room_01,
     room_02,
     rm_fase03,
-    room_02,  // mockup — remover depois
-    room_01,  // mockup — remover depois
-    room_02,  // mockup — remover depois
-    room_01,  // mockup — remover depois
-    room_02,  // mockup — remover depois
 ];
 
 fase_nomes = [
     "Fase testes",
     "Fase testes tileset",
     "Fase nova",
-    "Mockup 4",
-    "Mockup 5",
-    "Mockup 6",
-    "Mockup 7",
-    "Mockup 8",
+
 ];
 
 fase_subtitulos = [
     "Ai! Ui! Um lobo me mordeu!",
     "Me jogue aos lobos",
     "Faso nova",
-    "Teste de paginação",
-    "Teste de paginação",
-    "Ultima da pagina 1",
-    "Primeira da pagina 2",
-    "Teste de paginação",
 ];
 
 total_fases      = array_length(fase_rooms);
 fase_selecionada = 0;
 
 if (!variable_global_exists("comida")) global.comida = 0;
+
+// --- Progressão de fases ---
+global.fase_atual = 0;
+
+ini_open("save_progresso.ini");
+global.fase_desbloqueada = ini_read_real("progresso", "fase_desbloqueada", 0);
+ini_close();
+
+global.fase_desbloqueada = clamp(global.fase_desbloqueada, 0, total_fases - 1);
 
 // --- Layout em grade (1920x1080) ---
 colunas  = 3;           // cards por linha

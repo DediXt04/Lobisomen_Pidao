@@ -36,6 +36,9 @@ for (var i = _inicio; i < _fim; i++) {
     var _cy = grade_y + _row * (card_h + card_gap);
     var _sel = (i == fase_selecionada);
 
+    var _sel      = (i == fase_selecionada);
+    var _bloqueada = (i > global.fase_desbloqueada); // ← linha que estava faltando
+
     // --- Sombra do card (deslocamento simples) ---
     draw_set_color(make_color_rgb(10, 10, 20));
     draw_set_alpha(0.5);
@@ -51,22 +54,29 @@ for (var i = _inicio; i < _fim; i++) {
     draw_rectangle(_cx, _cy, _cx + card_w, _cy + card_h, false);
 
     // --- Área de thumbnail (topo do card) ---
-    // Troque o draw_rectangle abaixo por draw_sprite_stretched quando tiver sprites de preview
-    if (_sel) {
+    if (_bloqueada) {
+        draw_set_color(make_color_rgb(12, 14, 25));
+    } else if (_sel) {
         draw_set_color(make_color_rgb(25, 55, 85));
     } else {
         draw_set_color(make_color_rgb(20, 28, 55));
     }
     draw_rectangle(_cx, _cy, _cx + card_w, _cy + thumb_h, false);
 
-    // Número da fase centralizado no thumbnail (placeholder visual)
+    // Número ou cadeado no thumbnail (bloco único — sem duplicata abaixo)
     draw_set_font(fnt_pixel);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_set_color(_sel
-        ? make_color_rgb(80, 200, 210)
-        : make_color_rgb(35, 70, 90));
-    draw_text(_cx + card_w / 2, _cy + thumb_h / 2, string(i + 1));
+
+    if (_bloqueada) {
+        draw_set_color(make_color_rgb(50, 30, 30));
+        draw_text(_cx + card_w / 2, _cy + thumb_h / 2, "X");
+    } else {
+        draw_set_color(_sel
+            ? make_color_rgb(80, 200, 210)
+            : make_color_rgb(35, 70, 90));
+        draw_text(_cx + card_w / 2, _cy + thumb_h / 2, string(i + 1));
+    }
 
     // Divisória entre thumbnail e info
     draw_set_color(make_color_rgb(40, 80, 100));
@@ -82,25 +92,36 @@ for (var i = _inicio; i < _fim; i++) {
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
 
-    // Nome da fase
-    draw_set_color(_sel
-    ? make_color_rgb(210, 240, 245)
-    : make_color_rgb(130, 160, 175));
-	draw_text_ext(_cx + card_w / 2, _info_y, fase_nomes[i], -1, _max_text_w);
+    if (_bloqueada) {
+        draw_set_color(make_color_rgb(50, 55, 65));
+        draw_text_ext(_cx + card_w / 2, _info_y, "Bloqueada", -1, card_w - 24);
 
-    // Subtítulo — posicionado abaixo do nome real
-    var _nome_h = string_height_ext(fase_nomes[i], -1, _max_text_w);
-    var _sub_y = _info_y + _nome_h + 6;
-
-    if (_sub_y < _info_bottom) {
+        draw_set_color(make_color_rgb(35, 40, 50));
+        draw_text_ext(_cx + card_w / 2, _info_y + 30, "Venca a fase anterior", -1, card_w - 24);
+    } else {
         draw_set_color(_sel
-        ? make_color_rgb(80, 180, 195)
-        : make_color_rgb(50, 75, 95));
-	    draw_text_ext(_cx + card_w / 2, _sub_y, fase_subtitulos[i], -1, _max_text_w);
+            ? make_color_rgb(210, 240, 245)
+            : make_color_rgb(130, 160, 175));
+        draw_text_ext(_cx + card_w / 2, _info_y, fase_nomes[i], -1, card_w - 24);
+
+        var _nome_h = string_height_ext(fase_nomes[i], -1, _max_text_w);
+        var _sub_y = _info_y + _nome_h + 6;
+
+        if (_sub_y < _info_bottom) {
+            draw_set_color(_sel
+                ? make_color_rgb(80, 180, 195)
+                : make_color_rgb(50, 75, 95));
+            draw_text_ext(_cx + card_w / 2, _sub_y, fase_subtitulos[i], -1, _max_text_w);
+        }
     }
 
     // --- Borda do card ---
-    if (_sel) {
+    if (_bloqueada) {
+        draw_set_color(make_color_rgb(25, 20, 20));
+        draw_set_alpha(0.4);
+        draw_rectangle(_cx, _cy, _cx + card_w, _cy + card_h, true);
+        draw_set_alpha(1);
+    } else if (_sel) {
         draw_set_color(make_color_rgb(80, 200, 210));
         draw_set_alpha(0.9);
         draw_rectangle(_cx, _cy, _cx + card_w, _cy + card_h, true);

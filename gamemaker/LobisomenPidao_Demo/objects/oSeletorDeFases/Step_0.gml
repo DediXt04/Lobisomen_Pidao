@@ -1,3 +1,11 @@
+// DEBUG: F2 reseta o progresso
+if (keyboard_check_pressed(vk_f2)) {
+    global.fase_desbloqueada = 0;
+    ini_open("save_progresso.ini");
+    ini_write_real("progresso", "fase_desbloqueada", 0);
+    ini_close();
+}
+
 // -------------------------------------------------------
 // DETECTAR MODO DE INPUT
 // -------------------------------------------------------
@@ -88,7 +96,8 @@ if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main
               || gamepad_button_check_pressed(global.gamepad_main, gp_face1);
 }
 
-if (_confirmar) {
+if (_confirmar && fase_selecionada <= global.fase_desbloqueada) {
+    global.fase_atual = fase_selecionada;
     global.comida = 0;
     room_goto(fase_rooms[fase_selecionada]);
 }

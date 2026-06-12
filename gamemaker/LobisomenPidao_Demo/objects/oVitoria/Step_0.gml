@@ -31,7 +31,15 @@ if (_confirmar) {
         case 0: // Reiniciar Fase
             room_goto(global.fase_room_atual);
             break;
-        case 1: // Sair para seletor
+
+        case 1: // Sair para seletor — desbloqueia próxima fase antes de sair
+            if (global.fase_atual >= global.fase_desbloqueada) {
+                global.fase_desbloqueada = min(global.fase_atual + 1, 4);
+
+                ini_open("save_progresso.ini");
+                ini_write_real("progresso", "fase_desbloqueada", global.fase_desbloqueada);
+                ini_close();
+            }
             room_goto(rm_SelecaoDeFases);
             break;
     }
