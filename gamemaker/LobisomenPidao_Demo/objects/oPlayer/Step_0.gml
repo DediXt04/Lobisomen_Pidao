@@ -91,7 +91,16 @@ if (_novoEstado != faminto)
 {
     faminto = _novoEstado;
 
-    if (faminto)
+    if (faminto and xspd == 0 and yspd == 0)
+    {
+		moveSpd = 2.5;
+        sprite[0] = sLoboSideIdleH;
+        sprite[1] = sLoboDUpIdleH;
+        sprite[2] = sLoboUpIdleH;
+        sprite[3] = sLoboDownIdleH;
+        sprite[4] = sLoboDDownIdleH;
+    }
+	else if (faminto)
     {
         moveSpd = 2.5;
         sprite[0] = sLoboSideHungry;
@@ -100,7 +109,16 @@ if (_novoEstado != faminto)
         sprite[3] = sLoboDownHungry;
         sprite[4] = sLoboDDownHungry;
     }
-    else
+    else if (xspd == 0 and yspd == 0)
+    {
+		moveSpd = 2;
+        sprite[0] = sLoboSideIdle;
+        sprite[1] = sLoboDUpIdle;
+        sprite[2] = sLoboUpIdle;
+        sprite[3] = sLoboDownIdle;
+        sprite[4] = sLoboDDownIdle;
+    }
+	else
     {
         moveSpd = 2;
         sprite[0] = sLoboSide;
