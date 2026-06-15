@@ -85,42 +85,46 @@ knock_y = lerp(knock_y, 0, 0.2);
 
 // escolher sprites lobo
 #region
-var _novoEstado = (oController.tempoFome <= oController.tempoMax * 0.25);
+// escolher sprites lobo
+var _temInput = (_horizKey != 0 || _vertKey != 0);
 
-if (_novoEstado != faminto)
+if (oController.tempoFome <= oController.tempoMax * 0.25)
 {
-    faminto = _novoEstado;
+    faminto = true;
+    moveSpd = 2.5;
 
-    if (faminto and xspd == 0 and yspd == 0)
+    if (!_temInput)
     {
-		moveSpd = 2.5;
         sprite[0] = sLoboSideIdleH;
         sprite[1] = sLoboDUpIdleH;
         sprite[2] = sLoboUpIdleH;
         sprite[3] = sLoboDownIdleH;
         sprite[4] = sLoboDDownIdleH;
     }
-	else if (faminto)
+    else
     {
-        moveSpd = 2.5;
         sprite[0] = sLoboSideHungry;
         sprite[1] = sLoboDUpHungry;
         sprite[2] = sLoboUpHungry;
         sprite[3] = sLoboDownHungry;
         sprite[4] = sLoboDDownHungry;
     }
-    else if (xspd == 0 and yspd == 0)
+}
+else
+{
+    faminto = false;
+    moveSpd = 2;
+
+    if (!_temInput)
     {
-		moveSpd = 2;
         sprite[0] = sLoboSideIdle;
         sprite[1] = sLoboDUpIdle;
         sprite[2] = sLoboUpIdle;
         sprite[3] = sLoboDownIdle;
         sprite[4] = sLoboDDownIdle;
     }
-	else
+    else
     {
-        moveSpd = 2;
         sprite[0] = sLoboSide;
         sprite[1] = sLoboDUp;
         sprite[2] = sLoboUp;
@@ -144,13 +148,26 @@ if (_horizKey != 0 || _vertKey != 0)
     if _horizKey != 0 && _vertKey == -1 { face = 1; image_xscale = (_horizKey == 1) ? 1 : -1; }
     if _horizKey != 0 && _vertKey == 1  { face = 4; image_xscale = (_horizKey == 1) ? 1 : -1; }
 }
+else
+{
+    switch (face)
+    {
+        case 0: sprite[0] = faminto ? sLoboSideIdleH  : sLoboSideIdle;   break;
+        case 1: sprite[1] = faminto ? sLoboDUpIdleH   : sLoboDUpIdle;    break;
+        case 2: sprite[2] = faminto ? sLoboUpIdleH    : sLoboUpIdle;     break;
+        case 3: sprite[3] = faminto ? sLoboDownIdleH  : sLoboDownIdle;   break;
+        case 4: sprite[4] = faminto ? sLoboDDownIdleH : sLoboDDownIdle;  break;
+    }
+    image_speed = 1;
+}
 
 // Decrementa timer
 if (walk_timer > 0) walk_timer--;
 
-// Só trava no frame 0 (idle) quando o timer zerou
-if (walk_timer == 0) image_index = 0;
-
+if (walk_timer == 0)
+{
+    image_speed = 1; // deixa a animação correr
+}
 mask_index   = sprite[3];
 sprite_index = sprite[face];
 depth = -y;
