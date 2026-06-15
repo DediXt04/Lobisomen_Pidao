@@ -8,7 +8,9 @@
   ],
   "managed":true,
   "name":"oGuarda1",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oInimigo","path":"objects/oInimigo/oInimigo.yy",},"propertyId":{"name":"is_debug","path":"objects/oInimigo/oInimigo.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"False",},
+  ],
   "parent":{
     "name":"objs",
     "path":"folders/objs.yy",
