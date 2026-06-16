@@ -25,6 +25,9 @@ timer_investigar = 0;
 timer_girar = 0;
 TEMPO_INVESTIGAR = room_speed * 4;   // 4 segundos olhando ao redor
 TEMPO_GIRAR = room_speed * 0.6;      // gira a cabeça a cada 0.6 segundos
+// pathfinding (investigação)
+caminho = path_add();      // path dinâmico, reaproveitado a cada investigação
+indice_caminho = 0;        // índice do próximo waypoint a seguir
 
 // direção visual
 xscale = 1;
@@ -107,7 +110,7 @@ estado_investigando = function()
 {
     if (is_debug) image_blend = c_orange;
 
-    // Se vê o player durante a investigação, volta a perseguir
+    // Se vê o player durante a investigação, abandona o caminho e volta a perseguir
     if (campo_visao(120, 60))
     {
         timer_see = room_speed * 2;
@@ -115,50 +118,42 @@ estado_investigando = function()
         exit;
     }
 
-    // Calcular distância até o último ponto visto
-    var _dist = point_distance(x, y, ultimo_x, ultimo_y);
-
-    if (_dist > 16)
+    // FASE 1: seguindo o caminho calculado pelo grid
+    if (indice_caminho < path_get_number(caminho))
     {
-        // FASE 1: Andando até o ponto
-        flag_parado = false;
+        var _px = path_get_point_x(caminho, indice_caminho);
+        var _py = path_get_point_y(caminho, indice_caminho);
 
-        var dir = point_direction(x, y, ultimo_x, ultimo_y);
-        xspd = lengthdir_x(vel, dir);
-        yspd = lengthdir_y(vel, dir);
+        var dir = point_direction(x, y, _px, _py);
+        xspd = lengthdir_x(moveSpd, dir);
+        yspd = lengthdir_y(moveSpd, dir);
+
+        if (point_distance(x, y, _px, _py) <= moveSpd)
+        {
+            indice_caminho++;
+        }
     }
     else
     {
-        // FASE 2: Chegou no ponto — olha ao redor
+        // FASE 2: chegou no ponto (ou não havia caminho) — olha ao redor
         xspd = 0;
         yspd = 0;
 
-        // Timer de investigação
         timer_investigar--;
 
         if (timer_investigar <= 0)
         {
-            // Acabou o tempo — não achou nada, volta ao normal
             estado = estado_passeando;
             exit;
         }
 
-        // Girar a cabeça periodicamente
         timer_girar--;
 
         if (timer_girar <= 0)
         {
             timer_girar = TEMPO_GIRAR;
-
-            // Escolhe uma direção aleatória para olhar
-            face = irandom(4);  // 0=lado, 1=diag-cima, 2=cima, 3=baixo, 4=diag-baixo
-
-            // Alterna xscale aleatoriamente (olha pra esquerda ou direita)
-            if (irandom(1) == 0) {
-                image_xscale = 1;
-            } else {
-                image_xscale = -1;
-            }
+            face = irandom(4);
+            image_xscale = (irandom(1) == 0) ? 1 : -1;
         }
     }
 }
@@ -173,7 +168,6 @@ estado_perseguindo = function()
     xspd = lengthdir_x(moveSpd, dir);
     yspd = lengthdir_y(moveSpd, dir);
 	
-	timer_see--;
 
     if (campo_visao(120, 60))
     {
@@ -184,13 +178,18 @@ estado_perseguindo = function()
     }
 
     // perdeu o player
-    if (!campo_visao(120, 60) && timer_see <= 0)
-    {
-        // Em vez de parar, vai investigar o último ponto
-        timer_investigar = TEMPO_INVESTIGAR;
-        timer_girar = TEMPO_GIRAR;
-        estado = estado_passeando;
-    }
+	if (!campo_visao(120, 60))
+	{
+	    timer_investigar = TEMPO_INVESTIGAR;
+	    timer_girar      = TEMPO_GIRAR;
+
+	    // calcula o caminho até o último ponto visto, evitando paredes
+	    path_clear_points(caminho);
+	    mp_grid_path(oController.grid, caminho, x, y, ultimo_x, ultimo_y, true); // true = permite diagonal
+	    indice_caminho = 1; // ponto 0 é a posição atual; já começamos indo pro próximo
+
+	    estado = estado_investigando;
+	}
 }
 
 // DEFINE ESTADO INICIAL
