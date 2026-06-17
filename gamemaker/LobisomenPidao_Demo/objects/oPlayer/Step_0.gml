@@ -85,7 +85,6 @@ knock_y = lerp(knock_y, 0, 0.2);
 
 // escolher sprites lobo
 #region
-// escolher sprites lobo
 var _temInput = (_horizKey != 0 || _vertKey != 0);
 
 if (oController.tempoFome <= oController.tempoMax * 0.25)
@@ -136,8 +135,6 @@ else
 
 // sprite control
 #region
-
-
 // Se há input, atualiza direção e "acende" o timer de walk
 if (_horizKey != 0 || _vertKey != 0)
 {

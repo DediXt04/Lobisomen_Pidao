@@ -3,7 +3,7 @@ event_inherited();
 
 // ESCOLHE AS SPRITES DE ACORDO COM FLAG
 #region
-if (flag_parado)
+if (xspd == 0 and yspd == 0)
 {
 	sprite[0] = sFreddyFasbear;
 	sprite[1] = sFreddyFasbear;
