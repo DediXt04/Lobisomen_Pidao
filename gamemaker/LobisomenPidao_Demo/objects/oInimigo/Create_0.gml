@@ -1,22 +1,10 @@
 // VARIÁVEIS BÁSICAS
 #region
-//moveSpd = 1;
 scr_initMovimento(1, 90, 300);
 dano = 1;
-//flag_parado = false;
-timer_see = room_speed * 2;
-
-//// movimento
-//xspd = 0;
-//yspd = 0;
 
 // estado
 estado = undefined;
-//timer_estado = 0;
-
-// visão
-larg_visao = 80;
-alt_visao = 1.5;
 
 // investigação
 ultimo_x = x;
@@ -28,9 +16,7 @@ TEMPO_GIRAR = room_speed * 0.6;      // gira a cabeça a cada 0.6 segundos
 // pathfinding (investigação)
 caminho = path_add();      // path dinâmico, reaproveitado a cada investigação
 indice_caminho = 0;        // índice do próximo waypoint a seguir
-
-// direção visual
-xscale = 1;
+giro_primeiro = false;
 #endregion
 
 // FUNÇÃO CAMPO DE VISÃO
@@ -89,14 +75,6 @@ estado_passeando = function()
         exit;
     }
 
-    //if (timer_estado <= 0)
-    //{
-    //    estado = estado_parado;
-    //    exit;
-    //}
-
-    //timer_estado--;
-
     // movimento aleatório
 	timer++;
 	if (timer >= timer_max) {
@@ -113,7 +91,6 @@ estado_investigando = function()
     // Se vê o player durante a investigação, abandona o caminho e volta a perseguir
     if (campo_visao(120, 60))
     {
-        timer_see = room_speed * 2;
         estado = estado_perseguindo;
         exit;
     }
@@ -149,12 +126,21 @@ estado_investigando = function()
 
         timer_girar--;
 
-        if (timer_girar <= 0)
-        {
-            timer_girar = TEMPO_GIRAR;
-            face = irandom(4);
-            image_xscale = (irandom(1) == 0) ? 1 : -1;
-        }
+		if (timer_girar <= 0)
+		{
+		    timer_girar = TEMPO_GIRAR;
+
+		    if (giro_primeiro)
+		    {
+		        // primeira olhada: mantém a direção que ele já estava seguindo
+		        giro_primeiro = false;
+		    }
+		    else
+		    {
+		        face = irandom(4);
+		        image_xscale = (irandom(1) == 0) ? 1 : -1;
+		    }
+		}
     }
 }
 
@@ -172,7 +158,6 @@ estado_perseguindo = function()
     if (campo_visao(120, 60))
     {
         // Enquanto vê o player, atualiza a última posição conhecida
-        timer_see = room_speed * 2;
         ultimo_x = oPlayer.x;
         ultimo_y = oPlayer.y;
     }
@@ -182,6 +167,7 @@ estado_perseguindo = function()
 	{
 	    timer_investigar = TEMPO_INVESTIGAR;
 	    timer_girar      = TEMPO_GIRAR;
+		giro_primeiro    = true;
 
 	    // calcula o caminho até o último ponto visto, evitando paredes
 	    path_clear_points(caminho);
@@ -195,12 +181,3 @@ estado_perseguindo = function()
 // DEFINE ESTADO INICIAL
 estado = estado_passeando;
 #endregion
-
-// DEFINE AS SPRITES INICIAIS
-face = 3;
-
-sprite[0] = sFreddyFasbear;
-sprite[1] = sFreddyFasbear;
-sprite[2] = sFreddyFasbear;
-sprite[3] = sFreddyFasbear;
-sprite[4] = sFreddyFasbear;

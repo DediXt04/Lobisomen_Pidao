@@ -28,13 +28,6 @@ x += xspd;
 y += yspd;
 #endregion
 
-//DIREÇÃO VISUAL
-if (xspd != 0)
-{
-    xscale = sign(xspd);
-    image_xscale = xscale;
-}
-
 // CONTROLE DE SPRITE
 #region
 var _h = sign(xspd);

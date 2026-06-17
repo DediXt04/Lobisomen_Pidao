@@ -3,6 +3,7 @@ draw_self();
 // debug
 if (is_debug)
 {
+	if (timer_investigar > 0) draw_path(caminho, x, y, 1);
     var dist = 120;
 	var ang = 60;
 
