@@ -37,6 +37,7 @@ function Navbar() {
             <li className="nav-item"><NavLink className="nav-link" to="/galeria" onClick={closeNavbar}>Galeria</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/docs" onClick={closeNavbar}>Docs</NavLink></li>
             <li className="nav-item"><NavLink className="nav-link" to="/devlog" onClick={closeNavbar}>Devlog</NavLink></li>
+            <li className="nav-item"><a className="nav-link" href="https://github.com/DediXt04/Lobisomen_Pidao" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           </ul>
         </div>
       </div>

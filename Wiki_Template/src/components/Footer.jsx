@@ -27,6 +27,9 @@ function Footer() {
           <Link to="/galeria" className="mx-2 text-decoration-none text-white">
             Galeria
           </Link>
+          <a href="https://github.com/DediXt04/Lobisomen_Pidao" target="_blank" rel="noopener noreferrer" className="mx-2 text-decoration-none text-white">
+            GitHub
+          </a>
         </nav>
 
         <div className="text-center mt-3">
