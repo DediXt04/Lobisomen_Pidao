@@ -13,11 +13,11 @@ cooldown_max  = 120;
 walk_timer = 0;
 
 face = 3;              // 3 = baixo (mesmo valor inicial do Player)
-sprite[0] = sNpcSide;  // face 0 = lado
-sprite[2] = sNpcUp;    // face 2 = cima
-sprite[3] = sNpcDown;  // face 3 = baixo
-sprite[4] = sNpcDDown; // face 4 = diagonal pra baixo
-sprite[5] = sNpcDUp;   // face 4 = diagonal pra cima
+sprite[0] = sNpc2Side;  // face 0 = lado
+sprite[2] = sNpc2Up;    // face 2 = cima
+sprite[3] = sNpc2Down;  // face 3 = baixo
+sprite[4] = sNpc2DDown; // face 4 = diagonal pra baixo
+sprite[5] = sNpc2DUp;   // face 4 = diagonal pra cima
 
 sprite_index = sprite[face];
 image_speed  = 0;

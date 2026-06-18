@@ -1,17 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"oPunk",
-  "eventList":[],
+  "%Name":"oNpc2",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"oPunk",
+  "name":"oNpc2",
   "overriddenProperties":[],
   "parent":{
     "name":"spawner",
     "path":"folders/objs/spawner.yy",
   },
   "parentObjectId":{
-    "name":"oComida",
-    "path":"objects/oComida/oComida.yy",
+    "name":"oNpc",
+    "path":"objects/oNpc/oNpc.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -31,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sPunk",
-    "path":"sprites/sPunk/sPunk.yy",
+    "name":"sNpc2Down",
+    "path":"sprites/sNpc2Down/sNpc2Down.yy",
   },
   "spriteMaskId":null,
   "visible":true,

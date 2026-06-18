@@ -1,6 +1,6 @@
 var _config = [
-    [global.comidaSpawn,  [oBurger, oPunk, oCereja, oCoxinha]],
-    [global.npcSpawn,     [oNpc]],
+    [global.comidaSpawn,  [oBurger, oCereja, oCoxinha]],
+    [global.npcSpawn,     [oNpc, oNpc2]],
 ];
 var _tentativas_max = 200;
 var _num_zonas = instance_number(oSpawnZone);

@@ -6,7 +6,7 @@ if (global.pausado) exit;
 timer++;
 if (timer >= timer_max) {
     timer = 0;
-    scr_escolherDirecao();
+    scr_escolherDirecao(moveSpd, 16, 64, true);
 }
 
 if (pixels_walked > 0) {
@@ -42,12 +42,25 @@ var _movendo = (pixels_walked > 0);
 if (_movendo) {
     walk_timer = 10;
 
-    if (xspd != 0 && yspd == 0) { face = 0; image_xscale = (xspd > 0) ? 1 : -1; }
-    if (xspd == 0 && yspd != 0) { face = (yspd < 0) ? 2 : 3; image_xscale = 1; }
+    var _h = (xspd != 0); // tem componente horizontal
+    var _v = (yspd != 0); // tem componente vertical
+
+    if (_h && _v) {
+        // Diagonal: prioridade sobre movimento puro
+        face = (yspd < 0) ? 5 : 4;
+        image_xscale = (xspd > 0) ? 1 : -1;
+    } else if (_h) {
+        // Movimento puramente horizontal
+        face = 0;
+        image_xscale = (xspd > 0) ? 1 : -1;
+    } else if (_v) {
+        // Movimento puramente vertical
+        face = (yspd < 0) ? 2 : 3;
+        image_xscale = 1;
+    }
 }
 
 if (walk_timer > 0) walk_timer--;
-
 if (walk_timer == 0) image_index = 0;
 
 mask_index   = sprite[3];
