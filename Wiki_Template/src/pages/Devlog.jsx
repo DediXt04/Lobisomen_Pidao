@@ -52,6 +52,21 @@ export default function Devlog() {
     data: '15/05/2026',
     titulo: 'Sprint 09',
     texto: 'Aprimoramento do comportamento dos inimigos e ajustes na estrutura de herança do código, melhorias nas interfaces de menu (incluindo seleção de fases, tela de game over e vitória), evolução do sistema de spawn, que passou a suportar tanto a geração de comida quanto de NPCs.'
+    },
+    {
+    data: '22/05/2026',
+    titulo: 'Sprint 10',
+    texto: 'Melhorias na documentação do projeto e aprimoramento visual das telas do jogo, com ajustes de layout e polimento de interfaces.'
+    },
+    {
+    data: '29/05/2026',
+    titulo: 'Sprint 11',
+    texto: 'Criação de uma nova fase, padronização visual das telas do jogo, desenvolvimento do menu principal, melhorias nas telas existentes e resolução de bugs do inimigo relacionados a campo de visão e colisão.'
+    },
+    {
+    data: '12/06/2026',
+    titulo: 'Sprint 12',
+    texto: 'Implementação da mecânica de desbloqueamento de fases e criação de novos sprites de comida.'
     }
   ]
 
