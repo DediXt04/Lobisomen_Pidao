@@ -94,21 +94,6 @@ export default function Docs() {
           </div>
         </div>
       </div>
-
-      <div className="card shadow-sm border-start border-info border-4">
-        <div className="card-body">
-          <h6 className="fw-bold mb-2">📖 Documentação Completa</h6>
-          <p className="mb-2">Para mais detalhes sobre o projeto, acesse o documento completo do PI4:</p>
-          <a 
-            href="https://docs.google.com/document/d/1nHL50iT8IC1sjhRi4BY2lSer2jAshxtH/edit?usp=sharing&ouid=111985572929588771841&rtpof=true&sd=true" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="btn btn-outline-primary btn-sm"
-          >
-            <FiExternalLink className="me-1" /> Abrir documentação no Google Docs
-          </a>
-        </div>
-      </div>
     </div>
   )
 }
