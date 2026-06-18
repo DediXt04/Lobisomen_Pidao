@@ -26,14 +26,13 @@ const Download = () => {
               <h4 className="card-title fw-bold">Lobisomem Pidão — Demo</h4>
               <p className="text-muted mb-1">Versão mais recente</p>
               <span className="badge bg-secondary mb-3 mx-auto" style={{ width: 'fit-content' }}>Windows (.exe)</span>
-              <a
-                href={downloadUrl}
-                download
-                className="btn btn-primary btn-lg mt-2 mx-auto px-5"
+              <button
+                disabled
+                className="btn btn-primary btn-lg mt-2 mx-auto px-5 disabled"
               >
                 <FiDownload className="me-2" />
-                Baixar Agora
-              </a>
+                Em breve
+              </button>
             </div>
           </div>
         </div>
