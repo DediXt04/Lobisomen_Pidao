@@ -35,11 +35,11 @@ const Home = () => {
         </div>
 
         <div className="d-flex flex-column flex-md-row gap-3 justify-content-center justify-content-md-start">
-          <Link to="/sobre" className="btn btn-info btn-lg px-4 text-white">
-            Sobre o Jogo
+          <Link to="/download" className="btn btn-success btn-lg px-4 text-white fw-bold">
+            🎮 Jogue Agora
           </Link>
-          <Link to="/equipe" className="btn btn-info btn-lg px-4 text-white">
-            Equipe
+          <Link to="/sobre" className="btn btn-outline-light btn-lg px-4">
+            Sobre o Jogo
           </Link>
         </div>
       </header>
@@ -54,13 +54,12 @@ const Home = () => {
           <div className="col-md-4 mb-4">
             <div className="card home-card h-100 shadow-sm">
               <div className="card-body d-flex flex-column">
-                <h5 className="card-title">História</h5>
+                <h5 className="card-title">📖 Devlog</h5>
                 <p className="card-text">
-                  Conheça o Lobisomem Pidão e descubra por que ele está sempre
-                  com fome nesta jornada divertida e cheia de surpresas.
+                  Acompanhe o progresso do desenvolvimento sprint a sprint e veja como o jogo evoluiu.
                 </p>
                 <Link to="/devlog" className="btn btn-primary mt-auto">
-                  Saiba mais
+                  Ver sprints
                 </Link>
               </div>
             </div>
@@ -69,10 +68,9 @@ const Home = () => {
           <div className="col-md-4 mb-4">
             <div className="card home-card h-100 shadow-sm">
               <div className="card-body d-flex flex-column">
-                <h5 className="card-title">Mecânicas</h5>
+                <h5 className="card-title">📄 Documentação</h5>
                 <p className="card-text">
-                  Stealth em visão top-down, timing preciso de interação e IA
-                  inteligente de guardas para desafiar suas habilidades.
+                  Tecnologias, arquitetura e detalhes técnicos por trás do projeto.
                 </p>
                 <Link to="/docs" className="btn btn-success mt-auto">
                   Explorar
@@ -84,13 +82,54 @@ const Home = () => {
           <div className="col-md-4 mb-4">
             <div className="card home-card h-100 shadow-sm">
               <div className="card-body d-flex flex-column">
-                <h5 className="card-title">Galeria</h5>
+                <h5 className="card-title">🖼️ Galeria</h5>
                 <p className="card-text">
-                  Veja imagens incríveis, concept art exclusivo e o processo
-                  criativo por trás do desenvolvimento do jogo.
+                  Concept art, sprites e imagens do processo criativo do jogo.
                 </p>
                 <Link to="/galeria" className="btn btn-warning mt-auto">
                   Ver galeria
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-4 mb-4">
+            <div className="card home-card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">👥 Equipe</h5>
+                <p className="card-text">
+                  Conheça os desenvolvedores e artistas por trás do Lobisomem Pidão.
+                </p>
+                <Link to="/equipe" className="btn btn-info mt-auto text-white">
+                  Conhecer
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-4 mb-4">
+            <div className="card home-card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">⬇️ Download</h5>
+                <p className="card-text">
+                  Baixe o executável e jogue agora mesmo no seu computador.
+                </p>
+                <Link to="/download" className="btn btn-danger mt-auto text-white">
+                  Baixar
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-4 mb-4">
+            <div className="card home-card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">🐺 Sobre</h5>
+                <p className="card-text">
+                  Mecânicas de stealth, fome, NPCs e tudo que torna o jogo único.
+                </p>
+                <Link to="/sobre" className="btn btn-secondary mt-auto">
+                  Saiba mais
                 </Link>
               </div>
             </div>

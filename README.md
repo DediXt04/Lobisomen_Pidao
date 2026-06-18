@@ -5,17 +5,22 @@
 ![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
 
-Jogo indie 2D top-down onde você controla um lobisomem faminto que precisa explorar fases, pedir comida aos NPCs e escapar dos inimigos antes que a fome acabe ou que ele seja capturado.
+Jogo indie 2D top-down de stealth e humor onde você controla um lobisomem faminto que precisa explorar fases, pedir comida aos NPCs e escapar dos inimigos antes que a fome acabe ou que ele seja capturado.
+
+> 🔗 **Repositório:** [github.com/DediXt04/Lobisomen_Pidao](https://github.com/DediXt04/Lobisomen_Pidao)
 
 ---
 
 ## 🎮 Mecânicas
 
-- **Fome** — barra de fome que diminui em tempo real. Se zerar, o lobo morre.
-- **Coleta de comida** — interaja com NPCs para pedir comida. Cada NPC tem paciência limitada e chance crescente de dar comida.
-- **Stealth** — inimigos patrulham e têm cone de visão. Se te avistarem, perseguem.
-- **Modo faminto** — com ≤25% de fome, o lobisomem fica mais rápido e muda de aparência.
-- **Saída** — colete todas as comidas e encontre a porta de saída para vencer a fase.
+| Mecânica | Descrição |
+|---|---|
+| **Fome** | Barra de fome que diminui em tempo real. Se zerar, o lobo morre. |
+| **Coleta de comida** | Interaja com NPCs para pedir comida. Cada NPC tem paciência limitada e chance crescente de dar comida. |
+| **Stealth** | Inimigos patrulham com cone de visão e colisão realistas. Se te avistarem, perseguem. |
+| **Modo faminto** | Com ≤25% de fome, o lobisomem fica mais rápido e muda de aparência. |
+| **Desbloqueio de fases** | Vença a fase atual para desbloquear a próxima. Progressão gradual com 10 fases + tutorial. |
+| **Saída** | Colete todas as comidas e encontre a porta de saída para vencer a fase. |
 
 ## 🕹️ Controles
 
@@ -28,30 +33,45 @@ Jogo indie 2D top-down onde você controla um lobisomem faminto que precisa expl
 
 > O jogo detecta automaticamente o gamepad conectado (hot-plug).
 
+## ⭐ Recursos
+
+- 🗺️ **10 fases + tutorial** com dificuldade progressiva
+- 🔓 **Desbloqueio progressivo** de fases
+- 🎵 **Soundtrack e efeitos sonoros** originais
+- ⚙️ **Tela de settings** para configurações do jogo
+- 🏠 **Menu principal** completo e polido
+- 👥 **NPCs dinâmicos** com múltiplas skins e movimento diagonal
+- 🛡️ **Guardas inteligentes** com campo de visão e colisão
+
 ## 🛠️ Tecnologias
 
-- **Game Engine:** [GameMaker](https://gamemaker.io) — foco em 2D, GML como linguagem de script, suporte multiplataforma.
-- **Site/Wiki:** [React](https://react.dev) + [Vite](https://vite.dev) + [Bootstrap](https://getbootstrap.com) — frontend rápido e responsivo.
-- **Controle de versão:** Git + GitHub para colaboração e histórico.
-- **Design gráfico:** [Libresprite](https://libresprite.github.io) para pixel art.
+| Tecnologia | Uso |
+|---|---|
+| [GameMaker](https://gamemaker.io) | Game engine — foco em 2D, GML como linguagem de script |
+| [React](https://react.dev) + [Vite](https://vite.dev) + [Bootstrap](https://getbootstrap.com) | Site/Wiki — frontend rápido e responsivo |
+| [Git + GitHub](https://github.com/DediXt04/Lobisomen_Pidao) | Controle de versão e colaboração |
+| [Libresprite](https://libresprite.github.io) | Pixel art e design gráfico |
 
 ## 🏗️ Arquitetura
 
 O jogo é organizado em módulos independentes para facilitar manutenção e expansão:
 
-- **Objetos** — entidades do jogo (Player, parede, comida, NPC, inimigos...), cada uma com seus próprios eventos e lógica.
-- **Sprites** — assets visuais do jogo — personagens, tiles, itens e efeitos, organizados em pastas no GameMaker.
-- **Scripts** — funções GML reutilizáveis, como lógica de HUD, draw de vida, fome e sistemas compartilhados entre objetos.
-- **Rooms** — salas do jogo (menu, gameplay, game over) com câmera, instâncias e transições configuradas.
-- **Fonts** — fontes pixel art utilizadas na HUD, menus e textos para manter a identidade visual.
+| Módulo | Descrição |
+|---|---|
+| **Objetos** | Entidades do jogo (Player, parede, comida, NPC, inimigos...), cada uma com seus próprios eventos e lógica. |
+| **Sprites** | Assets visuais — personagens, tiles, itens e efeitos, organizados em pastas no GameMaker. |
+| **Scripts** | Funções GML reutilizáveis, como lógica de HUD, draw de vida, fome e sistemas compartilhados. |
+| **Rooms** | Salas do jogo (menu, gameplay, game over) com câmera, instâncias e transições configuradas. |
+| **Fonts** | Fontes pixel art utilizadas na HUD, menus e textos para manter a identidade visual. |
 
 ## 📁 Estrutura do Repositório
 
 ```
-Projeto_Integrador_04/
+Lobisomen_Pidao/
 ├── gamemaker/
-│   └── LobisomenPidao_Demo/   # projeto GameMaker (.yyp e arquivos do jogo)
-├── Wiki_Template/             # código-fonte do site/wiki (React + Vite)
+│   └── LobisomenPidao_Demo/       # Projeto GameMaker (.yyp e arquivos do jogo)
+│       └── docs/                   # Guias de implementação e documentação técnica
+├── Wiki/                           # Código-fonte do site/wiki (React + Vite)
 └── README.md
 ```
 
@@ -67,9 +87,9 @@ Projeto_Integrador_04/
 2. Abra o arquivo `.yyp` dentro de `gamemaker/LobisomenPidao_Demo/`
 3. Pressione **F5** para rodar
 
-### Site
+### Site / Wiki
 ```bash
-cd Wiki_Template
+cd Wiki
 npm install
 npm run dev
 ```

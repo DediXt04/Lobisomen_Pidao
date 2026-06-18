@@ -27,7 +27,7 @@ export default function Equipe() {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-2">Equipe</h2>
+      <h2 className="mb-2">👥 Equipe</h2>
       <p className="text-muted mb-4">Conheça as pessoas por trás do Lobisomem Pidão.</p>
 
       <div className="row g-4 justify-content-center">
@@ -40,6 +40,23 @@ export default function Equipe() {
             />
           </div>
         ))}
+      </div>
+
+      <div className="card shadow-sm border-start border-primary border-4 mt-5">
+        <div className="card-body text-center">
+          <p className="mb-2">
+            Este projeto é desenvolvido como parte do <strong>Projeto Integrador</strong> do curso de
+            Ciência da Computação do <strong>CEUB</strong>.
+          </p>
+          <a 
+            href="https://github.com/DediXt04/Lobisomen_Pidao" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="btn btn-dark btn-sm"
+          >
+            🔗 Ver repositório no GitHub
+          </a>
+        </div>
       </div>
     </div>
   )

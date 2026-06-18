@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiCalendar } from 'react-icons/fi'
+import { FiCalendar, FiHash } from 'react-icons/fi'
 
 export default function Devlog() {
   const entradas = [
@@ -70,7 +70,6 @@ export default function Devlog() {
     }
   ]
 
-  // Ordena por data decrescente
   const entradasOrdenadas = [...entradas].sort((a, b) => {
     const parseData = (d) => {
       const [dia, mes, ano] = d.split('/')
@@ -81,24 +80,54 @@ export default function Devlog() {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-2">Devlog</h2>
-      <p className="text-muted mb-4">Acompanhe o progresso do desenvolvimento do jogo.</p>
+      <h2 className="mb-2">📖 Devlog</h2>
+      <p className="text-muted mb-2">Acompanhe o progresso do desenvolvimento do jogo.</p>
+      <div className="d-flex align-items-center gap-2 mb-4">
+        <span className="badge bg-primary">{entradas.length} entradas</span>
+        <span className="badge bg-success">{entradas.filter(e => e.titulo.startsWith('Sprint')).length} sprints</span>
+      </div>
 
-      <div className="row g-4">
-        {entradasOrdenadas.map((e, i) => (
-          <div key={i} className="col-12">
-            <div className="card shadow-sm border-start border-primary border-4">
-              <div className="card-body">
-                <div className="d-flex align-items-center mb-2">
-                  <FiCalendar className="text-primary me-2" />
-                  <small className="text-muted">{e.data}</small>
+      <div className="position-relative">
+        <div 
+          className="position-absolute top-0 start-0 h-100 d-none d-md-block" 
+          style={{ width: '3px', backgroundColor: '#dee2e6', marginLeft: '14px' }}
+        />
+
+        {entradasOrdenadas.map((e, i) => {
+          const isSprint = e.titulo.startsWith('Sprint')
+          return (
+            <div key={i} className="d-flex gap-3 mb-4">
+              <div className="d-none d-md-flex flex-column align-items-center" style={{ minWidth: '30px' }}>
+                <div 
+                  className={`rounded-circle d-flex align-items-center justify-content-center ${isSprint ? 'bg-primary' : 'bg-secondary'}`}
+                  style={{ width: '30px', height: '30px', zIndex: 1 }}
+                >
+                  {isSprint 
+                    ? <FiHash size={14} className="text-white" /> 
+                    : <FiCalendar size={14} className="text-white" />
+                  }
                 </div>
-                <h5 className="card-title mb-2">{e.titulo}</h5>
-                <p className="card-text text-muted mb-0">{e.texto}</p>
+              </div>
+              <div className="flex-grow-1">
+                <div className={`card shadow-sm border-start border-4 ${i === 0 ? 'border-success' : 'border-primary'}`}>
+                  <div className="card-body">
+                    <div className="d-flex align-items-center justify-content-between mb-2">
+                      <h5 className="card-title mb-0">
+                        {e.titulo}
+                        {i === 0 && <span className="badge bg-success ms-2 fs-6">Mais recente</span>}
+                      </h5>
+                      <small className="text-muted d-flex align-items-center gap-1">
+                        <FiCalendar size={14} />
+                        {e.data}
+                      </small>
+                    </div>
+                    <p className="card-text text-muted mb-0">{e.texto}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
