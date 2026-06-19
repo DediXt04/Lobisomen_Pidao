@@ -35,10 +35,10 @@ campo_visao = function(_dist, _angulo_visao)
         switch(face)
         {
             case 0: dir = (image_xscale == 1) ? 0 : 180; break;
-            case 1: dir = (image_xscale == 1) ? 315 : 225; break;
-            case 2: dir = 270; break;
-            case 3: dir = 90; break;
-            case 4: dir = (image_xscale == 1) ? 45 : 135; break;
+            case 1: dir = (image_xscale == 1) ? 45 : 135; break;
+            case 2: dir = 90; break;
+            case 3: dir = 270; break;
+            case 4: dir = (image_xscale == 1) ? 315 : 225; break;
         }
     }
 
