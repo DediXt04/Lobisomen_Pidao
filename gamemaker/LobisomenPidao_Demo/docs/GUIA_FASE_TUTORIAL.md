@@ -856,7 +856,7 @@ Ao colocar `oBurger` ou `oPunk` manualmente na room, o `oController` pode não c
 
 ### Chave e Portão no Tutorial
 
-A chave (`oChave`) e o portão (`oPorta`) são posicionados **manualmente** na Zona 5 — não dependem do `oSpawner` nem de `global.faseTemChave`. O `oController/Create` já seta `global.temChave = false` por padrão, e o `oChave/Step` cuida de setar para `true` quando coletada. O `oPorta/Step` muda o sprite automaticamente ao detectar `global.temChave == true`.
+A chave (`oChave`) e o portão (`oPorta`) são posicionados **manualmente** na Zona 5 — não dependem do `oSpawner`. O `oController/Create` já seta `global.temChave = false` por padrão, e o `oChave/Step` cuida de setar para `true` quando coletada. O `oPorta/Step` muda o sprite automaticamente ao detectar `global.temChave == true`.
 
 > **Posicionamento:** Coloque a `oChave` **antes** do `oPorta` no percurso. O `oPorta` deve bloquear fisicamente o corredor, impedindo acesso à área com a comida extra.
 

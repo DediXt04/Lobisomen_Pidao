@@ -44,7 +44,7 @@ O gamepad é detectado automaticamente via `oProcuraControle` (objeto persistent
 | Resolução interna (view) | 320×180 |
 | Viewport (porta de saída) | 1920×1080 |
 | Tile size | 16×16 |
-| Grid de pathfinding | 4×4 px (`mp_grid` no `oController`) |
+| Grid de pathfinding | 16×16 px (`mp_grid` no `oController`, criado com `mp_grid_create(0,0,rw/16,rh/16,16,16)`) |
 | Fonte do projeto | `fnt_pixel` |
 | Paleta de cores UI | Navy escuro `rgb(14,14,26)` + Teal `rgb(80,200,210)` |
 
@@ -77,9 +77,11 @@ Step, Draw |
 | `oGuarda1` | `sGuarda*` | Filho de `oInimigo`; sprites de guarda, herda toda a lógica | Create (event_inherited + sprites), Step, Draw |
 | `oFreddy` | `sFreddyFasbear` | Filho de `oInimigo`; sprite único para todas as direções | Create (event_inherited + sprites), Step, Draw |
 | `oNpc` | `sNpc*` | NPC que dá comida via interação; sistema de paciência e probabilidade | Create, Step, Draw |
+| `oNpc2` | `sNpc2*` | Segunda skin de NPC (variante visual) — mesma lógica do `oNpc` | Create, Step, Draw |
 | `oComida` | — | **Objeto pai** de comida; flutua e é coletável | Create, Step, Draw |
 | `oBurger` | `sBurguer` | Filho de `oComida` | Herda de oComida |
-| `oPunk` | `sPunk` | Filho de `oComida` | Herda de oComida |
+| `oCereja` | `sCereja` | Filho de `oComida` | Herda de oComida |
+| `oCoxinha` | `sCoxinha` | Filho de `oComida` | Herda de oComida |
 | `oChave` | `sChave` | Chave coletável que desbloqueia `oPorta` | Create, Step, Draw |
 | `oSaida` | `sPortaFechada` / `sPortaAberta` | Porta de saída da fase; abre quando toda comida é coletada | Step |
 | `oPorta` | `sPortaTrancada` / `sPortaDestrancada` | Portão que bloqueia passagem; abre com chave | Step |
@@ -112,8 +114,9 @@ oInimigo (pai)
 └── oFreddy    (sprite Freddy para todas as direções)
 
 oComida (pai)
-├── oBurger    (sprite burguer)
-└── oPunk      (sprite punk)
+├── oBurger    (sprite sBurguer)
+├── oCereja    (sprite sCereja)
+└── oCoxinha   (sprite sCoxinha)
 ```
 
 ---
@@ -136,9 +139,9 @@ oComida (pai)
 |---|---|---|
 | `rm_MenuPrincipal` | Menu | Menu principal; contém `oProcuraControle` (persistente) |
 | `rm_SelecaoDeFases` | Menu | Seletor de fases em grade (3 colunas × 2 linhas por página) |
-| `room_01` | Gameplay | Fase 1 (fase de testes) |
-| `room_02` | Gameplay | Fase 2 (testes com tileset) |
-| `rm_fase03` | Gameplay | Fase 3 |
+| `room_01` | Gameplay | Fase 1 (testes — legado; usa nome antigo `room_XX`) |
+| `room_02` | Gameplay | Fase 2 (testes com tileset — legado; usa nome antigo `room_XX`) |
+| `rm_fase03` | Gameplay | Fase 3 (padrão atual: `rm_faseXX`) |
 | `rm_Vitoria` | Tela | Tela de vitória |
 | `rm_gameOver` | Tela | Tela de game over |
 
@@ -368,9 +371,11 @@ gamemaker/LobisomenPidao_Demo/
 │   ├── oGuarda1/                    # filho de oInimigo
 │   ├── oFreddy/                     # filho de oInimigo
 │   ├── oNpc/                        # NPC interativo
+│   ├── oNpc2/                       # NPC segunda skin (herda de oNpc)
 │   ├── oComida/                     # comida base (pai)
 │   ├── oBurger/                     # filho de oComida
-│   ├── oPunk/                       # filho de oComida
+│   ├── oCereja/                     # filho de oComida
+│   ├── oCoxinha/                    # filho de oComida
 │   ├── oChave/                      # chave coletável
 │   ├── oPorta/                      # portão desbloqueável
 │   ├── oSaida/                      # porta de saída da fase
@@ -399,7 +404,8 @@ gamemaker/LobisomenPidao_Demo/
 | Nomes de objetos | `oNomeDoObjeto` (prefixo `o`) |
 | Nomes de sprites | `sNomeDoSprite` (prefixo `s`) |
 | Nomes de scripts | `scr_nomeDoScript` (prefixo `scr_`) |
-| Nomes de rooms | `room_XX` (fases) ou `rm_NomeDaRoom` (menus/telas) |
+| Nomes de rooms (fases) | `rm_faseXX` (padrão atual, ex: `rm_fase03`). `room_01`/`room_02` são legado. |
+| Nomes de rooms (menus/telas) | `rm_NomeDaRoom` (ex: `rm_MenuPrincipal`, `rm_SelecaoDeFases`, `rm_Vitoria`, `rm_gameOver`) |
 | Nomes de fonts | `fnt_nome` (prefixo `fnt_`) |
 | Variáveis globais | `global.nomeDaVariavel` |
 | Layers obrigatórias | `instancias`, `tiles`, `colisoes`, `Background` |

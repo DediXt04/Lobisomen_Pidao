@@ -4,6 +4,10 @@
 
 ---
 
+> ⚠️ **Estado de implementação (junho/2025):** Apenas a mecânica básica está no código — `oChave`, `oPorta` e `global.temChave` funcionam, mas a **integração com `oSpawner` via `global.faseTemChave` NÃO foi implementada**. Nenhum objeto/script lê `global.faseTemChave`. Para usar a mecânica hoje (como `rm_fase03` faz), basta **posicionar `oChave` e `oPorta` manualmente** no Room Editor — ignore as seções deste guia que descrevem `global.faseTemChave` e a modificação no `oSpawner/Alarm_0`.
+
+---
+
 ## 📌 Contexto
 
 | Item | Valor |
