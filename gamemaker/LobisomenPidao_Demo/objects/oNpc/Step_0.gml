@@ -40,6 +40,7 @@ if (pixels_walked > 0) {
 var _movendo = (pixels_walked > 0);
 
 if (_movendo) {
+    image_speed = 1;
     walk_timer = 10;
 
     var _h = (xspd != 0); // tem componente horizontal
@@ -61,7 +62,10 @@ if (_movendo) {
 }
 
 if (walk_timer > 0) walk_timer--;
-if (walk_timer == 0) image_index = 0;
+if (walk_timer == 0) {
+    image_speed = 0;
+    image_index = 0;
+}
 
 mask_index   = sprite[3];
 sprite_index = sprite[face];
