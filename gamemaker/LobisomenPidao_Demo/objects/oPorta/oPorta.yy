@@ -28,7 +28,7 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":true,
+  "solid":false,
   "spriteId":{
     "name":"sPortaTrancada",
     "path":"sprites/sPortaTrancada/sPortaTrancada.yy",
