@@ -32,7 +32,7 @@
 *(estende o Settings da etapa 2)*
 
 - [ ] Implementar `GUIA_SETTINGS_EXTRA.md`
-  - Fullscreen + Mostrar FPS + Idioma PT/EN
+  - Fullscreen + Mostrar FPS 
 
 ## 5️⃣ Conteúdo — 10 fases
 *(pode rodar em paralelo a partir da etapa 2)*
@@ -42,7 +42,7 @@
 
 ## 6️⃣ Polish visual
 
-- [ ] Lobisomem reativo no menu — `GUIA_LOBO_MENU_REATIVO.md`
+- [X] Lobisomem reativo no menu — `GUIA_LOBO_MENU_REATIVO.md`
 - [ ] Sistema de estrelas na vitória — `GUIA_SISTEMA_DE_ESTRELAS.md`
 
 ---

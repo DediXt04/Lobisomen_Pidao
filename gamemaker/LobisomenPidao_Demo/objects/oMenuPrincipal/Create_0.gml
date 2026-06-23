@@ -1,3 +1,5 @@
+confirmou_neste_frame = false;
+
 // === BOTÕES ===
 botoes = ["Play", "Settings", "Exit"];
 total_botoes = array_length(botoes);

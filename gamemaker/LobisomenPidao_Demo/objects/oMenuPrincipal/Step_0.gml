@@ -1,3 +1,6 @@
+// Flag consultada pelo oLoboMenu — resetada todo frame
+confirmou_neste_frame = false;
+
 // ===============================================================
 // DETECTAR MODO DE INPUT (teclado vs controle)
 // ===============================================================
@@ -62,17 +65,17 @@ if (_tem_controle) {
 }
 
 if (_confirmar) {
+    confirmou_neste_frame = true;
+
+    // Se o oLoboMenu existe, ele cuida da transição (delay de 2s no Play/Exit).
+    if (instance_exists(oLoboMenu)) {
+        exit;
+    }
+
+    // Fallback (oLoboMenu ausente — modo "menu puro"):
     switch (botao_focado) {
-        case 0:  // Play → ir para seleção de fases
-            room_goto(rm_SelecaoDeFases);
-            break;
-
-        case 1:  // Settings → tela de configurações
-            room_goto(rm_Settings);
-            break;
-
-        case 2:  // Exit → fechar o jogo
-            game_end();
-            break;
+        case 0: room_goto(rm_SelecaoDeFases); break;
+        case 1: room_goto(rm_Settings);       break;
+        case 2: game_end();                   break;
     }
 }
