@@ -66,7 +66,7 @@ export default function Devlog() {
     {
     data: '12/06/2026',
     titulo: 'Sprint 12',
-    texto: 'Implementação da mecânica de desbloqueamento de fases e criação de novos sprites de comida.'
+    texto: 'Implementação da mecânica de desbloqueamento de fases e criação de novos sprites de comida. teste deploy'
     }
   ]
 
