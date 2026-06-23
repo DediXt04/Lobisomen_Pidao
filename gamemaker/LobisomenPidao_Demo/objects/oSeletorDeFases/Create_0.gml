@@ -2,19 +2,21 @@ fase_rooms = [
     room_01,
     room_02,
     rm_fase03,
+	rm_fase04,
 ];
 
 fase_nomes = [
     "Fase testes",
     "Fase testes tileset",
     "Fase nova",
-
+	"Fase Caótica",
 ];
 
 fase_subtitulos = [
     "Ai! Ui! Um lobo me mordeu!",
     "Me jogue aos lobos",
     "Faso nova",
+	"Corre Lobinho... CORRE!!",
 ];
 
 total_fases      = array_length(fase_rooms);
