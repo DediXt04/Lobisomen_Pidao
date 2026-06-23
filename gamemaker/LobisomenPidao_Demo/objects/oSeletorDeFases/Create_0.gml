@@ -8,17 +8,15 @@ global.fase_rooms = [
 fase_nomes = [
     "Fase testes",
     "Fase testes tileset",
-    "Fase nova",
-	"Fase Caótica",
     "hur hur hur",
+	"Fase Caótica",
 ];
 
 fase_subtitulos = [
     "Ai! Ui! Um lobo me mordeu!",
     "Me jogue aos lobos",
-    "Faso nova",
-	"Corre Lobinho... CORRE!!",
     "Acho que conheço esse lugar...",
+	"Corre Lobinho... CORRE!!",
 ];
 
 global.total_fases  = array_length(global.fase_rooms);
