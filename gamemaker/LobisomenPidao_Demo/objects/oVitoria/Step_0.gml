@@ -27,15 +27,33 @@ var _confirmar = keyboard_check_pressed(vk_space)
 if (_gp != undefined) _confirmar = _confirmar || gamepad_button_check_pressed(_gp, gp_face1);
 
 if (_confirmar) {
-    switch (btn_selecionado) {
-        case 0: // Reiniciar Fase
+    // Identifica ação pelo texto do botão (independente do índice)
+    var _acao = btn_opcoes[btn_selecionado];
+
+    switch (_acao) {
+        case "Proxima Fase":
+            // Desbloqueia próxima fase
+            if (global.fase_atual >= global.fase_desbloqueada) {
+                global.fase_desbloqueada = min(global.fase_atual + 1, global.total_fases - 1);
+                ini_open("save_progresso.ini");
+                ini_write_real("progresso", "fase_desbloqueada", global.fase_desbloqueada);
+                ini_close();
+            }
+            // Vai direto para a próxima fase
+            var _prox = global.fase_atual + 1;
+            global.fase_atual = _prox;
+            global.comida = 0;
+            room_goto(global.fase_rooms[_prox]);
+            break;
+
+        case "Reiniciar Fase":
             room_goto(global.fase_room_atual);
             break;
 
-        case 1: // Sair para seletor — desbloqueia próxima fase antes de sair
+        case "Voltar ao Menu":
+            // Desbloqueia próxima fase antes de sair
             if (global.fase_atual >= global.fase_desbloqueada) {
-                global.fase_desbloqueada = min(global.fase_atual + 1, 4);
-
+                global.fase_desbloqueada = min(global.fase_atual + 1, global.total_fases - 1);
                 ini_open("save_progresso.ini");
                 ini_write_real("progresso", "fase_desbloqueada", global.fase_desbloqueada);
                 ini_close();

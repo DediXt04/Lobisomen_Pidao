@@ -24,7 +24,7 @@ draw_text(cx, 70, "Escolha sua Fase");
 // GRADE DE CARDS (só os da página atual)
 // -------------------------------------------------------
 var _inicio = pagina * por_pagina;
-var _fim    = min(_inicio + por_pagina, total_fases);
+var _fim = min(_inicio + por_pagina, global.total_fases);
 
 for (var i = _inicio; i < _fim; i++) {
 

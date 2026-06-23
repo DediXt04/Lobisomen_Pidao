@@ -1,10 +1,3 @@
-// DEBUG: F2 reseta o progresso
-if (keyboard_check_pressed(vk_f2)) {
-    global.fase_desbloqueada = 0;
-    ini_open("save_progresso.ini");
-    ini_write_real("progresso", "fase_desbloqueada", 0);
-    ini_close();
-}
 
 // -------------------------------------------------------
 // DETECTAR MODO DE INPUT
@@ -70,13 +63,13 @@ if (_nav_h != 0 || _nav_v != 0) {
     // Navegação horizontal: avança/volta 1 card (muda linha e página automaticamente)
     if (_nav_h != 0) {
         _novo = fase_selecionada + _nav_h;
-        _novo = clamp(_novo, 0, total_fases - 1);
+        _novo = clamp(_novo, 0, global.total_fases - 1);
     }
 
     // Navegação vertical: pula uma linha inteira
     if (_nav_v != 0) {
         _novo = fase_selecionada + (_nav_v * colunas);
-        _novo = clamp(_novo, 0, total_fases - 1);
+        _novo = clamp(_novo, 0, global.total_fases - 1);
     }
 
     fase_selecionada = _novo;
@@ -99,7 +92,7 @@ if (global.gamepad_main != undefined && gamepad_is_connected(global.gamepad_main
 if (_confirmar && fase_selecionada <= global.fase_desbloqueada) {
     global.fase_atual = fase_selecionada;
     global.comida = 0;
-    room_goto(fase_rooms[fase_selecionada]);
+    room_goto(global.fase_rooms[fase_selecionada]);
 }
 
 
