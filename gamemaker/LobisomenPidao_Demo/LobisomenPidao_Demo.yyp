@@ -57,6 +57,7 @@
     {"id":{"name":"oProcuraControle","path":"objects/oProcuraControle/oProcuraControle.yy",},},
     {"id":{"name":"oSaida","path":"objects/oSaida/oSaida.yy",},},
     {"id":{"name":"oSeletorDeFases","path":"objects/oSeletorDeFases/oSeletorDeFases.yy",},},
+    {"id":{"name":"oSettings","path":"objects/oSettings/oSettings.yy",},},
     {"id":{"name":"oSolidWall","path":"objects/oSolidWall/oSolidWall.yy",},},
     {"id":{"name":"oSpawner","path":"objects/oSpawner/oSpawner.yy",},},
     {"id":{"name":"oSpawnZone","path":"objects/oSpawnZone/oSpawnZone.yy",},},
@@ -67,6 +68,7 @@
     {"id":{"name":"rm_gameOver","path":"rooms/rm_gameOver/rm_gameOver.yy",},},
     {"id":{"name":"rm_MenuPrincipal","path":"rooms/rm_MenuPrincipal/rm_MenuPrincipal.yy",},},
     {"id":{"name":"rm_SelecaoDeFases","path":"rooms/rm_SelecaoDeFases/rm_SelecaoDeFases.yy",},},
+    {"id":{"name":"rm_Settings","path":"rooms/rm_Settings/rm_Settings.yy",},},
     {"id":{"name":"rm_Vitoria","path":"rooms/rm_Vitoria/rm_Vitoria.yy",},},
     {"id":{"name":"room_01","path":"rooms/room_01/room_01.yy",},},
     {"id":{"name":"room_02","path":"rooms/room_02/room_02.yy",},},
@@ -152,6 +154,7 @@
     {"roomId":{"name":"rm_Vitoria","path":"rooms/rm_Vitoria/rm_Vitoria.yy",},},
     {"roomId":{"name":"rm_fase03","path":"rooms/rm_fase03/rm_fase03.yy",},},
     {"roomId":{"name":"rm_fase04","path":"rooms/rm_fase04/rm_fase04.yy",},},
+    {"roomId":{"name":"rm_Settings","path":"rooms/rm_Settings/rm_Settings.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

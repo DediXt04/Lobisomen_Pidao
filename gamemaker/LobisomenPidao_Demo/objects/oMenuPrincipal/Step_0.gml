@@ -68,8 +68,7 @@ if (_confirmar) {
             break;
 
         case 1:  // Settings → tela de configurações
-            // TODO: implementar tela de configurações
-            // room_goto(rm_Settings);
+            room_goto(rm_Settings);
             break;
 
         case 2:  // Exit → fechar o jogo

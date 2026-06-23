@@ -35,9 +35,6 @@ export default function Galeria() {
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '' }}
             >
               <img src={img.src} alt={img.name} className="gallery-img" />
-              <div className="card-body py-2 px-3">
-                <small className="text-muted text-capitalize">{img.name}</small>
-              </div>
             </div>
           </div>
         ))}

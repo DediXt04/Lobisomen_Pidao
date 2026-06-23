@@ -1,4 +1,4 @@
-fase_rooms = [
+global.fase_rooms = [
     room_01,
     room_02,
     rm_fase03,
@@ -10,6 +10,7 @@ fase_nomes = [
     "Fase testes tileset",
     "Fase nova",
 	"Fase Caótica",
+    "hur hur hur",
 ];
 
 fase_subtitulos = [
@@ -17,9 +18,10 @@ fase_subtitulos = [
     "Me jogue aos lobos",
     "Faso nova",
 	"Corre Lobinho... CORRE!!",
+    "Acho que conheço esse lugar...",
 ];
 
-total_fases      = array_length(fase_rooms);
+global.total_fases  = array_length(global.fase_rooms);
 fase_selecionada = 0;
 
 if (!variable_global_exists("comida")) global.comida = 0;
@@ -31,16 +33,16 @@ ini_open("save_progresso.ini");
 global.fase_desbloqueada = ini_read_real("progresso", "fase_desbloqueada", 0);
 ini_close();
 
-global.fase_desbloqueada = clamp(global.fase_desbloqueada, 0, total_fases - 1);
+global.fase_desbloqueada = clamp(global.fase_desbloqueada, 0, global.total_fases - 1);
 
 // --- Layout em grade (1920x1080) ---
 colunas  = 3;           // cards por linha
 linhas   = 2;           // linhas por página
 por_pagina = colunas * linhas;  // 6 cards por página
 pagina   = 0;           // página atual (começa em 0)
-total_paginas = max(1, ceil(total_fases / por_pagina));
+total_paginas = max(1, ceil(global.total_fases / por_pagina));
 card_w   = 340;
-card_h   = 280;
+card_h   = 340;
 card_gap = 40;          // espaço entre cards
 
 // Largura total da grade
