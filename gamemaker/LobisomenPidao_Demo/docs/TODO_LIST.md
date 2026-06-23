@@ -1,5 +1,5 @@
 # 📋 To-Do List
-
+teste deploy
 > Ordem recomendada de execução. Cada etapa só começa quando a anterior termina (exceto onde indicado "paralelo").
 
 ---
