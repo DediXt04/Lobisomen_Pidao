@@ -3,20 +3,23 @@ global.fase_rooms = [
     room_02,
     rm_fase03,
 	rm_fase04,
+	rm_fase05,
 ];
 
 fase_nomes = [
     "Fase testes",
     "Fase testes tileset",
     "hur hur hur",
-	"Fase Caótica",
+	"ELE ESTÁ FAMINTO!!!",
+	"Invadindo Fabrica",
 ];
 
 fase_subtitulos = [
     "Ai! Ui! Um lobo me mordeu!",
     "Me jogue aos lobos",
     "Acho que conheço esse lugar...",
-	"Corre Lobinho... CORRE!!",
+	"Corre Lobinho... CORRE!!!",
+	"SALGADINHOS :)",
 ];
 
 global.total_fases  = array_length(global.fase_rooms);
