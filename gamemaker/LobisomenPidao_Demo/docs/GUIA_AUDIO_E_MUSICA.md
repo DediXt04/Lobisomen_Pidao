@@ -42,7 +42,7 @@
 │         audio_group_set_gain(agSfx, volumeSfx, 0)         │
 │                                                           │
 │  oMusicManager/Create (persistente, em rm_MenuPrincipal)  │
-│       └─ toca mus_menu                                    │
+│       └─ toca mus_menu_principal                          │
 │                                                           │
 │  Jogador navega entre rooms ──────────────────────────────│
 │       └─ oMusicManager/Step                               │
@@ -73,10 +73,15 @@
 
 | Som | Onde toca | Características sugeridas |
 |---|---|---|
-| `mus_menu` | `rm_MenuPrincipal`, `rm_SelecaoDeFases`, `rm_Settings` | Calma, em loop |
-| `mus_gameplay` | Todas as rooms de fase (`room_01`, `room_02`, `rm_fase03`, ...) | Tensa/stealth, em loop |
+| `mus_menu_principal` | `rm_MenuPrincipal` e `rm_Settings` | Calma, em loop |
+| `mus_selecao_fases` | `rm_SelecaoDeFases` | Mais leve/anim, em loop |
+| `mus_gameplay_01` | Fases (1 das 3 sorteada ao entrar em fase) | Tensa/stealth, em loop |
+| `mus_gameplay_02` | Fases (idem) | Outra variação stealth |
+| `mus_gameplay_03` | Fases (idem) | Outra variação stealth |
 | `mus_vitoria` | `rm_Vitoria` | Curta, celebratória, em loop |
 | `mus_gameover` | `rm_gameOver` | Sombria, em loop |
+
+> **Como funciona o sorteio:** ao entrar em qualquer room de fase (`room_01`, `room_02`, `rm_fase03`, ...) o `oMusicManager` sorteia uma das 3 `mus_gameplay_*`. **Se o jogador morrer e reiniciar a fase, a mesma música continua tocando** (não troca). Só sorteia nova música quando o jogador volta ao menu, vence uma fase e entra na próxima, ou recomeça de outra room. Para adicionar mais músicas de gameplay no futuro, basta criar `mus_gameplay_04`, `_05` etc. e adicioná-las ao array `musicas_gameplay` no `oMusicManager/Create`.
 
 #### Efeitos sonoros (SFX — Audio Group `agSfx`)
 
@@ -104,7 +109,7 @@ Para cada som da lista:
 
 1. Coloque o arquivo `.wav` ou `.ogg` em uma pasta local.
 2. No Asset Browser, **Sounds** → clique direito → **Create Sound**.
-3. Nomeie exatamente como na tabela (ex: `mus_menu`).
+3. Nomeie exatamente como na tabela (ex: `mus_menu_principal`).
 4. Em **File**, escolha o arquivo de áudio.
 5. Em **Audio Group**, selecione `agBgm` (para músicas) ou `agSfx` (para efeitos).
 6. **Conversion**: `Uncompressed` (para SFX curtos) ou `Compressed - Streamed` (para músicas longas, economiza RAM).
@@ -164,7 +169,19 @@ Asset Browser → **Objects** → Create Object → nome `oMusicManager`, sem sp
 
 ```gml
 musica_atual = noone;  // id da instância do som tocando
-faixa_atual  = -1;     // asset id (mus_menu, mus_gameplay, etc.)
+faixa_atual  = -1;     // asset id da música tocando
+
+// Lista de músicas de gameplay (sorteadas aleatoriamente ao entrar numa fase)
+musicas_gameplay = [
+    mus_gameplay_01,
+    mus_gameplay_02,
+    mus_gameplay_03,
+];
+
+// Flag: se true, ao entrar em uma fase de gameplay, sortear nova música.
+// Começa true (primeiro boot). Vira false ao sortear, vira true ao entrar em rm_Vitoria.
+// Resultado: morrer + reiniciar → mantém música; vencer fase + ir pra próxima → sorteia nova.
+proxima_fase_sortear_nova = true;
 ```
 
 **`objects/oMusicManager/Step_0.gml`:**
@@ -172,29 +189,60 @@ faixa_atual  = -1;     // asset id (mus_menu, mus_gameplay, etc.)
 ```gml
 // Decide qual faixa deve tocar baseado na room atual
 var _alvo = -1;
+var _eh_fase_de_gameplay = false;
 
 switch (room) {
     case rm_MenuPrincipal:
+        _alvo = mus_menu_principal;
+        break;
+
     case rm_SelecaoDeFases:
-        _alvo = mus_menu;
+        _alvo = mus_selecao_fases;
         break;
 
     case rm_Vitoria:
         _alvo = mus_vitoria;
+        // Próxima fase deve sortear nova música
+        proxima_fase_sortear_nova = true;
         break;
 
     case rm_gameOver:
         _alvo = mus_gameover;
+        // Ao reiniciar a fase após morrer, manter a mesma música
+        // (não setamos proxima_fase_sortear_nova = true aqui)
         break;
 
     default:
-        // Qualquer outra room é gameplay (room_01, room_02, rm_fase03, ...)
-        _alvo = mus_gameplay;
+        // Qualquer outra room é considerada fase de gameplay
+        _eh_fase_de_gameplay = true;
         break;
 }
 
-// Se ainda não tem rm_Settings, ignore. Quando criar, adicione:
-//   case rm_Settings: _alvo = mus_menu; break;
+// Se já existe rm_Settings, adicione:
+//   case rm_Settings: _alvo = mus_menu_principal; break;
+
+// Lógica especial para fases de gameplay (com array de músicas)
+if (_eh_fase_de_gameplay) {
+    if (proxima_fase_sortear_nova) {
+        _alvo = musicas_gameplay[irandom(array_length(musicas_gameplay) - 1)];
+        proxima_fase_sortear_nova = false;
+    } else {
+        // Manter a música atual (caso de reinício após morte)
+        // Se por algum motivo faixa_atual não é de gameplay, sortear de qualquer forma
+        var _eh_gameplay_atual = false;
+        for (var i = 0; i < array_length(musicas_gameplay); i++) {
+            if (faixa_atual == musicas_gameplay[i]) {
+                _eh_gameplay_atual = true;
+                break;
+            }
+        }
+        if (_eh_gameplay_atual) {
+            _alvo = faixa_atual;
+        } else {
+            _alvo = musicas_gameplay[irandom(array_length(musicas_gameplay) - 1)];
+        }
+    }
+}
 
 // Só troca se a faixa for diferente da atual
 if (_alvo != faixa_atual) {
@@ -205,6 +253,10 @@ if (_alvo != faixa_atual) {
     faixa_atual  = _alvo;
 }
 ```
+
+> **Por que duas variáveis (flag + array)?**
+> - O **array** `musicas_gameplay` permite adicionar/remover músicas sem mexer no código (só edita o array).
+> - A **flag** `proxima_fase_sortear_nova` decide se sorteia ou mantém a atual. Ela vira `true` em `rm_Vitoria` (para a próxima fase ter música nova) e fica `false` em `rm_gameOver` (para reiniciar a fase manter a música).
 
 ### 3.3 Colocar no Room Editor
 
@@ -705,18 +757,21 @@ Jogo inicia
   │
   ├─ oMusicManager/Create (persistente):
   │     - musica_atual = noone, faixa_atual = -1
+  │     - musicas_gameplay = [mus_gameplay_01, _02, _03]
+  │     - proxima_fase_sortear_nova = true
   │
   ├─ oMusicManager/Step (todo frame):
-  │     - room atual = rm_MenuPrincipal → alvo = mus_menu
-  │     - faixa_atual (-1) != alvo (mus_menu) → toca mus_menu em loop
+  │     - room atual = rm_MenuPrincipal → alvo = mus_menu_principal
+  │     - faixa_atual (-1) != alvo → toca mus_menu_principal em loop
   │
   ├─ Jogador navega para rm_SelecaoDeFases
-  │     - oMusicManager/Step: alvo = mus_menu, faixa_atual = mus_menu
-  │     - SEM troca → música continua sem reiniciar ✓
+  │     - oMusicManager/Step: alvo = mus_selecao_fases
+  │     - troca para mus_selecao_fases
   │
-  ├─ Jogador entra em room_01 (gameplay)
-  │     - oMusicManager/Step: alvo = mus_gameplay
-  │     - faixa_atual (mus_menu) != alvo (mus_gameplay) → para e troca
+  ├─ Jogador entra em room_01 (fase de gameplay)
+  │     - oMusicManager/Step: _eh_fase_de_gameplay = true
+  │     - proxima_fase_sortear_nova = true → sorteia, ex: mus_gameplay_02
+  │     - proxima_fase_sortear_nova = false (já sorteou)
   │
   ├─ GAMEPLAY:
   │     - oPlayer coleta comida → snd_pegarComida
@@ -729,18 +784,38 @@ Jogo inicia
   │
   ├─ rm_Vitoria
   │     - oMusicManager/Step: alvo = mus_vitoria → troca
+  │     - proxima_fase_sortear_nova = true (próxima fase terá música nova)
+  │
+  ├─ Jogador clica "Próxima Fase" → room_02
+  │     - oMusicManager/Step: _eh_fase_de_gameplay = true
+  │     - proxima_fase_sortear_nova = true → sorteia outra, ex: mus_gameplay_01
+  │
+  ├─ Jogador morre em room_02 → rm_gameOver
+  │     - oMusicManager/Step: alvo = mus_gameover → troca
+  │     - proxima_fase_sortear_nova continua false (importante!)
+  │
+  ├─ Jogador clica "Reiniciar Fase" → volta pra room_02
+  │     - oMusicManager/Step: _eh_fase_de_gameplay = true
+  │     - proxima_fase_sortear_nova = false → mantém mus_gameplay_01
+  │     - Como faixa_atual era mus_gameover, ele detecta que precisa
+  │       trocar para algo de gameplay → reusa a última (faixa_atual era
+  │       mus_gameplay_01 antes do gameover, mas mudou; o código de fallback
+  │       sorteia novamente — ver nota abaixo)
   │
   └─ Jogador abre Settings:
+        - alvo = mus_menu_principal (mesma do menu)
         - ajusta sliders → scr_aplicarVolumes (real-time)
         - sai com "Voltar" → scr_salvarVolumes() → escreve no .ini
 ```
+
+> **Nota sobre reiniciar fase após gameover:** o `faixa_atual` muda pra `mus_gameover` durante a tela de game over, então ao voltar pra fase, o código detecta que `faixa_atual` não está mais no array `musicas_gameplay` e sorteia uma nova. Se quiser **garantir** que sempre toque a mesma música após reiniciar, adicione uma variável `ultima_musica_gameplay` no Create do `oMusicManager` que guarda a última escolhida e reusa em vez de re-sortear — fica como evolução opcional documentada no final do guia.
 
 ---
 
 ## ✅ Checklist Rápida
 
 ### Assets a criar
-- [ ] 4 músicas: `mus_menu`, `mus_gameplay`, `mus_vitoria`, `mus_gameover`
+- [ ] 7 músicas: `mus_menu_principal`, `mus_selecao_fases`, `mus_gameplay_01`, `mus_gameplay_02`, `mus_gameplay_03`, `mus_vitoria`, `mus_gameover`
 - [ ] 15 SFX: `snd_pegarComida`, `snd_pegarChave`, `snd_destrancar`, `snd_saidaAbriu`, `snd_dano`, `snd_alerta`, `snd_morte`, `snd_vitoria`, `snd_pausa`, `snd_npcDeuComida`, `snd_npcRecusou`, `snd_npcSemPaciencia`, `snd_uiNav`, `snd_uiConfirma`, `snd_uiCancel`
 - [ ] 2 Audio Groups: `agBgm`, `agSfx`
 - [ ] Atribuir cada som ao group correto
@@ -795,6 +870,9 @@ Jogo inicia
 |---|---|---|
 | Música reinicia ao trocar de room entre menus | `oMusicManager` não está marcado Persistent | Marcar Persistent: True no `.yy` |
 | Música reinicia em todas as transições | Step do `oMusicManager` não compara `faixa_atual` antes de tocar | Garantir o `if (_alvo != faixa_atual)` |
+| Música de gameplay troca toda vez que o jogador morre e reinicia | Não está controlando a flag `proxima_fase_sortear_nova` corretamente | Verificar que SÓ `rm_Vitoria` seta a flag pra `true`; `rm_gameOver` deve deixar como está |
+| Mesma música de gameplay tocando em todas as fases seguidas | Flag `proxima_fase_sortear_nova` nunca volta pra true após sortear | Confirmar que `rm_Vitoria` seta a flag pra `true` |
+| Música repete a mesma 2x seguidas ao avançar de fase | Random pode sortear a mesma | Opcional: filtrar `faixa_atual` da lista de candidatas antes de sortear (ver Notas Finais) |
 | Som dispara várias vezes (loop) ao destrancar portão | Não verificou borda — Step roda toda frame | Usar variável `chave_anterior` (patch 4.4) |
 | SFX continua durante pausa | O evento que dispara o som não tem `if (global.pausado) exit;` | Adicionar guard clause no topo do Step do objeto |
 | Slider ajusta volume mas não persiste | Esqueceu de chamar `scr_salvarVolumes()` ao sair | Chamar antes de `room_goto(rm_MenuPrincipal)` no botão Voltar |
@@ -811,7 +889,7 @@ Jogo inicia
 | Arquivo | Ação |
 |---|---|
 | `LobisomenPidao_Demo.yyp` | Adicionar `agBgm` e `agSfx` (criados via UI) |
-| `sounds/mus_*` | **NOVO** — 4 músicas |
+| `sounds/mus_*` | **NOVO** — 7 músicas (`mus_menu_principal`, `mus_selecao_fases`, `mus_gameplay_01..03`, `mus_vitoria`, `mus_gameover`) |
 | `sounds/snd_*` | **NOVO** — 15 SFX |
 | `scripts/scr_aplicarVolumes/scr_aplicarVolumes.gml` | **NOVO** |
 | `scripts/scr_salvarVolumes/scr_salvarVolumes.gml` | **NOVO** |

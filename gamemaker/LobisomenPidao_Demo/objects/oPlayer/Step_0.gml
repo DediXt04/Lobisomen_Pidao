@@ -1,8 +1,6 @@
 //Pausar
 if (global.pausado) exit;
 
-// Setando a profundidade de acordo com y
-depth = -bbox_bottom;
 
 //input teclado e gamepad
 #region

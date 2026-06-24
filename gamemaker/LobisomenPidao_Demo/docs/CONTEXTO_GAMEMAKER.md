@@ -101,6 +101,7 @@ Step, Draw |
 | Objeto | Room | Função |
 |---|---|---|
 | `oMenuPrincipal` | `rm_MenuPrincipal` | Menu principal do jogo |
+| `oLoboMenu` | `rm_MenuPrincipal` | Mascote reativo (sprite 16×16 escalado 20×) — state machine com 9 estados: idle ativo, foco/confirmação dos 3 botões, 3 níveis de inatividade (revirando→dormindo→envelhecendo) |
 | `oSeletorDeFases` | `rm_SelecaoDeFases` | Grade de cards para selecionar fases; paginação |
 | `oVitoria` | `rm_Vitoria` | Tela de vitória com botões de reiniciar/sair |
 | `oGameOver` | `rm_gameOver` | Tela de game over com motivo da morte |
@@ -141,7 +142,8 @@ oComida (pai)
 | `rm_SelecaoDeFases` | Menu | Seletor de fases em grade (3 colunas × 2 linhas por página) |
 | `room_01` | Gameplay | Fase 1 (testes — legado; usa nome antigo `room_XX`) |
 | `room_02` | Gameplay | Fase 2 (testes com tileset — legado; usa nome antigo `room_XX`) |
-| `rm_fase03` | Gameplay | Fase 3 (padrão atual: `rm_faseXX`) |
+| `rm_fase03` | Gameplay | Fase 3 — "Acho que conheço esse lugar..." (padrão atual: `rm_faseXX`) |
+| `rm_fase04` | Gameplay | Fase 4 — "Fase Caótica" |
 | `rm_Vitoria` | Tela | Tela de vitória |
 | `rm_gameOver` | Tela | Tela de game over |
 
@@ -177,6 +179,10 @@ rm_MenuPrincipal → rm_SelecaoDeFases → room_XX (gameplay)
 | `global.fase_room_atual` | room | oController/Create | oVitoria/Step, oGameOver/Step | Room da fase atual (para reiniciar) |
 | `global.gamepad_main` | int/undefined | oProcuraControle | oPlayer, oController, menus | Slot do gamepad principal |
 | `global.gamepads` | array | oProcuraControle | — | Array de gamepads conectados |
+| `global.fase_rooms` | array de room | oSeletorDeFases/Create | oSeletorDeFases | Lista de rooms de fase na ordem do seletor |
+| `global.total_fases` | int | oSeletorDeFases/Create | oSeletorDeFases | `array_length(global.fase_rooms)` |
+| `global.fase_atual` | int | oSeletorDeFases (ao confirmar fase) | oVitoria/Step | Índice da fase atualmente sendo jogada |
+| `global.fase_desbloqueada` | int | oSeletorDeFases/Create (lê do INI), oVitoria/Step (incrementa ao vencer) | oSeletorDeFases | Maior índice de fase desbloqueada; persistido em `save_progresso.ini` seção `[progresso]` |
 
 ### Valores padrão (fallback se Room Creation Code não definir)
 
@@ -418,16 +424,22 @@ gamemaker/LobisomenPidao_Demo/
 
 | Arquivo | Status | Assunto |
 |---|---|---|
+| `DONE_GUIA_CHAVE_E_PORTAO.md` | ✅ Implementado | Mecânica de chave + portão desbloqueável |
+| `DONE_GUIA_COLISAO_E_VISAO_INIMIGO.md` | ✅ Implementado | Correção de colisões + bug do campo de visão |
+| `DONE_GUIA_DESBLOQUEIO_DE_FASES.md` | ✅ Implementado | Progressão: desbloqueio de fases ao vencer |
+| `DONE_GUIA_INVESTIGACAO_INIMIGO.md` | ✅ Implementado | Estado de investigação do inimigo |
+| `DONE_GUIA_LOBO_MENU_REATIVO.md` | ✅ Implementado | Mascote reativo no menu principal (`oLoboMenu` + state machine) |
 | `DONE_GUIA_MENU_PRINCIPAL.md` | ✅ Implementado | Menu principal |
 | `DONE_GUIA_SPAWNER_GENERICO.md` | ✅ Implementado | Spawner genérico + configuração por fase |
 | `DONE_GUIA_TELA_DE_PAUSA.md` | ✅ Implementado | Sistema de pausa + botões vitória/game over |
-| `GUIA_CHAVE_E_PORTAO.md` | 📋 Guia | Mecânica de chave + portão desbloqueável |
-| `GUIA_COLISAO_E_VISAO_INIMIGO.md` | 📋 Guia | Correção de colisões + bug do campo de visão |
+| `GUIA_AUDIO_E_MUSICA.md` | 📋 Guia | BGM (oMusicManager) + SFX inline + persistência de volume |
+| `GUIA_CHAVES_COLORIDAS.md` | 📋 Guia | N chaves de cores diferentes (struct genérico) |
 | `GUIA_CRIACAO_DE_FASES.md` | 📋 Guia | Passo a passo para criar novas fases |
-| `GUIA_DESBLOQUEIO_DE_FASES.md` | 📋 Guia | Progressão: desbloqueio de fases ao vencer |
-| `GUIA_INVESTIGACAO_INIMIGO.md` | 📋 Guia | Estado de investigação do inimigo |
+| `GUIA_FASE_TUTORIAL.md` | 📋 Guia | Implementação da fase tutorial |
+| `GUIA_NPC_IDLE.md` | 📋 Guia | Sprites idle animados no oNpc e oNpc2 |
+| `GUIA_SETTINGS_EXTRA.md` | 📋 Guia | Fullscreen + Mostrar FPS + Idioma PT/EN |
 | `GUIA_SISTEMA_DE_ESTRELAS.md` | 📋 Guia | Pontuação por estrelas (1-3) na vitória |
-| `ROTEIRO_APRESENTACAO.md` | 📋 Guia | Roteiro de apresentação acadêmica (5 min) |
+| `GUIA_VITORIA_E_SETTINGS.md` | 📋 Guia | Botão "Próxima Fase" + tela de Settings base |
 
 > **Dica:** Arquivos com prefixo `DONE_` já foram implementados no código. Os demais são guias de implementação futura.
 
@@ -435,7 +447,6 @@ gamemaker/LobisomenPidao_Demo/
 
 ## ⚠️ Bugs Conhecidos / Pontos de Atenção
 
-1. **Campo de visão infinito** — `campo_visao()` recebe `_dist` mas nunca usa; detecção é infinita em vez de 120px. Correção documentada em `GUIA_COLISAO_E_VISAO_INIMIGO.md`.
-2. **Colisões do inimigo incompletas** — `oInimigo/Step_0.gml` só checa colisão com `oWall`; falta checar `oInimigo`, `oNpc`, `oSaida`. Correção no mesmo guia.
-3. **Mockups no seletor** — `oSeletorDeFases/Create_0.gml` tem 5 fases mockup (rooms repetidas) que devem ser removidas antes da entrega.
-4. **Tecla de debug** — `oController/Step_0.gml` tem `if keyboard_check_pressed(ord("I")) global.comida += 1;` que deve ser removido.
+1. **Tecla de debug** — `oController/Step_0.gml` (linha 61) ainda tem `if keyboard_check_pressed(ord("I")) global.comida += 1;` que deve ser removido antes da entrega final.
+
+> Os bugs anteriores ("campo de visão infinito", "colisões do inimigo incompletas" e "mockups no seletor") já foram **corrigidos** — guias `DONE_GUIA_COLISAO_E_VISAO_INIMIGO.md` e `DONE_GUIA_DESBLOQUEIO_DE_FASES.md` documentam as correções.
