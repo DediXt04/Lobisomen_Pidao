@@ -28,6 +28,6 @@ if (global.comidaCheia) {
         sy += sin(current_time / 200) * 2;
 
         // desenha rotacionada
-        draw_sprite_ext(sSeta, 0, sx, sy, 1, 1, dir, c_white, 1);
+        draw_sprite_ext(sSeta, image_index, sx, sy, 1, 1, dir, c_white, 1);
     }
 }
