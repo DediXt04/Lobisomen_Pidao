@@ -15,7 +15,7 @@ fase_nomes = [
 ];
 
 fase_subtitulos = [
-	"Aprenda tudo que Lobisomem precisa saber!",
+	"Aprenda tudo sobre a arte de pedir!",
     "Me jogue aos lobos",
     "Acho que conheço esse lugar...",
 	"Corre Lobinho... CORRE!!!",
