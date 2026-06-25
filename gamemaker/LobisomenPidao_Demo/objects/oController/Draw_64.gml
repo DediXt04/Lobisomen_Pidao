@@ -5,7 +5,7 @@ scr_drawComida(global.comida, global.comidaMax);
 
 //menu pausa
 #region
-if (global.pausado) {
+if (global.menuPausa) {
     var _gui_w = display_get_gui_width();
     var _gui_h = display_get_gui_height();
     var _cx = _gui_w / 2;
@@ -79,7 +79,7 @@ if (global.pausado) {
     if (_temControle) {
         draw_text(_cx, _footerY, "[D-pad] Navegar  |  [A] Confirmar");
     } else {
-        draw_text(_cx, _footerY, "[W/S] Navegar  |  [E] Confirmar");
+        draw_text(_cx, _footerY, "[W/S] Navegar  |  [E]/[Espaço] Confirmar");
     }
 
     // Reset alinhamento

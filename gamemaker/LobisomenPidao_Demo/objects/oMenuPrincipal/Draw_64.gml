@@ -103,7 +103,7 @@ var _tem_controle = (_gp != undefined) && gamepad_is_connected(_gp);
 if (_tem_controle && input_mode == "controle") {
     draw_text(_gw / 2, _gh - 25, "[D-pad] Navegar    [A] Confirmar");
 } else {
-    draw_text(_gw / 2, _gh - 25, "[WASD] Navegar    [E] Confirmar");
+    draw_text(_gw / 2, _gh - 25, "[WASD] Navegar    [E]/[Espaço] Confirmar");
 }
 
 // Indicador de controle

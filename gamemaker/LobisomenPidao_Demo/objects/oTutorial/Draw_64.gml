@@ -60,7 +60,7 @@ if (intro_ativa) {
         draw_set_colour(make_colour_rgb(80, 200, 210));
         draw_set_valign(fa_top);
 
-        var _btn_texto = "[E] para continuar";
+        var _btn_texto = "[E]/[Espaço] para continuar";
         if (global.gamepad_main != undefined) {
             _btn_texto = "[A] para continuar";
         }
@@ -104,10 +104,10 @@ var _box_y = _gui_h - _box_h - 60;   // próximo ao rodapé da tela
 // === Texto da dica ===
 var _texto = dica_textos[dica_atual];
 
-// Troca "[E]" por "[A]" se gamepad estiver conectado
+// Troca "[E]/[Espaço]" por "[A]" se gamepad estiver conectado
 if (global.gamepad_main != undefined)
 {
-    _texto = string_replace_all(_texto, "[E]", "[A]");
+    _texto = string_replace_all(_texto, "[E]/[Espaço]", "[A]");
     _texto = string_replace_all(_texto, "WASD", "Analógico");
 }
 
@@ -150,7 +150,7 @@ draw_set_alpha(dica_alpha * (0.5 + _pisca * 0.5));
 draw_set_halign(fa_center);
 draw_set_valign(fa_top);
 
-var _continuar_texto = "Aperte [E] para continuar";
+var _continuar_texto = "Aperte [E]/[Espaço] para continuar";
 if (global.gamepad_main != undefined)
 {
     _continuar_texto = "Aperte [A] para continuar";
