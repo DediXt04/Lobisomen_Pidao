@@ -64,7 +64,7 @@ if (intro_ativa) {
         if (global.gamepad_main != undefined) {
             _btn_texto = "[A] para continuar";
         }
-        draw_text(_cx, _box_y + _box_h - 35, _btn_texto);
+        draw_text(_cx, _box_y + _box_h - 45, _btn_texto);
     }
 
     // Reset
