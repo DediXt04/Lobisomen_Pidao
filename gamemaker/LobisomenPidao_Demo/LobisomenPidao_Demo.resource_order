@@ -2,9 +2,9 @@
   "FolderOrderSettings":[
     {"name":"font","order":5,"path":"folders/font.yy",},
     {"name":"objs","order":1,"path":"folders/objs.yy",},
-    {"name":"tutorial","order":15,"path":"folders/objs/tutorial.yy",},
     {"name":"spawner","order":1,"path":"folders/objs/spawner.yy",},
     {"name":"telas","order":2,"path":"folders/objs/telas.yy",},
+    {"name":"tutorial","order":15,"path":"folders/objs/tutorial.yy",},
     {"name":"fases","order":3,"path":"folders/rooms/fases.yy",},
     {"name":"menus","order":1,"path":"folders/rooms/menus.yy",},
     {"name":"scripts","order":4,"path":"folders/scripts.yy",},
