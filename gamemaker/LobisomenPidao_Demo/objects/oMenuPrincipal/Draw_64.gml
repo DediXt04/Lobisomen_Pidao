@@ -50,12 +50,12 @@ var titulo_y_local = btn_y_inicio - (btn_h * 2.5);
 // sombra
 draw_set_color(make_color_rgb(10, 10, 20));
 draw_text_transformed(titulo_x_local + 4, titulo_y_local + 4, "LOBISOMEM", titulo_scale, titulo_scale, 0);
-draw_text_transformed(titulo_x_local + 4, titulo_y_local + 64, "PIDAO", titulo_scale, titulo_scale, 0);
+draw_text_transformed(titulo_x_local + 4, titulo_y_local + 64, "PIDÃO", titulo_scale, titulo_scale, 0);
 
 // principal
 draw_set_color(make_color_rgb(80, 200, 210));
 draw_text_transformed(titulo_x_local, titulo_y_local, "LOBISOMEM", titulo_scale, titulo_scale, 0);
-draw_text_transformed(titulo_x_local, titulo_y_local + 64, "PIDAO", titulo_scale, titulo_scale, 0);
+draw_text_transformed(titulo_x_local, titulo_y_local + 64, "PIDÃO", titulo_scale, titulo_scale, 0);
 
 // ===============================================================
 // BOTÕES
@@ -114,6 +114,88 @@ if (_tem_controle) {
 } else {
     draw_set_color(make_color_rgb(150, 60, 60));
     draw_text(_gw - 20, _gh - 25, "Nenhum controle encontrado");
+}
+
+// ===============================================================
+// OVERLAY DE CONFIRMAÇÃO DE SAÍDA (por cima de tudo)
+// ===============================================================
+if (confirmando) {
+    var _cx = _gw / 2;
+    var _cy = _gh / 2;
+
+    // Fundo escuro semitransparente
+    draw_set_alpha(0.8);
+    draw_set_color(make_color_rgb(10, 10, 18));
+    draw_rectangle(0, 0, _gw, _gh, false);
+    draw_set_alpha(1);
+
+    // Caixa de diálogo
+    var _box_w = 500;
+    var _box_h = 200;
+    var _box_x = _cx - _box_w / 2;
+    var _box_y = _cy - _box_h / 2;
+
+    // Fundo da caixa
+    draw_set_color(make_color_rgb(20, 30, 50));
+    draw_rectangle(_box_x, _box_y, _box_x + _box_w, _box_y + _box_h, false);
+
+    // Borda da caixa
+    draw_set_color(make_color_rgb(80, 200, 210));
+    draw_set_alpha(0.8);
+    draw_rectangle(_box_x, _box_y, _box_x + _box_w, _box_y + _box_h, true);
+    draw_set_alpha(1);
+
+    // Linha superior decorativa
+    draw_set_color(make_color_rgb(80, 200, 210));
+    draw_rectangle(_box_x, _box_y, _box_x + _box_w, _box_y + 4, false);
+
+    // Título
+    draw_set_font(fnt_pixel);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_set_color(make_color_rgb(210, 230, 235));
+    draw_text(_cx, _box_y + 55, "Tem certeza?");
+
+    // Subtítulo
+    draw_set_color(make_color_rgb(130, 150, 165));
+    draw_text(_cx, _box_y + 90, "Deseja sair do jogo?");
+
+    // Botões Sim / Não (horizontais)
+    var _cbw = 160;
+    var _cbh = 50;
+    var _cgap = 30;
+    var _cblocoW = conf_total * _cbw + (conf_total - 1) * _cgap;
+    var _cstartX = _cx - _cblocoW / 2;
+    var _cby = _box_y + 130;
+
+    for (var j = 0; j < conf_total; j++) {
+        var _cbx = _cstartX + j * (_cbw + _cgap);
+        var _csel = (j == conf_selecionado);
+
+        // Fundo
+        draw_set_color(_csel
+            ? make_color_rgb(30, 60, 80)
+            : make_color_rgb(20, 35, 55));
+        draw_rectangle(_cbx, _cby, _cbx + _cbw, _cby + _cbh, false);
+
+        // Borda esquerda (selecionado)
+        if (_csel) {
+            draw_set_color(make_color_rgb(80, 200, 210));
+            draw_rectangle(_cbx, _cby, _cbx + 5, _cby + _cbh, false);
+        }
+
+        // Borda
+        draw_set_color(make_color_rgb(80, 200, 210));
+        draw_set_alpha(_csel ? 0.8 : 0.3);
+        draw_rectangle(_cbx, _cby, _cbx + _cbw, _cby + _cbh, true);
+        draw_set_alpha(1);
+
+        // Texto
+        draw_set_color(_csel
+            ? make_color_rgb(120, 225, 235)
+            : make_color_rgb(80, 200, 210));
+        draw_text(_cbx + _cbw / 2, _cby + _cbh / 2, conf_opcoes[j]);
+    }
 }
 
 // reset

@@ -25,10 +25,10 @@ draw_set_valign(fa_middle);
 
 // Sombra
 draw_set_color(make_color_rgb(10, 10, 20));
-draw_text_transformed(_cx + 3, 180 + 3, "SETTINGS", 2, 2, 0);
+draw_text_transformed(_cx + 3, 180 + 3, "CONFIGURAÇÕES", 2, 2, 0);
 // Principal
 draw_set_color(make_color_rgb(80, 200, 210));
-draw_text_transformed(_cx, 180, "SETTINGS", 2, 2, 0);
+draw_text_transformed(_cx, 180, "CONFIGURAÇÕES", 2, 2, 0);
 
 // ===============================================================
 // BOTÕES (centralizados verticalmente)
@@ -124,7 +124,7 @@ if (confirmando) {
 
     // Subtítulo
     draw_set_color(make_color_rgb(130, 150, 165));
-    draw_text(_cx, _box_y + 90, "Todo progresso sera perdido.");
+    draw_text(_cx, _box_y + 90, "Todo progresso será perdido.");
 
     // Botões Sim / Não (horizontais)
     var _cbw = 160;
