@@ -1,4 +1,4 @@
-if (!mostrando_dica) exit;
+if (!intro_ativa && !mostrando_dica) exit;
 
 // ===============================================================
 // DESENHO DA INTRODUÇÃO NARRATIVA
