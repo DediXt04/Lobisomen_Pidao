@@ -8,8 +8,8 @@
   "name":"oPorta",
   "overriddenProperties":[],
   "parent":{
-    "name":"objs",
-    "path":"folders/objs.yy",
+    "name":"portas",
+    "path":"folders/objs/portas.yy",
   },
   "parentObjectId":null,
   "persistent":false,

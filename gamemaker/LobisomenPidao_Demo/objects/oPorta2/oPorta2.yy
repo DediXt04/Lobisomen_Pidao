@@ -1,17 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"oSaida",
+  "%Name":"oPorta2",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oSaida",
+  "name":"oPorta2",
   "overriddenProperties":[],
   "parent":{
     "name":"portas",
     "path":"folders/objs/portas.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oPorta",
+    "path":"objects/oPorta/oPorta.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sPortaFechada",
-    "path":"sprites/sPortaFechada/sPortaFechada.yy",
+    "name":"sPorta2Trancada",
+    "path":"sprites/sPorta2Trancada/sPorta2Trancada.yy",
   },
   "spriteMaskId":null,
   "visible":true,
