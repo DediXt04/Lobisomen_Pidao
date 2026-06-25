@@ -32,11 +32,11 @@ dica_textos[0] = "";
 
 dica_textos[1] = "Use WASD para se mover!\nExplore o mapa e encontre comida.";
 dica_textos[2] = "Chegue perto da comida e aperte [E]/[Espaço] para coletar!\nVocê precisa coletar toda a comida da fase.";
-dica_textos[3] = "NPCs podem te dar comida!\nChegue perto e aperte [E]/[Espaço] para pedir.\nMas cuidado: eles podem recusar!";
+dica_textos[3] = "NPCs podem te dar comida!\nChegue perto e aperte [E]/[Espaço] para pedir.\nPeça varias vezes até eles encherem o saco!";
 dica_textos[4] = "Fique de olho na barra de fome no canto da tela!\nSe ela acabar, é game over.\nSeja rápido!";
 dica_textos[5] = "Vê aquela chave brilhando?\nPegue-a com [E]/[Espaço] para abrir o portão à frente!";
 dica_textos[6] = "Cuidado com os guardas!\nSe eles te virem, vão te perseguir e atacar.\nTente passar sem ser visto!";
-dica_textos[7] = "Colete toda a comida e a porta de saída vai abrir!\nEntre nela para completar a fase. Boa sorte!";
+dica_textos[7] = "Colete toda a comida e a porta de saída vai abrir!\nA seta te guiara para a saída! \nEntre nela para completar a fase. Boa sorte!";
 
 // Textos com suporte a gamepad (troca "[E]/[Espaço]" por "[A]" se gamepad conectado)
 // Isso é feito dinamicamente no Draw

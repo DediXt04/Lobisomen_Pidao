@@ -35,5 +35,5 @@
     "path":"sprites/sTutorialTrigger/sTutorialTrigger.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

@@ -1,13 +1,13 @@
 {
   "FolderOrderSettings":[
-    {"name":"font","order":5,"path":"folders/font.yy",},
+    {"name":"font","order":4,"path":"folders/font.yy",},
     {"name":"objs","order":1,"path":"folders/objs.yy",},
     {"name":"spawner","order":1,"path":"folders/objs/spawner.yy",},
     {"name":"telas","order":2,"path":"folders/objs/telas.yy",},
     {"name":"tutorial","order":15,"path":"folders/objs/tutorial.yy",},
     {"name":"fases","order":3,"path":"folders/rooms/fases.yy",},
     {"name":"menus","order":1,"path":"folders/rooms/menus.yy",},
-    {"name":"scripts","order":4,"path":"folders/scripts.yy",},
+    {"name":"scripts","order":2,"path":"folders/scripts.yy",},
     {"name":"sprites","order":3,"path":"folders/sprites.yy",},
     {"name":"Guarda","order":17,"path":"folders/sprites/Guarda.yy",},
     {"name":"Stop","order":6,"path":"folders/sprites/Guarda/Stop.yy",},
@@ -17,7 +17,7 @@
     {"name":"loboMenu","order":23,"path":"folders/sprites/loboMenu.yy",},
     {"name":"NPC","order":16,"path":"folders/sprites/NPC.yy",},
     {"name":"NPC2","order":6,"path":"folders/sprites/NPC/NPC2.yy",},
-    {"name":"tileSet","order":6,"path":"folders/tileSet.yy",},
+    {"name":"tileSet","order":5,"path":"folders/tileSet.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"oBurger","order":6,"path":"objects/oBurger/oBurger.yy",},
