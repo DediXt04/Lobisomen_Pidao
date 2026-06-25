@@ -31,7 +31,7 @@ if (_confirmar) {
     var _acao = btn_opcoes[btn_selecionado];
 
     switch (_acao) {
-        case "Proxima Fase":
+        case "Próxima Fase":
             // Desbloqueia próxima fase
             if (global.fase_atual >= global.fase_desbloqueada) {
                 global.fase_desbloqueada = min(global.fase_atual + 1, global.total_fases - 1);
