@@ -117,7 +117,7 @@ if (_tem_controle) {
 }
 
 // ===============================================================
-// OVERLAY DE CONFIRMAÇÃO DE SAÍDA (em cima do botão "Sair")
+// OVERLAY DE CONFIRMAÇÃO DE SAÍDA (centralizado, abaixo do oLoboMenu)
 // ===============================================================
 if (confirmando) {
     // Leve escurecimento do restante do menu
@@ -126,25 +126,28 @@ if (confirmando) {
     draw_rectangle(0, 0, _gw, _gh, false);
     draw_set_alpha(1);
 
-    // Posição do botão "Sair" (índice 2)
-    var _sair_x = btn_x;
-    var _sair_y = btn_y_inicio + 2 * (btn_h + btn_gap);
+    // Centralizado na horizontal; um pouco abaixo do lobo (lobo fica em ~70% da altura)
+    var _cx = _gw / 2;
+    var _cy = _gh * 0.84;
 
-    // Pergunta logo acima do botão
+    // Dimensões dos botões
+    var _cbw  = 150;
+    var _cbh  = 56;
+    var _cgap = 24;
+    var _cblocoW = conf_total * _cbw + (conf_total - 1) * _cgap;
+    var _cstartX = _cx - _cblocoW / 2;
+    var _cby     = _cy - _cbh / 2;
+
+    // Pergunta logo acima dos botões
     draw_set_font(fnt_pixel);
     draw_set_halign(fa_center);
     draw_set_valign(fa_bottom);
     draw_set_color(make_color_rgb(210, 230, 235));
-    draw_text(_sair_x + btn_w / 2, _sair_y - 12, "Sair do jogo?");
+    draw_text(_cx, _cby - 14, "Sair do jogo?");
 
-    // Botões Sim / Não lado a lado, ocupando a linha do "Sair"
-    var _cgap = 14;
-    var _cbw = (btn_w - _cgap) / 2;
-    var _cbh = btn_h;
-    var _cby = _sair_y;
-
+    // Botões Sim / Não lado a lado, centralizados
     for (var j = 0; j < conf_total; j++) {
-        var _cbx = _sair_x + j * (_cbw + _cgap);
+        var _cbx = _cstartX + j * (_cbw + _cgap);
         var _csel = (j == conf_selecionado);
 
         // Fundo
