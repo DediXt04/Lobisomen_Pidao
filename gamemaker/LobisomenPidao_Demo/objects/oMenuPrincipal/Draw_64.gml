@@ -117,71 +117,44 @@ if (_tem_controle) {
 }
 
 // ===============================================================
-// OVERLAY DE CONFIRMAÇÃO DE SAÍDA (por cima de tudo)
+// OVERLAY DE CONFIRMAÇÃO DE SAÍDA (em cima do botão "Sair")
 // ===============================================================
 if (confirmando) {
-    var _cx = _gw / 2;
-    var _cy = _gh / 2;
-
-    // Fundo escuro semitransparente
-    draw_set_alpha(0.8);
+    // Leve escurecimento do restante do menu
+    draw_set_alpha(0.55);
     draw_set_color(make_color_rgb(10, 10, 18));
     draw_rectangle(0, 0, _gw, _gh, false);
     draw_set_alpha(1);
 
-    // Caixa de diálogo
-    var _box_w = 500;
-    var _box_h = 200;
-    var _box_x = _cx - _box_w / 2;
-    var _box_y = _cy - _box_h / 2;
+    // Posição do botão "Sair" (índice 2)
+    var _sair_x = btn_x;
+    var _sair_y = btn_y_inicio + 2 * (btn_h + btn_gap);
 
-    // Fundo da caixa
-    draw_set_color(make_color_rgb(20, 30, 50));
-    draw_rectangle(_box_x, _box_y, _box_x + _box_w, _box_y + _box_h, false);
-
-    // Borda da caixa
-    draw_set_color(make_color_rgb(80, 200, 210));
-    draw_set_alpha(0.8);
-    draw_rectangle(_box_x, _box_y, _box_x + _box_w, _box_y + _box_h, true);
-    draw_set_alpha(1);
-
-    // Linha superior decorativa
-    draw_set_color(make_color_rgb(80, 200, 210));
-    draw_rectangle(_box_x, _box_y, _box_x + _box_w, _box_y + 4, false);
-
-    // Título
+    // Pergunta logo acima do botão
     draw_set_font(fnt_pixel);
     draw_set_halign(fa_center);
-    draw_set_valign(fa_middle);
+    draw_set_valign(fa_bottom);
     draw_set_color(make_color_rgb(210, 230, 235));
-    draw_text(_cx, _box_y + 55, "Tem certeza?");
+    draw_text(_sair_x + btn_w / 2, _sair_y - 12, "Sair do jogo?");
 
-    // Subtítulo
-    draw_set_color(make_color_rgb(130, 150, 165));
-    draw_text(_cx, _box_y + 90, "Deseja sair do jogo?");
-
-    // Botões Sim / Não (horizontais)
-    var _cbw = 160;
-    var _cbh = 50;
-    var _cgap = 30;
-    var _cblocoW = conf_total * _cbw + (conf_total - 1) * _cgap;
-    var _cstartX = _cx - _cblocoW / 2;
-    var _cby = _box_y + 130;
+    // Botões Sim / Não lado a lado, ocupando a linha do "Sair"
+    var _cgap = 14;
+    var _cbw = (btn_w - _cgap) / 2;
+    var _cbh = btn_h;
+    var _cby = _sair_y;
 
     for (var j = 0; j < conf_total; j++) {
-        var _cbx = _cstartX + j * (_cbw + _cgap);
+        var _cbx = _sair_x + j * (_cbw + _cgap);
         var _csel = (j == conf_selecionado);
 
         // Fundo
-        draw_set_color(_csel
-            ? make_color_rgb(30, 60, 80)
-            : make_color_rgb(20, 35, 55));
+        draw_set_color(_csel ? make_color_rgb(25, 55, 75) : make_color_rgb(18, 22, 42));
         draw_rectangle(_cbx, _cby, _cbx + _cbw, _cby + _cbh, false);
 
-        // Borda esquerda (selecionado)
+        // Indicador lateral (selecionado)
         if (_csel) {
             draw_set_color(make_color_rgb(80, 200, 210));
-            draw_rectangle(_cbx, _cby, _cbx + 5, _cby + _cbh, false);
+            draw_rectangle(_cbx, _cby, _cbx + 6, _cby + _cbh, false);
         }
 
         // Borda
@@ -191,9 +164,9 @@ if (confirmando) {
         draw_set_alpha(1);
 
         // Texto
-        draw_set_color(_csel
-            ? make_color_rgb(120, 225, 235)
-            : make_color_rgb(80, 200, 210));
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_set_color(_csel ? make_color_rgb(120, 230, 240) : make_color_rgb(80, 130, 150));
         draw_text(_cbx + _cbw / 2, _cby + _cbh / 2, conf_opcoes[j]);
     }
 }
