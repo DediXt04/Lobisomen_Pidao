@@ -1,7 +1,7 @@
 confirmou_neste_frame = false;
 
 // === BOTÕES ===
-botoes = ["Play", "Settings", "Exit"];
+botoes = ["Jogar", "Configurações", "Sair"];
 total_botoes = array_length(botoes);
 botao_focado = 0;
 
@@ -38,3 +38,10 @@ nav_cooldown = 0;
 NAV_COOLDOWN_MAX = 12;  // frames entre inputs (evita rapidez)
 input_mode = "teclado";
 DEADZONE = 0.5;
+
+// === CONFIRMAÇÃO DE SAÍDA ===
+confirmando = false;
+conf_selecionado = 1;            // padrão em "Não" (mais seguro)
+conf_opcoes = ["Sim", "Não"];
+conf_total = array_length(conf_opcoes);
+conf_nav_cooldown = 0;

@@ -1,0 +1,1 @@
+ativada = false;

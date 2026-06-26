@@ -1,4 +1,5 @@
 global.fase_rooms = [
+	rm_fase01_tutorial,
     rm_fase02,
     rm_fase03,
 	rm_fase04,
@@ -7,6 +8,7 @@ global.fase_rooms = [
 ];
 
 fase_nomes = [
+	"Tutorial",
     "Fase testes tileset",
     "hur hur hur",
 	"ELE ESTÁ FAMINTO!!!",
@@ -15,6 +17,7 @@ fase_nomes = [
 ];
 
 fase_subtitulos = [
+	"Aprenda tudo sobre a arte de pedir!",
     "Me jogue aos lobos",
     "Acho que conheço esse lugar...",
 	"Corre Lobinho... CORRE!!!",

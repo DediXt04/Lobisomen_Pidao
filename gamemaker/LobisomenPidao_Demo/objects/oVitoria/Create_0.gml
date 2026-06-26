@@ -4,7 +4,7 @@ tem_proxima = (global.fase_atual < global.total_fases - 1);
 // Botões dinâmicos
 btn_selecionado = 0;
 if (tem_proxima) {
-    btn_opcoes = ["Proxima Fase", "Reiniciar Fase", "Voltar ao Menu"];
+    btn_opcoes = ["Próxima Fase", "Reiniciar Fase", "Voltar ao Menu"];
 } else {
     btn_opcoes = ["Reiniciar Fase", "Voltar ao Menu"];
 }

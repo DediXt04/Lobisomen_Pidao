@@ -169,7 +169,7 @@ draw_set_color(make_color_rgb(130, 180, 195));
 if (input_mode == "controle") {
     draw_text(cx, 1055, "[D-pad] Navegar    [A] Confirmar    [B] Voltar");
 } else {
-    draw_text(cx, 1055, "[WASD] Navegar    [E] Confirmar    [ESC] Voltar");
+    draw_text(cx, 1055, "[WASD] Navegar    [E]/[Espaço] Confirmar    [ESC] Voltar");
 }
 
 // Indicador de controle

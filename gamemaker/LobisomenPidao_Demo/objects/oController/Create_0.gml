@@ -33,7 +33,8 @@ interagir = false;
 global.motivoMorte = "";
 
 // pausa
-global.pausado = false;
+global.pausado = false;     // gameplay congelado (menu OU tutorial)
+global.menuPausa = false;   // menu de pausa aberto (só via ESC/Start)
 pause_selecionado = 0;
 pause_opcoes = ["Continuar", "Reiniciar Fase", "Voltar ao Menu"];
 pause_total = array_length(pause_opcoes);

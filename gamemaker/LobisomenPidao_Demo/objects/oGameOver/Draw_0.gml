@@ -85,7 +85,7 @@ var _footerY = _by + _bh + 36;
 if (_temControle) {
     draw_text(_cx, _footerY, "[D-pad] Navegar    [A] Confirmar");
 } else {
-    draw_text(_cx, _footerY, "[A/D] Navegar    [E] Confirmar");
+    draw_text(_cx, _footerY, "[A/D] Navegar    [E]/[Espaço] Confirmar");
 }
 
 // Reset

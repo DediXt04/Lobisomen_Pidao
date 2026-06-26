@@ -3,14 +3,23 @@
 var _gp = global.gamepad_main;
 var _gpStart = (_gp != undefined) && gamepad_button_check_pressed(_gp, gp_start);
 
+// abrir/fechar o menu de pausa (só o player controla isso via ESC/Start)
 if (keyboard_check_pressed(vk_escape) || _gpStart) {
-    global.pausado = !global.pausado;
-    pause_selecionado = 0;
-    pause_nav_cooldown = 0;
+    if (global.menuPausa) {
+        // fechar o menu
+        global.menuPausa = false;
+        global.pausado   = false;
+    } else if (!global.pausado) {
+        // só abre se o jogo não estiver congelado por outra coisa (ex: tutorial)
+        global.menuPausa   = true;
+        global.pausado     = true;
+        pause_selecionado  = 0;
+        pause_nav_cooldown = 0;
+    }
 }
 
-// Se pausado, processar menu e sair do Step (congela o jogo)
-if (global.pausado) {
+// Se o menu de pausa está aberto, processar navegação e sair do Step
+if (global.menuPausa) {
 
     // cooldown de navegação
     if (pause_nav_cooldown > 0) pause_nav_cooldown--;
@@ -40,14 +49,17 @@ if (global.pausado) {
     if (_confirmar) {
         switch (pause_selecionado) {
             case 0: // Continuar
-                global.pausado = false;
+                global.menuPausa = false;
+                global.pausado   = false;
                 break;
             case 1: // Reiniciar Fase
-                global.pausado = false;
+                global.menuPausa = false;
+                global.pausado   = false;
                 room_restart();
                 break;
             case 2: // Sair para seletor
-                global.pausado = false;
+                global.menuPausa = false;
+                global.pausado   = false;
                 room_goto(rm_SelecaoDeFases);
                 break;
         }
@@ -55,6 +67,9 @@ if (global.pausado) {
 
     exit; // impede toda a lógica normal do Step (fome, interação, game over)
 }
+
+// Congela o gameplay quando a pausa vem de outra fonte (ex: tutorial)
+if (global.pausado) exit;
 #endregion
 
 // --- testes (remover depois) ---
