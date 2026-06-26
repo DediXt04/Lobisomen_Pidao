@@ -35,8 +35,6 @@ for (var i = _inicio; i < _fim; i++) {
     var _cx = grade_x + _col * (card_w + card_gap);
     var _cy = grade_y + _row * (card_h + card_gap);
     var _sel = (i == fase_selecionada);
-
-    var _sel      = (i == fase_selecionada);
     var _bloqueada = (i > global.fase_desbloqueada); // ← linha que estava faltando
 
     // --- Sombra do card (deslocamento simples) ---
@@ -72,10 +70,8 @@ for (var i = _inicio; i < _fim; i++) {
         draw_set_color(make_color_rgb(50, 30, 30));
         draw_text(_cx + card_w / 2, _cy + thumb_h / 2, "X");
     } else {
-        draw_set_color(_sel
-            ? make_color_rgb(80, 200, 210)
-            : make_color_rgb(35, 70, 90));
-        draw_text(_cx + card_w / 2, _cy + thumb_h / 2, string(i + 1));
+        // fase desbloqueada: desenha o sprite esticado no thumbnail
+        draw_sprite_stretched(fase_sprites[i], 0, _cx, _cy, card_w, thumb_h)
     }
 
     // Divisória entre thumbnail e info
