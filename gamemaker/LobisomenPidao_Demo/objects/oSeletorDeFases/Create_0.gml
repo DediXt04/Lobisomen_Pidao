@@ -7,22 +7,31 @@ global.fase_rooms = [
 	rm_fase06,
 ];
 
+fase_sprites = [
+    sThumb_Tutorial,
+    sThumb_Fase02,
+	sThumb_Fase03,
+	sThumb_Fase04,
+	sThumb_Fase05,
+	sThumb_Fase06,
+];
+
 fase_nomes = [
 	"Tutorial",
-    "Fase testes tileset",
+    "Fase Inicial",
     "hur hur hur",
-	"ELE ESTÁ FAMINTO!!!",
-	"Invadindo Fabrica",
 	"Hora da Remexida do Lobo",
+	"Operação Salgadinhos!",
+	"ELE ESTÁ FAMINTO!!!",
 ];
 
 fase_subtitulos = [
 	"Aprenda tudo sobre a arte de pedir!",
     "Me jogue aos lobos",
     "Acho que conheço esse lugar...",
-	"Corre Lobinho... CORRE!!!",
-	"SALGADINHOS :)",
 	"AUUUUUUUUUUUUUUU!!",
+	"Estoque Sob Ameaça!",
+	"Corre Lobinho... CORRE!!!",
 ];
 
 global.total_fases  = array_length(global.fase_rooms);
