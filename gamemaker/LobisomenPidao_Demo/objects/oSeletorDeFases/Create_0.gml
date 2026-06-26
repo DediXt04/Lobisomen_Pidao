@@ -18,7 +18,7 @@ fase_sprites = [
 
 fase_nomes = [
 	"Tutorial",
-    "Fase testes tileset",
+    "Fase Inicial",
     "hur hur hur",
 	"Hora da Remexida do Lobo",
 	"Operação Salgadinhos!",
