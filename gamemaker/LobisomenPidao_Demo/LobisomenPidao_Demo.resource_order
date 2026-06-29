@@ -1,10 +1,10 @@
 {
   "FolderOrderSettings":[
-    {"name":"Thumbs","order":25,"path":"folders/sprites/Thumbs.yy",},
     {"name":"font","order":5,"path":"folders/font.yy",},
     {"name":"objs","order":1,"path":"folders/objs.yy",},
     {"name":"scripts","order":3,"path":"folders/scripts.yy",},
     {"name":"sprites","order":2,"path":"folders/sprites.yy",},
+    {"name":"Thumbs","order":25,"path":"folders/sprites/Thumbs.yy",},
     {"name":"tileSet","order":4,"path":"folders/tileSet.yy",},
   ],
   "ResourceOrderSettings":[
