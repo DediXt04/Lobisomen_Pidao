@@ -35,27 +35,25 @@ if (pixels_walked > 0) {
 }
 #endregion
 
-// sprite control
+// sprite control — alterna entre arrays walk e idle
 #region
 var _movendo = (pixels_walked > 0);
 
 if (_movendo) {
+    sprite = sprite_walk;   // ← NOVO: usa o array de walk
     image_speed = 1;
     walk_timer = 10;
 
-    var _h = (xspd != 0); // tem componente horizontal
-    var _v = (yspd != 0); // tem componente vertical
+    var _h = (xspd != 0);
+    var _v = (yspd != 0);
 
     if (_h && _v) {
-        // Diagonal: prioridade sobre movimento puro
         face = (yspd < 0) ? 5 : 4;
         image_xscale = (xspd > 0) ? 1 : -1;
     } else if (_h) {
-        // Movimento puramente horizontal
         face = 0;
         image_xscale = (xspd > 0) ? 1 : -1;
     } else if (_v) {
-        // Movimento puramente vertical
         face = (yspd < 0) ? 2 : 3;
         image_xscale = 1;
     }
@@ -63,11 +61,12 @@ if (_movendo) {
 
 if (walk_timer > 0) walk_timer--;
 if (walk_timer == 0) {
-    image_speed = 0;
-    image_index = 0;
+    sprite = sprite_idle;   // ← NOVO: troca pro idle
+    image_speed = 1;        // ← MUDOU: deixa o idle animar (era 0)
+    // ← REMOVIDO: image_index = 0;  (deixa o idle correr livre)
 }
 
-mask_index   = sprite[3];
+mask_index   = sprite_walk[3];   // ← MUDOU: sempre walk pra mask
 sprite_index = sprite[face];
 depth = -y;
 #endregion

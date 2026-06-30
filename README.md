@@ -5,6 +5,8 @@
 ![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
 
+🏆 **Vencedor do Prêmio de Completude — Projeto Integrador 4 (CEUB)**
+
 Jogo indie 2D top-down de stealth e humor onde você controla um lobisomem faminto que precisa explorar fases, pedir comida aos NPCs e escapar dos inimigos antes que a fome acabe ou que ele seja capturado.
 
 > 🔗 **Repositório:** [github.com/DediXt04/Lobisomen_Pidao](https://github.com/DediXt04/Lobisomen_Pidao)

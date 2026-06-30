@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"sprites",
-    "path":"folders/sprites.yy",
+    "name":"Porta_Saida",
+    "path":"folders/sprites/Portas/Porta_Saida.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

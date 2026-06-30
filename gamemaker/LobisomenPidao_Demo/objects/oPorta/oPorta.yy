@@ -8,8 +8,8 @@
   "name":"oPorta",
   "overriddenProperties":[],
   "parent":{
-    "name":"objs",
-    "path":"folders/objs.yy",
+    "name":"portas",
+    "path":"folders/objs/portas.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -28,7 +28,7 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":true,
+  "solid":false,
   "spriteId":{
     "name":"sPortaTrancada",
     "path":"sprites/sPortaTrancada/sPortaTrancada.yy",

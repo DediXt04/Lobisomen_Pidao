@@ -67,6 +67,21 @@ export default function Devlog() {
     data: '12/06/2026',
     titulo: 'Sprint 12',
     texto: 'Implementação da mecânica de desbloqueamento de fases e criação de novos sprites de comida.'
+    },
+    {
+    data: '19/06/2026',
+    titulo: 'Sprint 13',
+    texto: 'Implementação do estado de investigação do inimigo e da animação idle do lobo, criação de NPCs com movimentação diagonal e novas skins, e correção da direção do campo de visão. Reestruturação e polimento da Wiki, com novas páginas (Sobre, Docs, Download e Galeria) e integração com o GitHub, além da ampliação dos guias de desenvolvimento.'
+    },
+    {
+    data: '26/06/2026',
+    titulo: 'Sprint 14',
+    texto: 'Criação de novas fases e do sistema de tutorial completo, implementação do lobo reativo no menu principal e de portas duplas, adição de miniaturas na seleção de fases. Ajuste de dificuldade das fases, melhorias nas telas de vitória e configurações, além de correções de bugs.'
+    },
+    {
+    data: '29/06/2026',
+    titulo: 'Apresentação Final 🏆',
+    texto: 'Apresentação final do projeto e conquista do Prêmio de Completude do Projeto Integrador 4 (CEUB), reconhecendo a entrega completa do jogo desenvolvido pela equipe.'
     }
   ]
 

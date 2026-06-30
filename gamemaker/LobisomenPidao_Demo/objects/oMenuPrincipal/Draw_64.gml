@@ -50,12 +50,12 @@ var titulo_y_local = btn_y_inicio - (btn_h * 2.5);
 // sombra
 draw_set_color(make_color_rgb(10, 10, 20));
 draw_text_transformed(titulo_x_local + 4, titulo_y_local + 4, "LOBISOMEM", titulo_scale, titulo_scale, 0);
-draw_text_transformed(titulo_x_local + 4, titulo_y_local + 64, "PIDAO", titulo_scale, titulo_scale, 0);
+draw_text_transformed(titulo_x_local + 4, titulo_y_local + 64, "PIDÃO", titulo_scale, titulo_scale, 0);
 
 // principal
 draw_set_color(make_color_rgb(80, 200, 210));
 draw_text_transformed(titulo_x_local, titulo_y_local, "LOBISOMEM", titulo_scale, titulo_scale, 0);
-draw_text_transformed(titulo_x_local, titulo_y_local + 64, "PIDAO", titulo_scale, titulo_scale, 0);
+draw_text_transformed(titulo_x_local, titulo_y_local + 64, "PIDÃO", titulo_scale, titulo_scale, 0);
 
 // ===============================================================
 // BOTÕES
@@ -103,7 +103,7 @@ var _tem_controle = (_gp != undefined) && gamepad_is_connected(_gp);
 if (_tem_controle && input_mode == "controle") {
     draw_text(_gw / 2, _gh - 25, "[D-pad] Navegar    [A] Confirmar");
 } else {
-    draw_text(_gw / 2, _gh - 25, "[WASD] Navegar    [E] Confirmar");
+    draw_text(_gw / 2, _gh - 25, "[WASD] Navegar    [E]/[Espaço] Confirmar");
 }
 
 // Indicador de controle
@@ -114,6 +114,64 @@ if (_tem_controle) {
 } else {
     draw_set_color(make_color_rgb(150, 60, 60));
     draw_text(_gw - 20, _gh - 25, "Nenhum controle encontrado");
+}
+
+// ===============================================================
+// OVERLAY DE CONFIRMAÇÃO DE SAÍDA (centralizado, abaixo do oLoboMenu)
+// ===============================================================
+if (confirmando) {
+    // Leve escurecimento do restante do menu
+    draw_set_alpha(0.55);
+    draw_set_color(make_color_rgb(10, 10, 18));
+    draw_rectangle(0, 0, _gw, _gh, false);
+    draw_set_alpha(1);
+
+    // Centralizado na horizontal; um pouco abaixo do lobo (lobo fica em ~70% da altura)
+    var _cx = _gw / 2;
+    var _cy = _gh * 0.84;
+
+    // Dimensões dos botões
+    var _cbw  = 150;
+    var _cbh  = 56;
+    var _cgap = 24;
+    var _cblocoW = conf_total * _cbw + (conf_total - 1) * _cgap;
+    var _cstartX = _cx - _cblocoW / 2;
+    var _cby     = _cy - _cbh / 2;
+
+    // Pergunta logo acima dos botões
+    draw_set_font(fnt_pixel);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_bottom);
+    draw_set_color(make_color_rgb(210, 230, 235));
+    draw_text(_cx, _cby - 14, "Sair do jogo?");
+
+    // Botões Sim / Não lado a lado, centralizados
+    for (var j = 0; j < conf_total; j++) {
+        var _cbx = _cstartX + j * (_cbw + _cgap);
+        var _csel = (j == conf_selecionado);
+
+        // Fundo
+        draw_set_color(_csel ? make_color_rgb(25, 55, 75) : make_color_rgb(18, 22, 42));
+        draw_rectangle(_cbx, _cby, _cbx + _cbw, _cby + _cbh, false);
+
+        // Indicador lateral (selecionado)
+        if (_csel) {
+            draw_set_color(make_color_rgb(80, 200, 210));
+            draw_rectangle(_cbx, _cby, _cbx + 6, _cby + _cbh, false);
+        }
+
+        // Borda
+        draw_set_color(make_color_rgb(80, 200, 210));
+        draw_set_alpha(_csel ? 0.8 : 0.3);
+        draw_rectangle(_cbx, _cby, _cbx + _cbw, _cby + _cbh, true);
+        draw_set_alpha(1);
+
+        // Texto
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_set_color(_csel ? make_color_rgb(120, 230, 240) : make_color_rgb(80, 130, 150));
+        draw_text(_cbx + _cbw / 2, _cby + _cbh / 2, conf_opcoes[j]);
+    }
 }
 
 // reset

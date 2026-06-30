@@ -39,6 +39,7 @@ for (var c = 0; c < array_length(_config); c++) {
 			&& !collision_rectangle(_x1, _y1, _x2, _y2, oComida,    false, true)
 			&& !collision_rectangle(_x1, _y1, _x2, _y2, oNpc,       false, true)
 			&& !collision_rectangle(_x1, _y1, _x2, _y2, oPlayer,    false, true)
+			&& !collision_rectangle(_x1, _y1, _x2, _y2, oGuarda1,    false, true)
 			&& !collision_rectangle(_x1, _y1, _x2, _y2, oPorta,    false, true)) {
                 var _tipo = _tipos[irandom(array_length(_tipos) - 1)];
                 instance_create_layer(_px, _py, layer, _tipo);

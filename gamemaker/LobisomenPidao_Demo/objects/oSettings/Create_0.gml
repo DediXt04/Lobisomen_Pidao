@@ -12,7 +12,7 @@ DEADZONE = 0.5;
 // === CONFIRMAÇÃO ===
 confirmando = false;
 conf_selecionado = 1;  // padrão em "Não" (mais seguro)
-conf_opcoes = ["Sim", "Nao"];
+conf_opcoes = ["Sim", "Não"];
 conf_total = 2;
 conf_nav_cooldown = 0;
 
