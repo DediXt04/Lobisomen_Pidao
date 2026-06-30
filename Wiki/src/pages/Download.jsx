@@ -15,7 +15,7 @@ const Download = () => {
     <div className="container py-4">
       <h2 className="mb-3">⬇️ Download do Jogo</h2>
       <p className="text-muted mb-4">
-        Baixe a versão mais recente do jogo. O arquivo contém o executável pronto para rodar no Windows.
+        Baixe a versão mais recente do jogo. O arquivo é o instalador do jogo para Windows.
       </p>
 
       <div className="row g-4 mb-5">
@@ -25,14 +25,15 @@ const Download = () => {
               <FiDownload size={56} className="text-primary mb-3 mx-auto" />
               <h4 className="card-title fw-bold">Lobisomem Pidão — Demo</h4>
               <p className="text-muted mb-1">Versão mais recente</p>
-              <span className="badge bg-secondary mb-3 mx-auto" style={{ width: 'fit-content' }}>Windows (.exe)</span>
-              <button
-                disabled
-                className="btn btn-primary btn-lg mt-2 mx-auto px-5 disabled"
+              <span className="badge bg-secondary mb-3 mx-auto" style={{ width: 'fit-content' }}>Instalador Windows (.exe)</span>
+              <a
+                href={downloadUrl}
+                download
+                className="btn btn-primary btn-lg mt-2 mx-auto px-5"
               >
                 <FiDownload className="me-2" />
-                Em breve
-              </button>
+                Baixar instalador
+              </a>
             </div>
           </div>
         </div>
@@ -56,7 +57,7 @@ const Download = () => {
             <div className="card-footer bg-light">
               <div className="d-flex align-items-center gap-2 text-success">
                 <FiCheckCircle />
-                <small>Não requer instalação — basta executar o .exe</small>
+                <small>Instalador para Windows — execute e siga os passos de instalação</small>
               </div>
             </div>
           </div>
@@ -67,8 +68,9 @@ const Download = () => {
         <div className="card-body">
           <h6 className="fw-bold mb-2">💡 Como jogar</h6>
           <ol className="mb-0">
-            <li>Baixe o arquivo <code>.exe</code> acima</li>
-            <li>Execute o arquivo — nenhuma instalação necessária</li>
+            <li>Baixe o instalador (<code>.exe</code>) acima</li>
+            <li>Execute o instalador e siga os passos para instalar o jogo</li>
+            <li>Abra o jogo pelo atalho criado</li>
             <li>Conecte um gamepad (opcional) e divirta-se! 🐺</li>
           </ol>
         </div>
