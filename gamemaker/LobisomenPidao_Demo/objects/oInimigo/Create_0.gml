@@ -11,7 +11,7 @@ ultimo_x = x;
 ultimo_y = y;
 timer_investigar = 0;
 timer_girar = 0;
-TEMPO_INVESTIGAR = room_speed * 4;   // 4 segundos olhando ao redor
+TEMPO_INVESTIGAR = room_speed * 5;   
 TEMPO_GIRAR = room_speed * 0.6;      // gira a cabeça a cada 0.6 segundos
 // pathfinding (investigação)
 caminho = path_add();      // path dinâmico, reaproveitado a cada investigação
@@ -94,6 +94,15 @@ estado_investigando = function()
         estado = estado_perseguindo;
         exit;
     }
+	
+	timer_investigar--;
+
+    if (timer_investigar <= 0)
+    {
+        estado = estado_passeando;
+        exit;
+    }
+	
 
     // FASE 1: seguindo o caminho calculado pelo grid
     if (indice_caminho < path_get_number(caminho))
@@ -115,14 +124,6 @@ estado_investigando = function()
         // FASE 2: chegou no ponto (ou não havia caminho) — olha ao redor
         xspd = 0;
         yspd = 0;
-
-        timer_investigar--;
-
-        if (timer_investigar <= 0)
-        {
-            estado = estado_passeando;
-            exit;
-        }
 
         timer_girar--;
 
