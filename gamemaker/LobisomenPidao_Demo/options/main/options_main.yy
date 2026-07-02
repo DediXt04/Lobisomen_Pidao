@@ -20,7 +20,7 @@
   "option_sci_usesci":false,
   "option_spine_licence":false,
   "option_steam_app_id":"0",
-  "option_template_description":null,
+  "option_template_description":"Lobisomem Pidão é um jogo top-down de stealth e humor onde você controla um lobisomem desajeitado que não quer atacar ninguém — ele só quer comida. \r\nEm cada fase, o jogador precisa se aproximar dos NPCs, pedir comida e escapar antes que os guardas o encontrem.",
   "option_template_icon":"${base_options_dir}/main/template_icon.png",
   "option_template_image":"${base_options_dir}/main/template_image.png",
   "option_window_colour":255,
