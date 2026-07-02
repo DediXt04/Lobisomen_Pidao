@@ -30,9 +30,10 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v2","%Name":"is_debug","filters":[],"listItems":[],"multiselect":false,"name":"is_debug","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
-    {"$GMObjectProperty":"v2","%Name":"larg_visao","filters":[],"listItems":[],"multiselect":false,"name":"larg_visao","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"150","varType":1,},
-    {"$GMObjectProperty":"v2","%Name":"alt_visao","filters":[],"listItems":[],"multiselect":false,"name":"alt_visao","rangeEnabled":true,"rangeMax":5.0,"rangeMin":1.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"2","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"is_debug","filters":[],"listItems":[],"multiselect":false,"name":"is_debug","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
+    {"$GMObjectProperty":"v2","%Name":"raio_percepcao","filters":[],"listItems":[],"multiselect":false,"name":"raio_percepcao","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"40","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"dist_visao","filters":[],"listItems":[],"multiselect":false,"name":"dist_visao","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"120","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"grau_visao","filters":[],"listItems":[],"multiselect":false,"name":"grau_visao","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"60","varType":1,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

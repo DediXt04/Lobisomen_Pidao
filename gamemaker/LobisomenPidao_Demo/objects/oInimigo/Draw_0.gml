@@ -4,8 +4,8 @@ draw_self();
 if (is_debug)
 {
 	if (timer_investigar > 0) draw_path(caminho, x, y, 1);
-    var dist = 120;
-	var ang = 60;
+    var dist = dist_visao;
+	var ang = grau_visao;
 
 	// direção base
 	var dir = point_direction(0, 0, xspd, yspd);
@@ -42,7 +42,18 @@ if (is_debug)
 
 	draw_set_alpha(1);
 
-	// bordas
+	// bordasd
 	draw_line(x, y, x1, y1);
 	draw_line(x, y, x2, y2);
+
+	// desenha raio de percepção (círculo)
+	draw_set_alpha(0.2);
+	draw_set_color(c_red);
+	draw_circle(x, y, raio_percepcao, false);
+
+	draw_set_alpha(1);
+	draw_set_color(c_red);
+	draw_circle(x, y, raio_percepcao, true);
+
+	draw_set_color(c_white); // reseta a cor pro resto do jogo
 }

@@ -6,9 +6,6 @@ dano = 1;
 // estado
 estado = undefined;
 
-// campo de visão
-raio_percepcao = 50;   // raio (em pixels) no qual o inimigo percebe o player mesmo sem olhar de frente
-
 // investigação
 ultimo_x = x;
 ultimo_y = y;
@@ -23,7 +20,7 @@ giro_primeiro = false;
 #endregion
 
 // FUNÇÃO CAMPO DE VISÃO
-campo_visao = function(_dist, _angulo_visao)
+campo_visao = function(_dist, _grau_visao)
 {
     // checa distância primeiro
     var _dist_player = point_distance(x, y, oPlayer.x, oPlayer.y);
@@ -55,7 +52,7 @@ campo_visao = function(_dist, _angulo_visao)
     var diff = angle_difference(dir, dir_player);
 
     // dentro do cone OU perto o suficiente?
-    var _dentro_do_cone = (abs(diff) <= _angulo_visao / 2);
+    var _dentro_do_cone = (abs(diff) <= _grau_visao / 2);
 
     if (_dentro_do_cone || _perto)
     {
@@ -77,7 +74,7 @@ estado_passeando = function()
     if (is_debug) image_blend = c_white;
 
     // se ver o player
-    if (campo_visao(120, 60))
+    if (campo_visao(dist_visao, grau_visao))
     {
         estado = estado_perseguindo;
         exit;
@@ -97,7 +94,7 @@ estado_investigando = function()
     if (is_debug) image_blend = c_orange;
 
     // Se vê o player durante a investigação, abandona o caminho e volta a perseguir
-    if (campo_visao(120, 60))
+    if (campo_visao(dist_visao, grau_visao))
     {
         estado = estado_perseguindo;
         exit;
@@ -164,7 +161,7 @@ estado_perseguindo = function()
     yspd = lengthdir_y(moveSpd, dir);
 	
 
-    if (campo_visao(120, 60))
+    if (campo_visao(dist_visao, grau_visao))
     {
         // Enquanto vê o player, atualiza a última posição conhecida
         ultimo_x = oPlayer.x;
@@ -172,7 +169,7 @@ estado_perseguindo = function()
     }
 
     // perdeu o player
-	if (!campo_visao(120, 60))
+	if (!campo_visao(dist_visao, grau_visao))
 	{
 	    timer_investigar = TEMPO_INVESTIGAR;
 	    timer_girar      = TEMPO_GIRAR;
