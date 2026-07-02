@@ -3,7 +3,7 @@ import { FiDownload, FiMonitor, FiHardDrive, FiCpu, FiCheckCircle } from 'react-
 
 const Download = () => {
 
-  const downloadUrl = '/downloads/LobisomenPidao_1_0.exe'
+  const downloadUrl = '/downloads/LobisomenPidao.exe'
 
   const requisitos = [
     { icone: <FiMonitor size={20} />, label: 'Sistema Operacional', valor: 'Windows 10 ou superior' },
