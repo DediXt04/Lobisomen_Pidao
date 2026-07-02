@@ -6,6 +6,9 @@ dano = 1;
 // estado
 estado = undefined;
 
+// campo de visão
+raio_percepcao = 50;   // raio (em pixels) no qual o inimigo percebe o player mesmo sem olhar de frente
+
 // investigação
 ultimo_x = x;
 ultimo_y = y;
@@ -22,9 +25,12 @@ giro_primeiro = false;
 // FUNÇÃO CAMPO DE VISÃO
 campo_visao = function(_dist, _angulo_visao)
 {
-    // NOVO: checa distância primeiro
+    // checa distância primeiro
     var _dist_player = point_distance(x, y, oPlayer.x, oPlayer.y);
     if (_dist_player >= _dist) return false;
+
+    // player muito perto? percebe mesmo fora do cone de visão
+    var _perto = (_dist_player <= raio_percepcao);
 
     // direção atual
     var dir = point_direction(0, 0, xspd, yspd);
@@ -48,8 +54,10 @@ campo_visao = function(_dist, _angulo_visao)
     // diferença angular
     var diff = angle_difference(dir, dir_player);
 
-    // dentro do cone?
-    if (abs(diff) <= _angulo_visao / 2)
+    // dentro do cone OU perto o suficiente?
+    var _dentro_do_cone = (abs(diff) <= _angulo_visao / 2);
+
+    if (_dentro_do_cone || _perto)
     {
         // verifica parede no caminho
         if (!collision_line(x, y, oPlayer.x, oPlayer.y, oWall, false, true))

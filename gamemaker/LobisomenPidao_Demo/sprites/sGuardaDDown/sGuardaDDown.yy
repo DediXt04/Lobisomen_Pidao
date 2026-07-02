@@ -26,7 +26,7 @@
   ],
   "name":"sGuardaDDown",
   "nineSlice":null,
-  "origin":7,
+  "origin":9,
   "parent":{
     "name":"Walk",
     "path":"folders/sprites/Guarda/Walk.yy",
@@ -88,7 +88,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":8,
-    "yorigin":16,
+    "yorigin":15,
   },
   "swatchColours":null,
   "swfPrecision":0.5,
